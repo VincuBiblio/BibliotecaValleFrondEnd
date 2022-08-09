@@ -1,0 +1,27 @@
+.example-container {
+  width: 100%;
+  height: 100%;
+  min-width: 300px;
+  min-height: 400px;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+}
+
+.example-sidenav {
+  width: 220px;
+  text-align: center;
+  color: white;
+  background-color: #a01b20;
+  padding: 2px;
+}
+.botones{
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  width: 95%;
+  margin-bottom: 10px;
+}
+
+

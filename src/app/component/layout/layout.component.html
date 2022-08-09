@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer class="example-sidenav" mode="side" opened>
+    <br>
+    <p>BIBLIOTECARIO</p>
+    <p>JOSE CEDEÑO</p>
+    <div>
+      <button class="botones" mat-raised-button>
+        <mat-icon>home</mat-icon>
+        HOME
+      </button>
+      <!--CLIENTE-->
+      <button class="botones" mat-raised-button>
+        <mat-icon>person_add</mat-icon>
+        CLIENTES
+      </button>
+      <!--CURSOS-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header>
+          <button mat-flat-button>
+            <mat-icon>school</mat-icon>
+            CURSOS
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          M-CURSOS
+        </button>
+        <button class="botones" mat-flat-button>
+          INCRIPCION
+        </button>
+        <button class="botones" mat-flat-button>
+          ASISTANCIA
+        </button>
+        <button class="botones" mat-flat-button>
+          REPORTE
+        </button>
+      </mat-expansion-panel>
+      <!--TALLERES-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header>
+          <button mat-flat-button>
+            <mat-icon>star</mat-icon>
+            TALLERES
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          M-TALLERES
+        </button>
+        <button class="botones" mat-flat-button>
+          INCRIPCION
+        </button>
+        <button class="botones" mat-flat-button>
+          ASISTANCIA
+        </button>
+        <button class="botones" mat-flat-button>
+          REPORTE
+        </button>
+      </mat-expansion-panel>
+      <!--LIBROS-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header>
+          <button mat-flat-button>
+            <mat-icon> local_library</mat-icon>
+            LIBROS
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          PRESTAMO
+        </button>
+        <button class="botones" mat-flat-button>
+          REPORTE
+        </button>
+      </mat-expansion-panel>
+      <!--COMPUTO-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header>
+          <button mat-flat-button>
+            <mat-icon>desktop_windows</mat-icon>
+            COMPUTO
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          INVENTARIO
+        </button>
+        <button class="botones" mat-flat-button>
+          PRESTAMO
+        </button>
+        <button class="botones" mat-flat-button>
+          REPORTE
+        </button>
+      </mat-expansion-panel>
+      <!--IMPRESIONES/COPIAS-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header style="height: 75px">
+          <button mat-flat-button>
+            <mat-icon> local_printshop</mat-icon>
+            IMPRESIONES <br>/COPIAS
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          USO
+        </button>
+        <button class="botones" mat-flat-button>
+          REPORTE
+        </button>
+      </mat-expansion-panel>
+      <!--EVENTOS-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header>
+          <button mat-flat-button>
+            <mat-icon>tag_faces</mat-icon>
+            EVENTOS
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          M-EVENTO
+        </button>
+        <button class="botones" mat-flat-button>
+          REGISTRO
+        </button>
+        <button class="botones" mat-flat-button>
+          REPORTE
+        </button>
+      </mat-expansion-panel>
+      <!--INFORME-->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="botones">
+        <mat-expansion-panel-header>
+          <button mat-flat-button>
+            <mat-icon>book</mat-icon>
+            INFORME
+          </button>
+        </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button>
+          <mat-icon>school</mat-icon>
+          CURSOS
+        </button>
+      </mat-expansion-panel>
+      <!--CERRAR SESION-->
+      <button class="botones" mat-raised-button>
+        <mat-icon>exit_to_app</mat-icon>
+        CERRAR SESION
+      </button>
+    </div>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
+</body>
+</html>
