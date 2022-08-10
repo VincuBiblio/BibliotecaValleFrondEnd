@@ -1,0 +1,120 @@
+.example-card {
+  width: 650px;
+  margin: 0.5% auto;
+  
+}
+
+.example-card-two {
+  background-color: #f6f8fa;
+  width: 95%;
+  margin: 0.5% auto;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #a01b20;
+  border-inline: 5px solid #a01b20;
+  writing-mode: horizontal-tb;
+}
+
+.example-card-three {
+  width: 85%;
+  margin: 0.5% auto;
+}
+
+mat-grid-tile {
+  background: lightblue;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+
+.cardCurso {
+ 
+  width: 44%;
+  float: left;
+  margin-left: 25px;
+  margin-bottom: 10px;
+  border: 1px solid #0c3255;
+  height: 500px;;
+  writing-mode: horizontal-tb;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+
+mat-grid-tile {}
+
+mat-grid-tile {
+  text-align: start;
+}
+
+mat-form-field {
+  height: 60px;
+  width: 95%;
+}
+
+mat-label {
+  color: black;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 1vh 10px;
+}
+
+.ubicacion {
+  margin: 0 1vh;
+}
+
+table {
+  width: 100%;
+}
+
+.table2{
+  width: 100%; margin: 1%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.boton1 {
+  background-color: #ecb435;
+  color: #0f0535;
+}
+
+.txt{
+  width: 70%;
+}
+.txt input {
+  display: block;
+  width: 90%;
+  padding: 15px 5px;
+  margin-bottom: 2%;
+  font-size: 16px;
+  border: 1px solid #F2921D;
+  transition: border-width 0.2s ease;
+  border-radius: 4px;
+  color: #000000;
+  outline: none;
+}
+
+

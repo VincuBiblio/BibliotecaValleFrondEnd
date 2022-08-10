@@ -4,6 +4,9 @@ import { BienvenidaComponent } from './bienvenida/bienvenida.component';
 import {MaterialModule} from "../../../material/material.module";
 import {RouterModule, Routes} from "@angular/router";
 import { ClientesComponent } from './clientes/clientes.component';
+import { InscripcionCursoComponent } from './cursos/inscripcionCurso/inscripcion-curso.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { AsistenciacursoComponent } from './asistenciacurso/asistenciacurso.component';
 
 const routes: Routes = [
   {
@@ -13,18 +16,33 @@ const routes: Routes = [
   {
     path: 'administracionclientes',
     component: ClientesComponent
+  },
+  {
+    path: 'asistenciacurso',
+    component: AsistenciacursoComponent
+
+  },
+  {
+    path: 'inscripcioncurso',
+    component: InscripcionCursoComponent
+
   }
+
+
+
 ]
 
 @NgModule({
   declarations: [
     BienvenidaComponent,
-    ClientesComponent
+    ClientesComponent,
+    AsistenciacursoComponent
   ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule.forChild(routes),
-  ]
+    imports: [
+        CommonModule,
+        MaterialModule,
+        RouterModule.forChild(routes),
+        ReactiveFormsModule,
+    ]
 })
 export class AdministracionModule { }

@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatSort} from "@angular/material/sort";
 
 export interface UserData {
   id: string;
@@ -44,12 +43,13 @@ const NAMES: string[] = [
   'Elizabeth',
 ];
 
+
 @Component({
-  selector: 'app-clientes',
-  templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.css']
+  selector: 'app-asistenciacurso',
+  templateUrl: './asistenciacurso.component.html',
+  styleUrls: ['./asistenciacurso.component.css']
 })
-export class ClientesComponent implements OnInit {
+export class AsistenciacursoComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
   dataSource: MatTableDataSource<UserData>;
@@ -68,9 +68,7 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -86,34 +84,6 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-
-  formGrupos = new FormGroup({
-    cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    apellidos: new FormControl<String>('', [Validators.required]),
-    nombres: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    fechaNacimiento: new FormControl<Date>(null, [Validators.required]),
-    genero: new FormControl<String>('', [Validators.required]),
-    telefono: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    email: new FormControl<String>('', [Validators.required, Validators.email]),
-    estadoCivil: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    discapacidad: new FormControl<boolean>(null, [Validators.required]),
-    barrio: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    idCanton: new FormControl<Number>(null, [Validators.required]),
-    // @ts-ignore
-    idProvincia: new FormControl<Number>(null, [Validators.required]),
-    // @ts-ignore
-    idParroquia: new FormControl<Number>(null, [Validators.required]),
-    telefonoreponsable: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    nombresreposable: new FormControl<String>('', [Validators.required]),
-  })
-
-
-  guardarCliente() {
-    console.log(this.formGrupos.getRawValue())
-  }
 }
 
 /** Builds and returns a new User. */
