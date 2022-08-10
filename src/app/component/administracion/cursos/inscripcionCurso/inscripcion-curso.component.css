@@ -1,11 +1,16 @@
+.borde1 {
+  margin: 0.5% auto;
+  width: 95%;
+}
+
 .example-card {
   width: 650px;
   margin: 0.5% auto;
-  
+
 }
 
 .example-card-two {
-  background-color: #f6f8fa;
+  background-color: #f7f7f7;
   width: 95%;
   margin: 0.5% auto;
   float: left;
@@ -32,13 +37,14 @@ mat-grid-tile {
 
 
 .cardCurso {
- 
+
   width: 44%;
   float: left;
   margin-left: 25px;
   margin-bottom: 10px;
   border: 1px solid #0c3255;
-  height: 500px;;
+  height: 500px;
+  ;
   writing-mode: horizontal-tb;
 }
 
@@ -48,7 +54,7 @@ mat-grid-tile {
 
 
 
-mat-grid-tile {}
+
 
 mat-grid-tile {
   text-align: start;
@@ -82,8 +88,9 @@ table {
   width: 100%;
 }
 
-.table2{
-  width: 100%; margin: 1%;
+.table2 {
+  width: 100%;
+  margin: 1%;
 }
 
 .mat-form-field {
@@ -101,9 +108,10 @@ th {
   color: #0f0535;
 }
 
-.txt{
+.txt {
   width: 70%;
 }
+
 .txt input {
   display: block;
   width: 90%;
@@ -118,3 +126,23 @@ th {
 }
 
 
+.divtipo1 {
+  margin: 1.5%;
+}
+
+.barra-deslizadora {
+  background-color:white ;
+  height: 420px;
+  width: 500px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.bordeFiltro{
+  background-color: #f2f5f6;
+  display: block;
+  width: 100%;
+  padding: 1px 1px;
+  margin-bottom: 4%;
+  border-radius: 10px;
+}
