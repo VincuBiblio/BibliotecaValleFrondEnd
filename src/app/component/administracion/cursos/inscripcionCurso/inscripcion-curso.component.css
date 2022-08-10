@@ -1,6 +1,8 @@
 .borde1 {
   margin: 0.5% auto;
   width: 95%;
+ 
+  background-color: transparent;
 }
 
 .example-card {
@@ -10,14 +12,13 @@
 }
 
 .example-card-two {
-  background-color: #f7f7f7;
-  width: 95%;
-  margin: 0.5% auto;
+  
+  background-color: transparent; 
+  width: 98%;
   float: left;
-  margin-left: 10px;
   margin-bottom: 10px;
-  border: 1px solid #a01b20;
-  border-inline: 5px solid #a01b20;
+  border: 2px solid #f7f2dc;
+  
   writing-mode: horizontal-tb;
 }
 
@@ -37,7 +38,7 @@ mat-grid-tile {
 
 
 .cardCurso {
-
+  background-color: #f7f2dc ;
   width: 44%;
   float: left;
   margin-left: 25px;
@@ -46,6 +47,18 @@ mat-grid-tile {
   height: 500px;
   ;
   writing-mode: horizontal-tb;
+}
+
+.cardCurso1 {
+  background-color: #f7f2dc ;
+  width: 44%;
+float: left;
+margin-left: 25px;
+margin-bottom: 10px;
+border: 1px solid #0c3255;
+height: 425px;
+;
+writing-mode: horizontal-tb;
 }
 
 .spacer {
@@ -91,6 +104,7 @@ table {
 .table2 {
   width: 100%;
   margin: 1%;
+  background-color: #f7f2dc ;
 }
 
 .mat-form-field {
@@ -104,8 +118,18 @@ th {
 }
 
 .boton1 {
-  background-color: #ecb435;
+  background-color: #b4cc17;
   color: #0f0535;
+}
+
+.botonnaranja{
+  background-color: #ecb435; 
+  color:#000000;
+}
+
+.botonrojo{
+  background-color: #a01b20; 
+  color:#FFFFFF;
 }
 
 .txt {
@@ -131,7 +155,7 @@ th {
 }
 
 .barra-deslizadora {
-  background-color:white ;
+  background-color: #f7f2dc ;
   height: 420px;
   width: 500px;
   max-width: 100%;
@@ -139,10 +163,17 @@ th {
 }
 
 .bordeFiltro{
-  background-color: #f2f5f6;
-  display: block;
   width: 100%;
-  padding: 1px 1px;
   margin-bottom: 4%;
-  border-radius: 10px;
+}
+
+.colorclaro{
+  color: white
+}
+
+.td1{
+  background-color: #f7f2dc ;
+  width: 95%;
+  border: 1px solid #000000;
+  border-radius: 25px;
 }

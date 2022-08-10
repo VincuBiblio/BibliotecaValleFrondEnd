@@ -1,46 +1,44 @@
 <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="warn">
     <mat-tab label="NUEVO INSCRIPCIÓN">
 
-
-
         <mat-stepper #stepper class="borde1">
-            <mat-step [stepControl]="firstFormGroup" errorMessage="Curso es requerido.">
+            <mat-step [stepControl]="firstFormGroup" errorMessage= "">
                 <form [formGroup]="firstFormGroup">
-                    <ng-template matStepLabel>CURSO</ng-template>
-
+                    <ng-template matStepLabel><div class="colorclaro">CURSO</div></ng-template>
 
 
                     <mat-card class="example-card-two">
 
                         <div>
 
-                            <br>
+
 
                             <mat-card class="cardCurso">
 
-                                <div class="bordeFiltro">
-                                    <mat-form-field appearance="standard" >
-                                        <mat-label>Buscar Curso</mat-label>
-                                        <input  matInput (keyup)="applyFilterCurso($event)"
-                                            placeholder="Ex. Colonia Vacacional" #input>
-                                    </mat-form-field>
-                                </div>
-                                
+
+
+                                <mat-form-field appearance="outline" class="bordeFiltro">
+                                    <mat-label>Buscar Curso</mat-label>
+                                    <input matInput (keyup)="applyFilterCurso($event)"
+                                        placeholder="Ex. Colonia Vacacional" #input>
+                                    <mat-icon matSuffix>find_in_page</mat-icon>
+                                </mat-form-field>
+
 
                                 <mat-card-content>
 
                                     <section class="barra-deslizadora" tabindex="0">
-                                        <table mat-table [dataSource]="dataSourceCurso">
+                                        <table mat-table [dataSource]="dataSourceCurso" style=" background-color: #f7f2dc ;">
 
                                             <ng-container matColumnDef="curso">
                                                 <th mat-header-cell *matHeaderCellDef>
-                                                    <div style="text-align: center;"> CURSOS VIGENTES</div>
+                                                    <div style="text-align: center;"> <h3>MIS CURSOS</h3> </div>
                                                 </th>
 
                                                 <td mat-cell *matCellDef="let element">
 
 
-                                                    <table class="table2">
+                                                    <table class="table2" >
                                                         <tr style="text-align: center;">
                                                             <td style="text-align:left ; width: 85%;">
                                                                 <div class="divtipo1"><strong>NOMBRE:
@@ -156,7 +154,7 @@
 
                                     </table>
 
-
+                                    <br>
 
                                     <table class="table2">
                                         <tr style="text-align: center;">
@@ -165,8 +163,12 @@
                                             </td>
 
                                             <td>
-                                                <h4><button mat-button matStepperNext mat-flat-button
-                                                        color="warn">SIGUIENTE</button></h4>
+
+                                                <button mat-button matStepperNext mat-flat-button
+                                                    class="botonnaranja">SIGUIENTE
+                                                    <mat-icon>forward
+                                                    </mat-icon>
+                                                </button>
                                             </td>
 
 
@@ -188,27 +190,367 @@
             </mat-step>
 
 
-            <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+
+            <!--PARTE DE ELECCION DE CLIENTES-->
+
+            <mat-step [stepControl]="secondFormGroup" errorMessage="">
                 <form [formGroup]="secondFormGroup">
-                    <ng-template matStepLabel>CLIENTE</ng-template>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Address</mat-label>
-                        <input matInput placeholder="Ex. 1 Main St, New York, NY" formControlName="secondCtrl" required>
-                    </mat-form-field>
-                    <div>
-                        <p>Go to a different step to see the error state</p>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
-                    </div>
+                    <ng-template matStepLabel> <div class="colorclaro">CLIENTE</div></ng-template>
+
+
+                    <mat-card class="example-card-two">
+                        <div>
+
+
+                            <mat-card class="cardCurso">
+
+
+
+                                <mat-form-field appearance="outline" class="bordeFiltro">
+                                    <mat-label>Buscar Cliente</mat-label>
+                                    <input matInput (keyup)="applyFilterCliente($event)"
+                                        placeholder="Ex. Franklin Dominguez" #input>
+                                    <mat-icon matSuffix>find_in_page</mat-icon>
+                                </mat-form-field>
+
+                                <mat-card-content>
+
+                                    <section class="barra-deslizadora" tabindex="0">
+
+
+
+
+                                        <table mat-table [dataSource]="dataSourceCliente" style="background-color: #f7f2dc ;">
+
+
+                                            <ng-container matColumnDef="cedula">
+                                                <th mat-header-cell *matHeaderCellDef>
+                                                    <div style="text-align: center;"> <h3>MIS CLIENTES</h3></div>
+                                                </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <table class="table2">
+                                                        <tr style="text-align: center;">
+                                                            <td style="text-align:left ; width: 85%;">
+                                                                <div class="divtipo1"><strong>CÉDULA:
+                                                                    </strong>{{element.cedula|uppercase}}<br> </div>
+                                                                <div class="divtipo1"> <strong>NOMBRE:
+                                                                    </strong>{{element.nombre|uppercase}}<br></div>
+                                                                <div class="divtipo1"><strong>EDAD:
+                                                                    </strong>{{element.edad}} <br></div>
+                                                            </td>
+
+                                                            <td>
+                                                                <button mat-stroked-button class="boton1"
+                                                                    (click)="prueba(element.nombre)">
+                                                                    <mat-icon>forward</mat-icon>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </ng-container>
+
+
+                                            <tr mat-header-row *matHeaderRowDef="displayedColumnsCliente"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayedColumnsCliente;"></tr>
+
+                                            <!-- Row shown when there is no matching data. -->
+                                            <tr class="mat-row" *matNoDataRow>
+                                                <td class="mat-cell" colspan="4">No hay datos que coincidan con el
+                                                    filtro
+                                                    "{{input.value}}"</td>
+                                            </tr>
+                                        </table>
+
+                                    </section>
+
+
+
+
+
+
+
+                                </mat-card-content>
+
+
+                            </mat-card>
+
+                            <mat-card class="cardCurso">
+                                <mat-card-title>
+                                    <div style="text-align: center;"> DATOS DE CLIENTE</div>
+
+                                </mat-card-title>
+
+                                <br>
+                                <mat-card-content>
+
+                                    <table class="table2">
+
+                                        <tr aria-colspan="6">
+                                            <td colspan="1">
+                                                <strong>CÉDULA: </strong>
+                                            </td>
+                                            <td colspan="1" class="txt">
+                                                <input matInput placeholder="Ex. 1 Main St, New York, NY"
+                                                    formControlName="secondCtrl" required>
+                                            </td>
+                                        </tr>
+
+                                        <tr aria-colspan="6">
+                                            <td colspan="1">
+                                                <strong>NOMBRES: </strong>
+                                            </td>
+                                            <td colspan="1" class="txt">
+                                                <input>
+                                            </td>
+                                        </tr>
+
+                                        <tr aria-colspan="6">
+                                            <td colspan="1">
+                                                <strong>EDAD: </strong>
+                                            </td>
+                                            <td colspan="1" class="txt">
+                                                <input>
+                                            </td>
+                                        </tr>
+
+                                        <tr aria-colspan="6">
+                                            <td colspan="1">
+                                                <strong>EMAIL: </strong>
+                                            </td>
+                                            <td colspan="1" class="txt">
+                                                <input>
+                                            </td>
+                                        </tr>
+                                        <tr aria-colspan="6">
+                                            <td colspan="1">
+                                                <strong>DIRECCIÓN: </strong>
+                                            </td>
+                                            <td colspan="1" class="txt">
+                                                <input>
+                                            </td>
+                                        </tr>
+
+                                        <tr aria-colspan="6">
+                                            <td colspan="1">
+                                                <strong>REPRESENTANTE: </strong>
+                                            </td>
+                                            <td colspan="1" class="txt">
+                                                <input>
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+
+                                    <br>
+
+                                    <table class="table2">
+                                        <tr style="text-align: center;">
+                                            <td style="text-align:left ; width: 70%;">
+
+                                                <button mat-button matStepperPrevious class="botonrojo">
+                                                    <mat-icon>reply</mat-icon>REGRESAR
+                                                </button>
+
+                                            </td>
+
+                                            <td>
+                                                <button mat-button matStepperNext mat-flat-button
+                                                    class="botonnaranja">SIGUIENTE
+                                                    <mat-icon>forward
+                                                    </mat-icon>
+                                                </button>
+                                            </td>
+
+
+                                        </tr>
+
+                                    </table>
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card>
+
+
+
                 </form>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>CONFIRMACIÓN</ng-template>
-                <p>You are now done.</p>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
-                </div>
+                <ng-template matStepLabel> <div class="colorclaro">CONFIRMACIÓN</div></ng-template>
+
+
+                <mat-card class="example-card-two">
+                    <div>
+                        <mat-card class="cardCurso1">
+                            <mat-card-title>
+                                <div style="text-align: center;"> DATOS DE CURSO</div>
+
+                            </mat-card-title>
+
+                            <br>
+                            <table class="table2">
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>DISPONIBILIDAD: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>NOMBRE: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>RESPONSABLE: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>F. INICIO - F. FIN: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>LUGAR: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>DESCRIPCIÓN: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                        </mat-card>
+
+                        <mat-card class="cardCurso1">
+                            <mat-card-title>
+                                <div style="text-align: center;"> DATOS DE CLIENTE</div>
+
+                            </mat-card-title>
+                            <br>
+                            <table class="table2">
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>CÉDULA: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>NOMBRES: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>EDAD: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>EMAIL: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>DIRECCIÓN: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+                                <tr aria-colspan="6">
+                                    <td colspan="1">
+                                        <strong>REPRESENTANTE: </strong>
+                                    </td>
+                                    <td colspan="1" class="txt">
+                                        <input>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+
+                        </mat-card>
+
+                        <table class="table2" style=" background-color: transparent;">
+                            <tr style="text-align: center;">
+                                <td style="text-align:left;" >
+
+                                </td>
+                                <td></td>
+
+                                <div class="td1">
+                                <td>
+                                    <div>
+                                    <button mat-button matStepperPrevious class="botonrojo">
+                                        <mat-icon>reply</mat-icon>REGRESAR
+                                    </button>
+                                </div>
+                                </td>
+
+                                <td>
+                                    <div >
+                                        <button mat-button  class="botonnaranja">
+                                            FINALIZAR E INSCRIBIR<mat-icon>save</mat-icon>
+                                        </button>
+                                    </div>
+                                    
+                                </td>
+                            </div>
+
+                            </tr>
+
+
+                        </table>
+
+
+                    </div>
+                </mat-card>
+
+               
             </mat-step>
         </mat-stepper>
 
