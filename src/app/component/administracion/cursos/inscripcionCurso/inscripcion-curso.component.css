@@ -1,8 +1,6 @@
 .borde1 {
   margin: 0.5% auto;
   width: 95%;
- 
-  background-color: transparent;
 }
 
 .example-card {
@@ -12,13 +10,12 @@
 }
 
 .example-card-two {
-  
-  background-color: transparent; 
+
   width: 98%;
   float: left;
   margin-bottom: 10px;
   border: 2px solid #f7f2dc;
-  
+
   writing-mode: horizontal-tb;
 }
 
@@ -123,12 +120,12 @@ th {
 }
 
 .botonnaranja{
-  background-color: #ecb435; 
+  background-color: #ecb435;
   color:#000000;
 }
 
 .botonrojo{
-  background-color: #a01b20; 
+  background-color: #a01b20;
   color:#FFFFFF;
 }
 
@@ -168,7 +165,7 @@ th {
 }
 
 .colorclaro{
-  color: white
+
 }
 
 .td1{

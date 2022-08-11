@@ -1,13 +1,17 @@
+.example-card {
+  width: 95%;
+  margin: 0.5% auto;
 
+}
 table {
     width: 100%;
   }
-  
+
   .mat-form-field {
     font-size: 14px;
     width: 100%;
   }
-  
+
   td, th {
     width: 25%;
   }
