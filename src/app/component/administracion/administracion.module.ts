@@ -4,11 +4,12 @@ import { BienvenidaComponent } from './bienvenida/bienvenida.component';
 import {MaterialModule} from "../../../material/material.module";
 import {RouterModule, Routes} from "@angular/router";
 import { ClientesComponent } from './clientes/clientes.component';
-import { InscripcionCursoComponent } from './cursos/inscripcionCurso/inscripcion-curso.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { AsistenciacursoComponent } from './asistenciacurso/asistenciacurso.component';
 import { InscripcionTallerComponent } from './taller/inscripcionTaller/inscripcion-taller.component';
+import { ReporteCursoComponent } from './cursos/reporteCurso/reporte-curso.component';
 import { CrudcursoComponent } from './crudcurso/crudcurso.component';
+import { ControlInscripcionCursoComponent } from './cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component';
 
 const routes: Routes = [
   {
@@ -26,12 +27,17 @@ const routes: Routes = [
   },
   {
     path: 'inscripcioncurso',
-    component: InscripcionCursoComponent
+    component: ControlInscripcionCursoComponent
 
   },
   {
     path: 'inscripciontaller',
     component: InscripcionTallerComponent
+
+  },
+  {
+    path: 'reportecurso',
+    component: ReporteCursoComponent
 
   },
   {
@@ -49,6 +55,8 @@ const routes: Routes = [
   declarations: [
     BienvenidaComponent,
     ClientesComponent,
+    AsistenciacursoComponent,
+    ReporteCursoComponent,
     AsistenciacursoComponent,
     CrudcursoComponent
   ],
