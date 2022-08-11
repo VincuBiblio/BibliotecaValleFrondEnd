@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from "@angular/material/table";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { FormGroup } from '@angular/forms';
+
 
 export interface PeriodicElementCurso {
   curso: string;
@@ -56,6 +58,9 @@ const ELEMENT_DATA_CURSO: PeriodicElementCurso[] = [
 })
 export class NuevaInscripcionComponent {
 
+
+
+
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
@@ -68,6 +73,9 @@ export class NuevaInscripcionComponent {
 
   prueba(valor: any) {
     alert(valor);
+  }
+  openDialog(){
+    
   }
 
   //////////////////////////////////////////////////

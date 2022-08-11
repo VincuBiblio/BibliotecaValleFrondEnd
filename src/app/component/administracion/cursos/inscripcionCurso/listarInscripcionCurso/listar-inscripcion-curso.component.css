@@ -1,3 +1,9 @@
+.borde1 {
+  background-color: #f7f2dc;
+  margin: 0.5% auto;
+  width: 95%;
+}
+
 .example-card {
   width: 95%;
   margin: 0.5% auto;

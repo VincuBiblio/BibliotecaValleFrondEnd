@@ -1,11 +1,14 @@
-<mat-card class="example-card">
-  <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+<mat-card class="borde1">
+
+  <mat-form-field appearance="outline" class="bordeFiltro">
+    <mat-label>Buscar Curso</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Colonia Vacacional" #input>
+    <mat-icon matSuffix>find_in_page</mat-icon>
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+
+  <div class="mat-elevation-z8" >
+    <table mat-table [dataSource]="dataSource" matSort style="background-color: #f7f2dc;">
 
       <!-- ID Column -->
       <ng-container matColumnDef="id">
@@ -40,7 +43,7 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" style="background-color: #f7f2dc;"></mat-paginator>
   </div>
 </mat-card>
 
