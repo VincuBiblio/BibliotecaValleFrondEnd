@@ -8,6 +8,7 @@ import { InscripcionCursoComponent } from './cursos/inscripcionCurso/inscripcion
 import {ReactiveFormsModule} from "@angular/forms";
 import { AsistenciacursoComponent } from './asistenciacurso/asistenciacurso.component';
 import { InscripcionTallerComponent } from './taller/inscripcionTaller/inscripcion-taller.component';
+import { CrudcursoComponent } from './crudcurso/crudcurso.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,12 @@ const routes: Routes = [
     path: 'inscripciontaller',
     component: InscripcionTallerComponent
 
+  },
+  {
+
+    path: 'cursos',
+    component: CrudcursoComponent
+
   }
 
 
@@ -42,7 +49,8 @@ const routes: Routes = [
   declarations: [
     BienvenidaComponent,
     ClientesComponent,
-    AsistenciacursoComponent
+    AsistenciacursoComponent,
+    CrudcursoComponent
   ],
     imports: [
         CommonModule,
