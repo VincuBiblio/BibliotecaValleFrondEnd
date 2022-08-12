@@ -1,76 +1,40 @@
-.highcharts-figure,
-.highcharts-data-table table {
-  min-width: 310px;
-  width: 100%;
-  margin: 1em auto;
-}
-
-#container {
-  height: 500px;
-}
-
-.highcharts-data-table table {
-  font-family: Verdana, sans-serif;
-  border-collapse: collapse;
-  border: 1px solid #ebebeb;
-  margin: 10px auto;
-  text-align: center;
-  width: 100%;
-  max-width: 500px;
-}
-
-.highcharts-data-table caption {
-  padding: 1em 0;
-  font-size: 1.2em;
-  color: #555;
-}
-
-.highcharts-data-table th {
-  font-weight: 600;
-  padding: 0.5em;
-}
-
-.highcharts-data-table td,
-.highcharts-data-table th,
-.highcharts-data-table caption {
-  padding: 0.5em;
-}
-
-.highcharts-data-table thead tr,
-.highcharts-data-table tr:nth-child(even) {
-  background: #f8f8f8;
-}
-
-.highcharts-data-table tr:hover {
-  background: #f1f7ff;
-}
-
 .container{
+  background-color:  white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   display: table;
-  width: 100%;
+  width: 95%;
   text-align: center;
+  margin: 1vh auto;
 }
 .header{
   margin-top: 1%;
 }
 .left{
-  background-color: #ff9e2c;
+  background-color:  white;
   position: absolute;
-  left: 10px;
-  width: 40%;
+  left: 2.5%;
+  width: 39.8%;
 }
 .right{
+  background-color:  white;
   position: absolute;
-  right: 10px;
-  width: 57%;
-}
-.example-month-picker .mat-calendar-period-button {
-  pointer-events: none;
+  right: 2.5%;
+  width: 55.5%;
 }
 
-.example-month-picker .mat-calendar-arrow {
-  display: none;
-}
 mat-grid-tile {
-  background: lightblue;
+
+}
+.filter{
+  margin: 0 auto;
+  width: 95%;
+}
+.seleccion{
+  margin: 0 auto;
+  width: 95%;
+}
+button{
+  margin: 1vh auto;
+  width: 95%;
 }

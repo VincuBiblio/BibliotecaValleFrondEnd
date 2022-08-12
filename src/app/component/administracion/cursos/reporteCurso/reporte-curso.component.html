@@ -1,14 +1,60 @@
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<div class="container">
+  <div class="header">
+    <h1>REPORTE DE CURSOS</h1>
+    <h2>USUARIOS POR GÉNERO</h2>
+  </div>
+  <div class="left">
+    <div>
+      <h3>CONSULTAR DATOS</h3>
+      <mat-form-field appearance="outline" class="filter">
+        <mat-label>Filtrar Cursos</mat-label>
+        <input matInput placeholder="Placeholder">
+        <mat-icon matSuffix>find_in_page</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="seleccion">
+        <mat-label>Seleccione el Curso</mat-label>
+        <mat-select>
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="warn">CONSULTAR</button>
+      <mat-divider inset></mat-divider>
+      <button mat-flat-button color="warn" (click)="generatePDF()">OBTENER PDF</button>
+    </div>
+  </div>
+  <div class="right">
+    <mat-grid-list cols="3" rowHeight="59.7px">
+      <mat-grid-tile colspan="2">
+        <strong>
+          CUADRO DE DATOS SEGÚN EL GÉNERO
+        </strong>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <h2>%</h2>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        MASCULINO
+      </mat-grid-tile>
+      <mat-grid-tile><h3>87</h3></mat-grid-tile>
+      <mat-grid-tile><h3>34.94%</h3></mat-grid-tile>
+      <mat-grid-tile>
+        FEMENINO
+      </mat-grid-tile>
+      <mat-grid-tile><h3>162</h3></mat-grid-tile>
+      <mat-grid-tile><h3>65.06%</h3></mat-grid-tile>
+      <mat-grid-tile>
+        OTRO
+      </mat-grid-tile>
+      <mat-grid-tile><h3>0</h3></mat-grid-tile>
+      <mat-grid-tile><h3>0.00%</h3></mat-grid-tile>
+      <mat-grid-tile>
+        <h4>TOTAL: </h4>
+      </mat-grid-tile>
+      <mat-grid-tile><h2>298</h2></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
 
-<figure class="highcharts-figure">
-  <div id="container" name="container"></div>
-  <p class="highcharts-description">
-    Basic line chart showing trends in a dataset. This chart includes the
-    <code>series-label</code> module, which adds a label to each line for
-    enhanced readability.
-  </p>
-</figure>
+
