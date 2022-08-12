@@ -12,6 +12,14 @@
   background-size: cover;
 }
 
+.textarea {
+
+  height: 100%;
+  width: 100%;
+  background: white;
+
+}
+
 mat-grid-tile{
   text-align: start;
 }
@@ -36,6 +44,10 @@ mat-label{
 }
 table {
   width: 100%;
+}
+
+.input {
+  background: #FFFFFF;
 }
 
 .mat-form-field {

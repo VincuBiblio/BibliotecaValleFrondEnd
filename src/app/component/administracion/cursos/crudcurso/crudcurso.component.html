@@ -1,8 +1,8 @@
 <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVO CLIENTE">
-    <mat-card class="example-card">
+    <mat-card class="example-card" style="background: #f7f2dc">
       <form [formGroup]="formGrupos">
-        <mat-card-content>
+        <mat-card-content style="background: #f7f2dc">
           <mat-grid-list cols="2" rowHeight="5:0.9">
             <h3>CURSOS</h3>
             <h4>DATOS DEL CURSO</h4>
@@ -17,7 +17,7 @@
               <mat-form-field appearance="outline">
                 <mat-form-field  appearance="outline">
                   <mat-label>Actividades</mat-label>
-                  <input matInput formControlName="actividades" style="width: auto; height: auto">
+                  <textarea matInput formControlName="actividades"></textarea>
                 </mat-form-field>
               </mat-form-field>
             </mat-grid-tile>
@@ -51,7 +51,7 @@
               <mat-form-field appearance="outline">
                 <mat-form-field  appearance="outline">
                   <mat-label>Materiales</mat-label>
-                  <input matInput formControlName="materiales" style="width: auto; height: auto">
+                  <textarea matInput formControlName="materiales"></textarea>
                 </mat-form-field>
               </mat-form-field>
             </mat-grid-tile>
@@ -76,14 +76,14 @@
                 <mat-form-field appearance="outline">
                   <mat-form-field  appearance="outline">
                     <mat-label>Observación</mat-label>
-                    <input matInput formControlName="observacion" style="width: auto; height: auto">
+                    <textarea matInput formControlName="observacion"></textarea>
                   </mat-form-field>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile rowspan="2">
                 <mat-form-field appearance="outline">
                   <mat-label>Descripción</mat-label>
-                  <input matInput formControlName="descripcion">
+                  <textarea matInput formControlName="descripcion"></textarea>
                 </mat-form-field>
               </mat-grid-tile>
 
