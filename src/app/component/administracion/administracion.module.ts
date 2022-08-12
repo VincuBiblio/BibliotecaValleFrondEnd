@@ -1,18 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BienvenidaComponent } from './bienvenida/bienvenida.component';
-import {MaterialModule} from "../../../material/material.module";
-import {RouterModule, Routes} from "@angular/router";
+import { MaterialModule } from "../../../material/material.module";
+import { RouterModule, Routes } from "@angular/router";
 import { ClientesComponent } from './clientes/clientes.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {AsistenciacursoComponent} from "./cursos/asistenciacurso/asistenciacurso.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { AsistenciacursoComponent } from "./cursos/asistenciacurso/asistenciacurso.component";
 import {
   ControlInscripcionCursoComponent
 } from "./cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component";
-import {ReporteCursoComponent} from "./cursos/reporteCurso/reporte-curso.component";
-import {CrudcursoComponent} from "./cursos/crudcurso/crudcurso.component";
-import { ControlParticipacionTallerComponent } from './taller/participacionTaller/controlParticipacionTaller/control-participacion-taller.component';
-
+import { ReporteCursoComponent } from "./cursos/reporteCurso/reporte-curso.component";
+import { CrudcursoComponent } from "./cursos/crudcurso/crudcurso.component";
+import {
+  ControlParticipacionTallerComponent
+} from './taller/participacionTaller/controlParticipacionTaller/control-participacion-taller.component';
+import {
+  ListarinscripcionCursoComponent
+} from "./cursos/inscripcionCurso/listarInscripcionCurso/listar-inscripcion-curso.component";
+import {
+  NuevaInscripcionComponent
+} from "./cursos/inscripcionCurso/nuevaInscripcionCurso/nueva-inscripcion-curso.component";
+import {
+  ListarparticipacionTallerComponent
+} from "./taller/participacionTaller/listaParticipacionTaller/listar-participacion-taller.component";
+import {
+  NuevaParticipacionTallerComponent
+} from "./taller/participacionTaller/nuevaParticipacionTaller/nueva-participacion-taller.component";
+import { ControlPrestamoComputoComponent } from './computo/prestamoComputo/controlPrestamoComputo/control-prestamo-computo.component';
+import { ListarprestamoComputoComponent } from './computo/prestamoComputo/listarPrestamoComputo/listar-prestamo-computo.component';
+import { NuevaPrestamoComputoComponent } from './computo/prestamoComputo/nuevoPrestamoComputo/nuevo-prestamo-computo.component';
 
 
 const routes: Routes = [
@@ -50,6 +66,13 @@ const routes: Routes = [
     path: 'cursos',
     component: CrudcursoComponent
 
+  },
+
+  {
+
+    path: 'prestamocomputo',
+    component: ControlPrestamoComputoComponent
+
   }
 
 ]
@@ -60,14 +83,24 @@ const routes: Routes = [
     ClientesComponent,
     AsistenciacursoComponent,
     ReporteCursoComponent,
-    CrudcursoComponent
+    CrudcursoComponent,
+    ListarinscripcionCursoComponent,
+    NuevaInscripcionComponent,
+    ControlInscripcionCursoComponent,
+    ControlParticipacionTallerComponent,
+    ListarparticipacionTallerComponent,
+    ListarprestamoComputoComponent,
+    NuevaParticipacionTallerComponent,
+    NuevaPrestamoComputoComponent,
+    ControlPrestamoComputoComponent
   ],
-    imports: [
-        CommonModule,
-        MaterialModule,
-        RouterModule.forChild(routes),
-        ReactiveFormsModule,
-    ]
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+  ]
 })
-export class AdministracionModule { }
+export class AdministracionModule {
+}
 
