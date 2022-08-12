@@ -58,7 +58,9 @@ const ELEMENT_DATA_CURSO: PeriodicElementCurso[] = [
 })
 export class NuevaInscripcionComponent {
 
+  formCliente: FormGroup;
 
+  public dialogoCliente: boolean;
 
 
   firstFormGroup = this._formBuilder.group({
@@ -75,7 +77,11 @@ export class NuevaInscripcionComponent {
     alert(valor);
   }
   openDialog(){
-    
+    this.dialogoCliente=true;
+  }
+
+  closeDialog(){
+    this.dialogoCliente=false;
   }
 
   //////////////////////////////////////////////////

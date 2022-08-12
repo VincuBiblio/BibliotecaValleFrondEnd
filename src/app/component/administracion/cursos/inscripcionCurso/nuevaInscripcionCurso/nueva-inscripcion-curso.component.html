@@ -583,3 +583,47 @@
 
 
 <!------------------------------------------------------------------------------------------------------------------------------------------>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------>
+<!--Dialogo para crear cliente-->
+
+<p-dialog [(visible)]="dialogoCliente" [style]="{width:'37vw'}" [draggable]="false" [baseZIndex]="10000" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <mat-card class="dialogo">
+
+      <form [formGroup]="formCliente">
+
+
+        <app-listar-inscripcion-curso></app-listar-inscripcion-curso>
+        <table>
+          <tr style="text-align: center;">
+            <td style="text-align:left ; width: 60%;">
+
+            </td>
+            <td>
+              <button mat-button class="botonrojo" (click)="dialogoCliente=false">
+                <mat-icon>close</mat-icon>
+                CERRAR
+              </button>
+            </td>
+          </tr>
+        </table>
+
+
+
+
+
+
+
+
+      </form>
+
+
+
+    </mat-card>
+
+  </ng-template>
+
+</p-dialog>

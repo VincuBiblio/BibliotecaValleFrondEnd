@@ -11,6 +11,8 @@ import { InscripcionTallerComponent } from './component/administracion/taller/in
 import { ListarinscripcionCursoComponent } from './component/administracion/cursos/inscripcionCurso/listarInscripcionCurso/listar-inscripcion-curso.component';
 import { NuevaInscripcionComponent } from './component/administracion/cursos/inscripcionCurso/nuevaInscripcionCurso/nueva-inscripcion-curso.component';
 import { ControlInscripcionCursoComponent } from './component/administracion/cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     declarations: [
@@ -28,6 +30,8 @@ import { ControlInscripcionCursoComponent } from './component/administracion/cur
         MaterialModule,
         AppRoutingModule,
         ReactiveFormsModule,
+        MatDialogModule,
+        DialogModule
 
     ],
     providers: [],
