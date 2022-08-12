@@ -13,25 +13,28 @@ import { NuevaInscripcionComponent } from './component/administracion/cursos/ins
 import { ControlInscripcionCursoComponent } from './component/administracion/cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    InscripcionTallerComponent,
-    ListarinscripcionCursoComponent,
-    NuevaInscripcionComponent,
-    ControlInscripcionCursoComponent,
-    
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
+    declarations: [
+        AppComponent,
+        LayoutComponent,
+        InscripcionTallerComponent,
+        ListarinscripcionCursoComponent,
+        NuevaInscripcionComponent,
+        ControlInscripcionCursoComponent,
 
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+
+    ],
+    providers: [],
+    exports: [
+        ListarinscripcionCursoComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
 

@@ -5,11 +5,15 @@ import {MaterialModule} from "../../../material/material.module";
 import {RouterModule, Routes} from "@angular/router";
 import { ClientesComponent } from './clientes/clientes.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { AsistenciacursoComponent } from './asistenciacurso/asistenciacurso.component';
 import { InscripcionTallerComponent } from './taller/inscripcionTaller/inscripcion-taller.component';
-import { ReporteCursoComponent } from './cursos/reporteCurso/reporte-curso.component';
-import { CrudcursoComponent } from './crudcurso/crudcurso.component';
-import { ControlInscripcionCursoComponent } from './cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component';
+import {AsistenciacursoComponent} from "./cursos/asistenciacurso/asistenciacurso.component";
+import {
+  ControlInscripcionCursoComponent
+} from "./cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component";
+import {ReporteCursoComponent} from "./cursos/reporteCurso/reporte-curso.component";
+import {CrudcursoComponent} from "./cursos/crudcurso/crudcurso.component";
+
+
 
 const routes: Routes = [
   {
@@ -47,8 +51,6 @@ const routes: Routes = [
 
   }
 
-
-
 ]
 
 @NgModule({
@@ -57,7 +59,6 @@ const routes: Routes = [
     ClientesComponent,
     AsistenciacursoComponent,
     ReporteCursoComponent,
-    AsistenciacursoComponent,
     CrudcursoComponent
   ],
     imports: [
