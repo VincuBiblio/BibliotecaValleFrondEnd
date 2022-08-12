@@ -43,6 +43,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {DialogModule} from "primeng/dialog";
 
 
 @NgModule({
@@ -93,6 +94,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     PortalModule,
     ScrollingModule,
     ScrollingModule,
+    MatDialogModule,
+    DialogModule
   ],
 
 })
