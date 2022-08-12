@@ -5,13 +5,13 @@ import {MaterialModule} from "../../../material/material.module";
 import {RouterModule, Routes} from "@angular/router";
 import { ClientesComponent } from './clientes/clientes.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { InscripcionTallerComponent } from './taller/inscripcionTaller/inscripcion-taller.component';
 import {AsistenciacursoComponent} from "./cursos/asistenciacurso/asistenciacurso.component";
 import {
   ControlInscripcionCursoComponent
 } from "./cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component";
 import {ReporteCursoComponent} from "./cursos/reporteCurso/reporte-curso.component";
 import {CrudcursoComponent} from "./cursos/crudcurso/crudcurso.component";
+import { ControlParticipacionTallerComponent } from './taller/participacionTaller/controlParticipacionTaller/control-participacion-taller.component';
 
 
 
@@ -36,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'inscripciontaller',
-    component: InscripcionTallerComponent
+    component: ControlParticipacionTallerComponent
+
 
   },
   {
