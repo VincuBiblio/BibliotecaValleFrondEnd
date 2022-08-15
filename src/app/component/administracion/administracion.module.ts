@@ -29,6 +29,9 @@ import {
 import { ControlPrestamoComputoComponent } from './computo/prestamoComputo/controlPrestamoComputo/control-prestamo-computo.component';
 import { ListarprestamoComputoComponent } from './computo/prestamoComputo/listarPrestamoComputo/listar-prestamo-computo.component';
 import { NuevaPrestamoComputoComponent } from './computo/prestamoComputo/nuevoPrestamoComputo/nuevo-prestamo-computo.component';
+import { ControlPrestamoLibroComponent } from './libros/prestamoLibro/controlPrestamoLibro/control-prestamo-libro.component';
+import { ListarprestamoLibroComponent } from './libros/prestamoLibro/listarPrestamoLibro/listar-prestamo-libro.component';
+import { NuevaPrestamoLibroComponent } from './libros/prestamoLibro/nuevoPrestamoLibro/nuevo-prestamo-libro.component';
 
 
 const routes: Routes = [
@@ -69,10 +72,12 @@ const routes: Routes = [
   },
 
   {
-
     path: 'prestamocomputo',
     component: ControlPrestamoComputoComponent
-
+  },
+  {
+    path: 'prestamolibro',
+    component: ControlPrestamoLibroComponent
   }
 
 ]
@@ -90,9 +95,12 @@ const routes: Routes = [
     ControlParticipacionTallerComponent,
     ListarparticipacionTallerComponent,
     ListarprestamoComputoComponent,
+    ListarprestamoLibroComponent,
     NuevaParticipacionTallerComponent,
     NuevaPrestamoComputoComponent,
-    ControlPrestamoComputoComponent
+    NuevaPrestamoLibroComponent,
+    ControlPrestamoComputoComponent,
+    ControlPrestamoLibroComponent,
   ],
   imports: [
     CommonModule,
