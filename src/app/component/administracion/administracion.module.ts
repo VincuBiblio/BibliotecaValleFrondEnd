@@ -50,6 +50,7 @@ import { ReporteComputoComponent } from './computo/reporteComputo/reporte-comput
 import { ReporteImpresionCopiasComponent } from './ImpresionesCopias/reporteImpresionCopias/reporte-impresion-copias.component';
 import { ReporteEventoComponent } from './eventos/reporteEvento/reporte-evento.component';
 import { informeMensualComponent } from './informes/mensual/informe-mensual.component';
+import { registroEventoComponent } from './eventos/registroEvento/registro-evento.component';
 
 
 const routes: Routes = [
@@ -124,6 +125,10 @@ const routes: Routes = [
   {
     path: 'reporteeventos',
     component: ReporteEventoComponent
+  },
+  {
+    path: 'registroevento',
+    component: registroEventoComponent
   }
 ]
 
@@ -156,15 +161,18 @@ const routes: Routes = [
     ReporteComputoComponent,
     ReporteImpresionCopiasComponent,
     ReporteEventoComponent,
+    registroEventoComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    
   ]
 })
 export class AdministracionModule {
 }
+
 
 
