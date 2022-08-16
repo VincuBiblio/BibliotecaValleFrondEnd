@@ -6,14 +6,6 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup } from '@angular/forms';
 
 
-export interface PeriodicElementComputo {
-  codigo: string;
-  procesador: string;
-  ram: string;
-}
-
-
-
 export interface PeriodicElementCliente {
   cedula: string;
   nombre: string;
@@ -30,15 +22,7 @@ const ELEMENT_DATA_CLIENTE: PeriodicElementCliente[] = [
 
 ];
 
-const ELEMENT_DATA_COMPUTO: PeriodicElementComputo[] = [
-  { codigo: '1', procesador: 'Core™ i7-11700K', ram: '4RAM' },
-  { codigo: '2', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  { codigo: '3', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  { codigo: '4', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  { codigo: '5', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  
 
-];
 
 @Component({
   selector: 'app-nuevo-prestamo-libro',
@@ -79,15 +63,6 @@ export class NuevaPrestamoLibroComponent {
     this.dialogoCliente=false;
   }
 
-  //////////////////////////////////////////////////
-  //LISTAR CURSOS
-  displayedColumnsComputo: string[] = ['codigo'];
-  dataSourceComputo = new MatTableDataSource(ELEMENT_DATA_COMPUTO);
-
-  applyFilterComputo(event: Event) {
-    const filterValueComputo = (event.target as HTMLInputElement).value;
-    this.dataSourceComputo.filter = filterValueComputo.trim().toLowerCase();
-  }
 
 
   //////////////////////////////////////////////////
