@@ -4,13 +4,11 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-reporteLibros',
-  templateUrl: './reporte-libros.component.html',
-  styleUrls: ['./reporte-libros.component.css']
+  selector: 'app-reporteEvento',
+  templateUrl: './reporte-evento.component.html',
+  styleUrls: ['./reporte-evento.component.css']
 })
-export class ReporteLibrosComponent implements OnInit {
-
-
+export class ReporteEventoComponent implements OnInit {
 
   constructor() { }
 
@@ -30,4 +28,5 @@ export class ReporteLibrosComponent implements OnInit {
   select(arr){
     this.seleccion=arr.value;
   }
+
 }

@@ -46,6 +46,10 @@ import { ReporteLibrosComponent } from './libros/reporteLibros/reporte-libros.co
 import { ControlUsoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/controlUsoImpresionCopia/control-uso-impresion-copia.component';
 import { ListarusoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/listarUsoImpresionCopia/listar-uso-impresion-copia.component';
 import { NuevaUsoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/nuevoUsoImpresionCopia/nuevo-uso-impresion-copia.component';
+import { ReporteComputoComponent } from './computo/reporteComputo/reporte-computo.component';
+import { ReporteImpresionCopiasComponent } from './ImpresionesCopias/reporteImpresionCopias/reporte-impresion-copias.component';
+import { ReporteEventoComponent } from './eventos/reporteEvento/reporte-evento.component';
+import { informeMensualComponent } from './informes/mensual/informe-mensual.component';
 
 
 const routes: Routes = [
@@ -104,6 +108,22 @@ const routes: Routes = [
   {
     path: 'reportelibros',
     component: ReporteLibrosComponent
+  },
+  {
+    path: 'informeMensualdoc',
+    component: informeMensualComponent
+  },
+  {
+    path: 'reportecomputo',
+    component: ReporteComputoComponent
+  },
+  {
+    path: 'reporteimpresioncopia',
+    component: ReporteImpresionCopiasComponent
+  },
+  {
+    path: 'reporteeventos',
+    component: ReporteEventoComponent
   }
 ]
 
@@ -132,6 +152,10 @@ const routes: Routes = [
     AsistenciaTallerComponent,
     ReporteTallerComponent,
     ReporteLibrosComponent,
+    informeMensualComponent,
+    ReporteComputoComponent,
+    ReporteImpresionCopiasComponent,
+    ReporteEventoComponent,
   ],
   imports: [
     CommonModule,

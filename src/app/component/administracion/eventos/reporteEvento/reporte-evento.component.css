@@ -6,6 +6,7 @@
   width: 95%;
   text-align: center;
   margin: 1vh auto;
+
 }
 .header{
   margin-top: 1%;
@@ -37,4 +38,20 @@ mat-grid-tile {
 button{
   margin: 1vh auto;
   width: 95%;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.example-margin {
+  margin: 1vh 10px;
+}
+
+.dates{
+  width: 95%;
+  font-size: 15px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
 }

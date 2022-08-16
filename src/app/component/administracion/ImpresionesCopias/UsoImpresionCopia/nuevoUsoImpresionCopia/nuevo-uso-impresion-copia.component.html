@@ -302,28 +302,32 @@
 
             <tr aria-colspan="6">
               <td colspan="1">
-                <strong>FECHA: </strong>
+                <strong>USO: </strong>
               </td>
-              <td colspan="1" class="txt">
-
-                <input type="date" matInput>
+              <div class="tdcombo">
+              <td class="centrar1">
+                <mat-radio-group formControlName="discapacidad">
+                  <mat-radio-button class="example-margin" value="SI">IMPRESIÓN</mat-radio-button>
+                  <mat-radio-button class="example-margin" value="NO">COPIA</mat-radio-button>
+                </mat-radio-group>
               </td>
+            </div>
             </tr>
 
             <tr aria-colspan="6">
               <td colspan="1">
-                <strong>USO: </strong>
+                <strong>FECHA: </strong>
               </td>
-              <td colspan="1" class="txt">
-                <mat-form-field appearance="outline" class="seleccion">
 
-                  <mat-select>
-                    <mat-option value="one">IMPRESIÓN</mat-option>
-                    <mat-option value="two">COPIA</mat-option>
-                  </mat-select>
-                </mat-form-field>
+
+              <td class="txt">
+
+                <input type="date" matInput>
+
               </td>
             </tr>
+
+
 
             <tr aria-colspan="6">
               <td colspan="1">
