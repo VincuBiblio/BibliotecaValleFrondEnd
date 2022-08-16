@@ -1,0 +1,68 @@
+.container{
+  background-color:  white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: table;
+  width: 95%;
+  text-align: center;
+  margin: 1vh auto;
+}
+.header{
+  margin-top: 1%;
+}
+.left{
+  background-color:  white;
+  position: absolute;
+  left: 2.5%;
+  width: 39.8%;
+}
+.right{
+  background-color:  white;
+  position: absolute;
+  right: 2.5%;
+  width: 55.5%;
+}
+
+mat-grid-tile {
+
+}
+.filter{
+  margin: 0 auto;
+  width: 95%;
+}
+.seleccion{
+  margin: 0 auto;
+  width: 95%;
+}
+button{
+  margin: 1vh auto;
+  width: 95%;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.example-margin {
+  margin: 1vh 10px;
+}
+
+.dates{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  padding: 10px;
+  border-color: darkgray;
+  border-radius: 5px;
+  border-style: ridge;
+}
+.date::-webkit-calendar-picker-indicator{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}

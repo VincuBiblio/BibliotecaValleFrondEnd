@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BienvenidaComponent } from './bienvenida/bienvenida.component';
-import { MaterialModule } from "../../../material/material.module";
-import { RouterModule, Routes } from "@angular/router";
-import { ClientesComponent } from './clientes/clientes.component';
-import { ReactiveFormsModule } from "@angular/forms";
-import { AsistenciacursoComponent } from "./cursos/asistenciacurso/asistenciacurso.component";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {BienvenidaComponent} from './bienvenida/bienvenida.component';
+import {MaterialModule} from "../../../material/material.module";
+import {RouterModule, Routes} from "@angular/router";
+import {ClientesComponent} from './clientes/clientes.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {AsistenciacursoComponent} from "./cursos/asistenciacurso/asistenciacurso.component";
 import {
   ControlInscripcionCursoComponent
 } from "./cursos/inscripcionCurso/controlnscripcionCurso/control-inscripcion-curso.component";
-import { ReporteCursoComponent } from "./cursos/reporteCurso/reporte-curso.component";
-import { CrudcursoComponent } from "./cursos/crudcurso/crudcurso.component";
+import {ReporteCursoComponent} from "./cursos/reporteCurso/reporte-curso.component";
+import {CrudcursoComponent} from "./cursos/crudcurso/crudcurso.component";
 import {
   ControlParticipacionTallerComponent
 } from './taller/participacionTaller/controlParticipacionTaller/control-participacion-taller.component';
@@ -26,12 +26,23 @@ import {
 import {
   NuevaParticipacionTallerComponent
 } from "./taller/participacionTaller/nuevaParticipacionTaller/nueva-participacion-taller.component";
-import { ControlPrestamoComputoComponent } from './computo/prestamoComputo/controlPrestamoComputo/control-prestamo-computo.component';
-import { ListarprestamoComputoComponent } from './computo/prestamoComputo/listarPrestamoComputo/listar-prestamo-computo.component';
-import { NuevaPrestamoComputoComponent } from './computo/prestamoComputo/nuevoPrestamoComputo/nuevo-prestamo-computo.component';
-import { ControlPrestamoLibroComponent } from './libros/prestamoLibro/controlPrestamoLibro/control-prestamo-libro.component';
-import { ListarprestamoLibroComponent } from './libros/prestamoLibro/listarPrestamoLibro/listar-prestamo-libro.component';
-import { NuevaPrestamoLibroComponent } from './libros/prestamoLibro/nuevoPrestamoLibro/nuevo-prestamo-libro.component';
+import {
+  ControlPrestamoComputoComponent
+} from './computo/prestamoComputo/controlPrestamoComputo/control-prestamo-computo.component';
+import {
+  ListarprestamoComputoComponent
+} from './computo/prestamoComputo/listarPrestamoComputo/listar-prestamo-computo.component';
+import {
+  NuevaPrestamoComputoComponent
+} from './computo/prestamoComputo/nuevoPrestamoComputo/nuevo-prestamo-computo.component';
+import {
+  ControlPrestamoLibroComponent
+} from './libros/prestamoLibro/controlPrestamoLibro/control-prestamo-libro.component';
+import {ListarprestamoLibroComponent} from './libros/prestamoLibro/listarPrestamoLibro/listar-prestamo-libro.component';
+import {NuevaPrestamoLibroComponent} from './libros/prestamoLibro/nuevoPrestamoLibro/nuevo-prestamo-libro.component';
+import {AsistenciaTallerComponent} from './taller/asistenciaTaller/asistencia-taller.component';
+import { ReporteTallerComponent } from './taller/reporteTaller/reporte-taller.component';
+import { ReporteLibrosComponent } from './libros/reporteLibros/reporte-libros.component';
 
 
 const routes: Routes = [
@@ -56,8 +67,6 @@ const routes: Routes = [
   {
     path: 'inscripciontaller',
     component: ControlParticipacionTallerComponent
-
-
   },
   {
     path: 'reportecurso',
@@ -65,12 +74,9 @@ const routes: Routes = [
 
   },
   {
-
     path: 'cursos',
     component: CrudcursoComponent
-
   },
-
   {
     path: 'prestamocomputo',
     component: ControlPrestamoComputoComponent
@@ -78,8 +84,19 @@ const routes: Routes = [
   {
     path: 'prestamolibro',
     component: ControlPrestamoLibroComponent
+  },
+  {
+    path: 'asistenciataller',
+    component: AsistenciaTallerComponent
+  },
+  {
+    path: 'reportetaller',
+    component: ReporteTallerComponent
+  },
+  {
+    path: 'reportelibros',
+    component: ReporteLibrosComponent
   }
-
 ]
 
 @NgModule({
@@ -101,6 +118,9 @@ const routes: Routes = [
     NuevaPrestamoLibroComponent,
     ControlPrestamoComputoComponent,
     ControlPrestamoLibroComponent,
+    AsistenciaTallerComponent,
+    ReporteTallerComponent,
+    ReporteLibrosComponent,
   ],
   imports: [
     CommonModule,

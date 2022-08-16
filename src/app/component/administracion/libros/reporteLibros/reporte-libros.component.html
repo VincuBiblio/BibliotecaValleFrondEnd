@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="header">
+    <h1>REPORTE DE CURSOS</h1>
+    <h2>USUARIOS POR GÉNERO</h2>
+  </div>
+  <div class="left">
+    <div>
+      <h3>CONSULTAR DATOS</h3>
+      <section class="example-section">
+        <label class="example-margin">Consultar por:</label>
+        <mat-radio-group>
+          <mat-radio-button class="example-margin" value="ANUAL">ANUAL</mat-radio-button>
+          <mat-radio-button class="example-margin" value="MENSUAL">MENSUAL</mat-radio-button>
+          <mat-radio-button class="example-margin" value="DIARIO">DIARIO</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <input class="dates" type="date">
+      <input class="dates" type="month">
+      <input class="dates" type="{dateFormat: 'yy'}">
+      <button mat-flat-button color="warn">CONSULTAR</button>
+      <mat-divider inset></mat-divider>
+      <button mat-flat-button color="warn" (click)="generatePDF()">OBTENER PDF</button>
+    </div>
+  </div>
+  <div class="right">
+    <mat-grid-list cols="3" rowHeight="59.7px">
+      <mat-grid-tile colspan="2">
+        <strong>
+          CUADRO DE DATOS SEGÚN EL GÉNERO
+        </strong>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <h2>%</h2>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        MASCULINO
+      </mat-grid-tile>
+      <mat-grid-tile><h3>87</h3></mat-grid-tile>
+      <mat-grid-tile><h3>34.94%</h3></mat-grid-tile>
+      <mat-grid-tile>
+        FEMENINO
+      </mat-grid-tile>
+      <mat-grid-tile><h3>162</h3></mat-grid-tile>
+      <mat-grid-tile><h3>65.06%</h3></mat-grid-tile>
+      <mat-grid-tile>
+        OTRO
+      </mat-grid-tile>
+      <mat-grid-tile><h3>0</h3></mat-grid-tile>
+      <mat-grid-tile><h3>0.00%</h3></mat-grid-tile>
+      <mat-grid-tile>
+        <h4>TOTAL: </h4>
+      </mat-grid-tile>
+      <mat-grid-tile><h2>298</h2></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
