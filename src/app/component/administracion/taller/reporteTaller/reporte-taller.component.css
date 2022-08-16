@@ -6,6 +6,7 @@
   width: 95%;
   text-align: center;
   margin: 1vh auto;
+  background-color: #f7f2dc;
 }
 .header{
   margin-top: 1%;
@@ -15,12 +16,14 @@
   position: absolute;
   left: 2.5%;
   width: 39.8%;
+  background-color: #f7f2dc;
 }
 .right{
   background-color:  white;
   position: absolute;
   right: 2.5%;
   width: 55.5%;
+  background-color: #f7f2dc;
 }
 
 mat-grid-tile {
