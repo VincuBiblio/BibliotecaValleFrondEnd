@@ -209,7 +209,7 @@
 
   <mat-step>
     <ng-template matStepLabel>
-      <div class="colorclaro">LIBRO</div>
+      <div class="colorclaro">USO</div>
     </ng-template>
 
     <mat-card class="example-card-two">
@@ -291,27 +291,18 @@
           <div style="width: 500px;">
             <mat-card-title>
 
-              <div style="text-align: center;"> DATOS DE LIBRO</div>
+              <div style="text-align: center;"> DATOS DE USO</div>
 
             </mat-card-title>
           </div>
           <br>
 
-          
-          <table class="table2" >
+
+          <table class="table2">
 
             <tr aria-colspan="6">
               <td colspan="1">
-                <strong>CÓDIGO: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>FECHA PRESTASMO: </strong>
+                <strong>FECHA: </strong>
               </td>
               <td colspan="1" class="txt">
 
@@ -319,27 +310,47 @@
               </td>
             </tr>
 
-            <tr>
-
-              <td>
-                <strong>FECHA DEVOLUCIÓN: </strong>
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>USO: </strong>
               </td>
+              <td colspan="1" class="txt">
+                <mat-form-field appearance="outline" class="seleccion">
 
-
-              <td class="txt" style="left: 150px;">
-                <input type="date" matInput>
+                  <mat-select>
+                    <mat-option value="one">IMPRESIÓN</mat-option>
+                    <mat-option value="two">COPIA</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </td>
             </tr>
 
             <tr aria-colspan="6">
               <td colspan="1">
-                <strong>OBSERVACIÓN: </strong>
+                <strong>PÁGINAS COLOR: </strong>
               </td>
               <td colspan="1" class="txt">
-                <textarea matInput class="texArea"></textarea>
+                <input type="number" matInput>
               </td>
             </tr>
 
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>PÁGINAS B/N: </strong>
+              </td>
+              <td colspan="1" class="txt">
+                <input type="number" matInput>
+              </td>
+            </tr>
+
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>TOTAL: </strong>
+              </td>
+              <td colspan="1" class="txt">
+                <input type="number" matInput>
+              </td>
+            </tr>
 
 
 

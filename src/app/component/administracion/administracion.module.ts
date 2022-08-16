@@ -43,6 +43,9 @@ import {NuevaPrestamoLibroComponent} from './libros/prestamoLibro/nuevoPrestamoL
 import {AsistenciaTallerComponent} from './taller/asistenciaTaller/asistencia-taller.component';
 import { ReporteTallerComponent } from './taller/reporteTaller/reporte-taller.component';
 import { ReporteLibrosComponent } from './libros/reporteLibros/reporte-libros.component';
+import { ControlUsoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/controlUsoImpresionCopia/control-uso-impresion-copia.component';
+import { ListarusoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/listarUsoImpresionCopia/listar-uso-impresion-copia.component';
+import { NuevaUsoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/nuevoUsoImpresionCopia/nuevo-uso-impresion-copia.component';
 
 
 const routes: Routes = [
@@ -85,6 +88,11 @@ const routes: Routes = [
     path: 'prestamolibro',
     component: ControlPrestamoLibroComponent
   },
+
+  {
+    path: 'usoImpresionCopia',
+    component:ControlUsoImpresionCopiaComponent
+  },
   {
     path: 'asistenciataller',
     component: AsistenciaTallerComponent
@@ -113,11 +121,14 @@ const routes: Routes = [
     ListarparticipacionTallerComponent,
     ListarprestamoComputoComponent,
     ListarprestamoLibroComponent,
+    ListarusoImpresionCopiaComponent,
     NuevaParticipacionTallerComponent,
     NuevaPrestamoComputoComponent,
     NuevaPrestamoLibroComponent,
+    NuevaUsoImpresionCopiaComponent,
     ControlPrestamoComputoComponent,
     ControlPrestamoLibroComponent,
+    ControlUsoImpresionCopiaComponent,
     AsistenciaTallerComponent,
     ReporteTallerComponent,
     ReporteLibrosComponent,
