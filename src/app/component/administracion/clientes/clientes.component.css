@@ -1,6 +1,7 @@
 .example-card {
   width: 650px;
   margin: 0.5% auto;
+  background-color: #f7f2dc;
 }
 .example-card-two{
   width: 95%;
