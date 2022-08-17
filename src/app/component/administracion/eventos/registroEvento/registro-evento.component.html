@@ -2,207 +2,180 @@
 
 <section>
 
-    <mat-card class="example-card-two">
+  <mat-card class="example-card-two">
 
-        <mat-card class="cardTipo">
+    <mat-card class="busqueda">
 
-
-            <mat-form-field appearance="outline" class="bordeFiltro">
-                <mat-label>Buscar Evento</mat-label>
-                <input matInput (keyup)="applyFilterTaller($event)" placeholder="Ex. Pintura con acuarela" #input>
-                <mat-icon matSuffix>find_in_page</mat-icon>
-            </mat-form-field>
-
-
-            <mat-card-content>
-
-                <section class="barra-deslizadora" tabindex="0">
-                    <table mat-table [dataSource]="dataSourceEvento" style=" background-color: #f7f2dc ;">
-
-                        <ng-container matColumnDef="nombreEvento">
-                            <th mat-header-cell *matHeaderCellDef>
-                                <div style="text-align: center;">
-                                    <h3>MIS EVENTOS</h3>
-                                </div>
-                            </th>
-
-                            <td mat-cell *matCellDef="let element">
+      <mat-form-field appearance="outline" class="seleccion">
+        <mat-label>Seleccione un evento</mat-label>
+        <mat-select>
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button color="primary">CONSULTAR</button>
+    </mat-card>
 
 
-                                <table class="table2">
-                                    <tr style="text-align: center;">
-                                        <td style="text-align:left ; width: 85%;">
-                                            <div class="divtipo1"><strong>NOMBRE:
-                                                </strong>{{element.nombreEvento|uppercase}}<br></div>
-                                            <div class="divtipo1"><strong>FECHA:
-                                                </strong>{{element.fecha}} <br></div>
-                                        </td>
+    <mat-card class="card1">
+      <div class="card3">
 
-                                        <td>
-                                            <button mat-stroked-button class="boton1"
-                                                (click)="prueba(element.nombreEvento)">
-                                                <mat-icon>forward</mat-icon>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                            </td>
-
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumnsEvento"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsEvento;"></tr>
-
-                        <!-- Row shown when there is no matching data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="4">No hay datos que coincidan con el
-                                filtro
-                                "{{input.value}}"
-                            </td>
-                        </tr>
-                    </table>
-                </section>
+        <div style="text-align: center;"> <strong>
+            <h1>DATOS DEL EVENTO</h1>
+          </strong> </div>
 
 
-            </mat-card-content>
+        <div class="cardCurso2">
+          <table class="table2">
 
-
-        </mat-card>
-
-
-
-
-
-
-        <mat-card class="cardTipo">
-
-          
-                <mat-card-title>
-                  <div style="text-align: center;"> DATOS DE EVENTO</div>
-  
-                </mat-card-title>
-              
-              <br>
-              <mat-card-content>
-                <table class="table2">
-  
-                    <tr aria-colspan="6">
-                      <td colspan="1">
-                        <strong>NOMBRE: </strong>
-                      </td>
-                      <td colspan="1" class="txt">
-                        <input matInput  required>
-                      </td>
-                    </tr>
-    
-                    <tr aria-colspan="6">
-                      <td colspan="1">
-                        <strong>FECHA: </strong>
-                      </td>
-                      <td colspan="1" class="txt">
-                        <input matInput  required>
-                      </td>
-                    </tr>
-           
-                    <tr>
-                        <td>
-                          <strong>ACTIVIDADES: </strong>
-                        </td>
-                        <td>
-                          <textarea matInput  class="texArea"></textarea>
-      
-                        </td>
-    
-                      </tr>
-
-                    <tr>
-                        <td>
-                          <strong>OBSERVACIÓN: </strong>
-                        </td>
-                        <td>
-                          <textarea matInput  class="texArea"></textarea>
-      
-                        </td>
-    
-                      </tr>
-    
-                    <tr>
-
-                      <td>
-                        <strong>DESCRIPCIÓN: </strong>
-                      </td>
-                      <td>
-                        <textarea matInput  class="texArea"></textarea>
-    
-                      </td>
-  
-                    </tr>
-  
-                    
-  
-    
-                  </table>
-              </mat-card-content>
-
-              <mat-card-title>
-                <div style="text-align: center;"> DATOS FINALES</div>
-
-              </mat-card-title>
-              
-              
-                <tr aria-colspan="6">
-                    <td colspan="1">
-                      <strong>NÚMERO PARTICIPANTES: </strong>
-                    </td>
-                    <td colspan="1" class="txt">
-                      <input matInput  required>
-                    </td>
-                  </tr>
-
-                  <tr aria-colspan="6">
-                    <td colspan="1">
-                      <strong>EVIDENCIA: </strong>
-                    </td>
-                    <td colspan="1" class="txt">
-                      <input matInput  required>
-                    </td>
-                  </tr>
-              
-
-        </mat-card>
-
-        <table class="table2" style=" background-color: transparent;">
-            <tr style="text-align: center;">
-              <td style="text-align:left;">
-  
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>NOMBRE:: </strong>
               </td>
-              <td></td>
-              <td></td>
-  
-              <div class="td1">
-                <td>
-                  <div>
-                   
-                  </div>
-                </td>
-  
-                <td>
-                  <div>
-                    <button mat-button class="botonnaranja">
-                      FINALIZAR E INSCRIBIR
-                      <mat-icon>save</mat-icon>
-                    </button>
-                  </div>
-  
-                </td>
-              </div>
-  
+              <td colspan="1" class="txt">
+                <input matInput required>
+              </td>
             </tr>
-  
-  
+
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>FECHA: </strong>
+              </td>
+              <td colspan="1" class="txt">
+                <input matInput required>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>ACTIVIDADES </strong>
+              </td>
+              <td>
+                <textarea matInput required class="texArea"></textarea>
+
+              </td>
+
+            </tr>
+
+
           </table>
+        </div>
+
+        <div class="cardCurso2">
+          <table class="table2">
+            <tr>
+              <td>
+                <strong>OBSERVACIÓN: </strong>
+              </td>
+              <td>
+                <textarea matInput required class="texArea"></textarea>
+
+              </td>
+
+            </tr>
+
+            <br>
+            <tr>
+              <td>
+                <strong>DESCRIPCIÓN</strong>
+              </td>
+              <td>
+                <textarea matInput required class="texArea"></textarea>
+
+              </td>
+
+            </tr>
+          </table>
+
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class="card3">
+
+        <div style="text-align: center;"> <strong>
+            <h1>DATOS FINALES</h1>
+          </strong></div>
+
+
+        <div class="card4">
+          <table class="table2">
+
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>NÚMERO PARTICIPANTES: </strong>
+              </td>
+              <td colspan="1" class="txt">
+                <input type="number" matInput>
+              </td>
+            </tr>
+
+            <tr aria-colspan="6">
+              <td colspan="1">
+                <strong>EVIDENCIA: </strong>
+              </td>
+              <td colspan="1">
+                <mat-card-content>
+                  <br><br>
+
+
+                  <mat-form-field style="width: 100%;">
+                    <mat-label>Seleccione un documento</mat-label>
+                    <button mat-icon-button matPrefix (click)="f_input.click()">
+                      <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <input type="text" readonly matInput [formControl]="display" />
+                    <input type="file" multiple hidden #f_input (change)="handleFileInputChange(f_input.files)" />
+                    <mat-error>El documento es requerido</mat-error>
+                  </mat-form-field>
+                  <br><br>
+                </mat-card-content>
+              </td>
+            </tr>
+
+
+          </table>
+        </div>
+
+        <div class="card4">
+          
+
+          <br><br><br><br><br><br>
+
+          <table class="table2">
+            <tr style="text-align: center;">
+              <td style="text-align:left ; width: 70%;">
+
+              </td>
+
+              <td>
+
+                <button mat-button class="botonnaranja">GUARDAR
+                  <mat-icon>save
+                  </mat-icon>
+                </button>
+              </td>
+
+
+            </tr>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
 
 
     </mat-card>
+
+
+
+
+
+
+  </mat-card>
 </section>

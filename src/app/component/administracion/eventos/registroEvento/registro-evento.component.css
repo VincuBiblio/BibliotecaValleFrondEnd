@@ -11,53 +11,65 @@
     text-align: center;
   }
   
-  .cardTipo {
+  .busqueda{
+    margin: 0.5% auto;
+    width: 95%;
     background-color: #f7f2dc;
-    width: 44%;
-    float: left;
-    margin-left: 25px;
-    margin-bottom: 10px;
-    border: 1px solid #0c3255;
-    height: 500px;
     overflow: hidden;
-    writing-mode: horizontal-tb;
   }
-  
- 
-  .table2 {
+
+  .filter{
     width: 100%;
+  }
+  button{
+    width: 25%;
+    margin-left: 1vh;
+  }
+  .seleccion{
+    width: 73%;
+  }
+
+  .card1{
+    margin: 0.5% auto;
+    width: 95%;
+    background-color: #f7f2dc;
+    overflow: hidden;
+  }
+
+  .table2 {
+    width: 95%;
     margin: 1%;
     background-color: #f7f2dc;
   }
-  
 
-  td,
-  th {
-    width: 25%;
+  
+  .texArea {
+    border: 1px solid #88c515;
+    border-radius: 3px;
+    position: relative; 
+    right: 35px;
+    width: 270px
+  
+  }  
+
+  .cardCurso2 {
+    background-color: #f7f2dc;
+    width: 530px;
+    float: left;
+    margin-left: 25px;
+    height: 210px;
+    writing-mode: horizontal-tb;
+    overflow: auto;
   }
-  
-  .boton1 {
-    background-color: #b4cc17;
-    color: #0f0535;
-  }
-  
-  
-  
-  .botonnaranja {
-    background-color: #ecb435;
-    color: #000000;
-  }
-  
- 
-  
+
   .txt {
     width: 70%;
   }
   
   .txt input {
     display: block;
-    width: 90%;
-    padding: 15px 5px;
+    width: 70%;
+    padding: 13px 16px;
     margin-bottom: 2%;
     font-size: 16px;
     border: 1px solid #F2921D;
@@ -66,51 +78,33 @@
     color: #000000;
     outline: none;
   }
-  
-  
-  .divtipo1 {
-    margin: 1.5%;
-  }
-  
-  .barra-deslizadora {
-    background-color: #f7f2dc;
-    height: 420px;
-    width: 500px;
-    max-width: 100%;
-    overflow: auto;
-  }
-  
-  .bordeFiltro {
-    width: 100%;
-    margin-bottom: 4%;
-  }
-  
-  
-  .colorclaro {
-    color: white;
-  }
-  
-  .table2 {
-    width: 100%;
-    margin: 1%;
-    background-color: #f7f2dc;
-  }
-  
-  .td1 {
-    background-color: #f7f2dc;
-    width: auto;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    padding: 2px;
-    text-align: center;
+
+  .card3{
+    background-color: transparent;
+    width: 97%;
+    overflow: hidden;
+    left: 3px;
   }
 
-  .texArea {
-    border: 1px solid #88c515;
-    border-radius: 3px;
-    position: relative; 
-    right: 10px;
-    width: 347px;
-    top: 20px;
+  .card4 {
+    background-color: #f7f2dc;
+    width: 44%;
+    float: left;
+    margin-left: 25px;
+    
+    height: 230px;
+    writing-mode: horizontal-tb;
+    overflow: auto;
   }
-  
+
+  .botonnaranja {
+    background-color: #ecb435;
+    width: 150px;
+    color: #000000;
+  }
+
+ 
+
+  .example-form-field {
+    width: 200px;
+  }

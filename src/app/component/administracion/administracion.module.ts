@@ -168,7 +168,7 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    
+
   ]
 })
 export class AdministracionModule {
