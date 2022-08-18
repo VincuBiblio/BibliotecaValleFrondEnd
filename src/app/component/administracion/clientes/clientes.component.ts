@@ -3,6 +3,11 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import * as XLSX from 'xlsx';
+
 
 export interface UserData {
   id: string;
@@ -114,6 +119,27 @@ export class ClientesComponent implements OnInit {
   guardarCliente() {
     console.log(this.formGrupos.getRawValue())
   }
+
+
+
+  generatePDF() {
+    let docDefinition = {
+      header: 'C#Corner PDF Header',
+      content: 'Sample PDF generated with Angular and PDFMake for C#Corner Blog'
+    };
+
+    pdfMake.createPdf(docDefinition).open();
+  }
+
+  exportToExcel(): void {
+    let element = document.getElementById('table');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, 'EXAMPLE.xlsx');
+  }
+
 }
 
 /** Builds and returns a new User. */

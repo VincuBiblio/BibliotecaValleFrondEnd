@@ -123,6 +123,10 @@
   </mat-tab>
   <mat-tab label="VER CLIENTES">
     <mat-card class="example-card-two">
+      <button mat-raised-button color="primary" (click)="generatePDF()">DESCARGAR LISTADO EN PDF</button>
+      <button mat-raised-button color="warn" style="margin-left: 1vh" (click)="exportToExcel()">DESCARGAR LISTADO EN EXEL</button>
+    </mat-card>
+    <mat-card class="example-card-two">
       <mat-card-content>
         <mat-form-field appearance="standard">
           <mat-label>Filter</mat-label>
@@ -130,7 +134,7 @@
         </mat-form-field>
 
         <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort>
+          <table mat-table [dataSource]="dataSource" matSort id="table">
 
             <!-- ID Column -->
             <ng-container matColumnDef="id">
