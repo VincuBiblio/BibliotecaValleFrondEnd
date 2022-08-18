@@ -41,7 +41,7 @@ th, td {
     width: 95%;
     border: 1px solid #a01b20;
     border-inline: 3px solid #a01b20;
-    background: #fefeff;
+    background-color: #f7f2dc;
 
 }
 
@@ -91,6 +91,7 @@ th, td {
 .center-content {
     margin-top: 3%;
     text-align: -webkit-center;
+    
 
 }
 
@@ -104,4 +105,14 @@ th, td {
   }
 
 
+.transparente{
+    background-color: transparent;
+}
 
+.colorblanco {
+    color: white;
+  }
+
+.colorhueso{
+    background-color: #f7f2dc;
+}
