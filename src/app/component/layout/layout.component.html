@@ -56,7 +56,7 @@
             TALLERES
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button>
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudtaller'">
           M-TALLERES
         </button>
         <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/inscripciontaller'">
@@ -94,6 +94,9 @@
             COMPUTO
           </button>
         </mat-expansion-panel-header>
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudcomputo'">
+          M-Computo
+        </button>
         <button class="botones" mat-flat-button>
           INVENTARIO
         </button>
@@ -129,7 +132,7 @@
             EVENTOS
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button>
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudevento'">
           M-EVENTO
         </button>
         <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/registroevento'">

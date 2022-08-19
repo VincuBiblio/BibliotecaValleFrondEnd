@@ -51,6 +51,10 @@ import { ReporteImpresionCopiasComponent } from './ImpresionesCopias/reporteImpr
 import { ReporteEventoComponent } from './eventos/reporteEvento/reporte-evento.component';
 import { informeMensualComponent } from './informes/mensual/informe-mensual.component';
 import { registroEventoComponent } from './eventos/registroEvento/registro-evento.component';
+import { CrudtallerComponent } from './taller/crudtaller/crudtaller.component';
+import { CrudeventoComponent } from './eventos/crudevento/crudevento.component';
+import { CrudusuarioComponent } from './crudusuario/crudusuario.component';
+import { CrudcomputoComponent } from './computo/crudcomputo/crudcomputo.component';
 
 
 const routes: Routes = [
@@ -129,6 +133,22 @@ const routes: Routes = [
   {
     path: 'registroevento',
     component: registroEventoComponent
+  },
+  {
+    path: 'crudtaller',
+    component: CrudtallerComponent
+  },
+  {
+    path: 'crudevento',
+    component: CrudeventoComponent
+  },
+  {
+    path: 'crudusuario',
+    component: CrudusuarioComponent
+  },
+  {
+    path: 'crudcomputo',
+    component:CrudcomputoComponent
   }
 ]
 
@@ -162,6 +182,10 @@ const routes: Routes = [
     ReporteImpresionCopiasComponent,
     ReporteEventoComponent,
     registroEventoComponent,
+    CrudtallerComponent,
+    CrudeventoComponent,
+    CrudusuarioComponent,
+    CrudcomputoComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,38 @@
+mat-grid-tile{
+  text-align: start;
+}
+mat-form-field{
+  height: 100%;
+  width: 100%;
+}
+mat-label{
+  color: black;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.example-margin {
+  margin: 1vh 10px;
+}
+.ubicacion{
+  margin: 0 1vh;
+}
+table {
+  width: 100%;
+}
+
+.input {
+  background: #FFFFFF;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
