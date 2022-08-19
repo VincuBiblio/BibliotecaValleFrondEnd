@@ -14,11 +14,17 @@
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile rowspan="2">
-                <mat-label>Estado del computador</mat-label>
-                  <mat-radio-group aria-label="Estado del computador" >
-                    <mat-radio-button value="1">Activo</mat-radio-button>
-                    <mat-radio-button value="2">Inactivo</mat-radio-button>
-                  </mat-radio-group>
+                <label id="example-radio-group-label">Estado del computador</label>
+                <mat-radio-group
+                  aria-labelledby="example-radio-group-label"
+                  class="example-radio-group">
+                  <mat-radio-button class="example-radio-button">
+                    Activo
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button">
+                    Inactivo
+                  </mat-radio-button>
+                </mat-radio-group>
               </mat-grid-tile>
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
