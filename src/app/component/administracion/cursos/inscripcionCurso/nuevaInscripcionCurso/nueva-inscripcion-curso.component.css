@@ -206,7 +206,7 @@ th {
 .texArea {
   border: 1px solid #88c515;
   border-radius: 3px;
-  position: relative; 
+  position: relative;
   right: 10px;
   width: 347px
 
@@ -218,3 +218,5 @@ th {
   background-color: #f7f2dc;
   border: 1px solid #000000;
 }
+
+

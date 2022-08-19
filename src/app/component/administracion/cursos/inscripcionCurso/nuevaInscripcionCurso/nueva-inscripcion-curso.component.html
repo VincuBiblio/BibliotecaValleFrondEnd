@@ -587,7 +587,7 @@
 <!------------------------------------------------------------------------------------------------------------------------------------------>
 <!--Dialogo para crear cliente-->
 
-<p-dialog [(visible)]="dialogoCliente" [style]="{width:'37vw'}" [draggable]="false" [baseZIndex]="10000" [modal]="true"
+<p-dialog [(visible)]="dialogoCliente" [style]="{width:'43vw'}" [draggable]="false" [baseZIndex]="10000" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
 
@@ -596,7 +596,7 @@
       <form [formGroup]="formCliente">
 
 
-        <app-listar-inscripcion-curso></app-listar-inscripcion-curso>
+        <app-nuevoCliente></app-nuevoCliente>
         <table>
           <tr style="text-align: center;">
             <td style="text-align:left ; width: 60%;">
@@ -627,3 +627,4 @@
   </ng-template>
 
 </p-dialog>
+

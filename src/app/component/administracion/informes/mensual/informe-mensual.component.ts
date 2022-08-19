@@ -16,7 +16,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 // @ts-ignore
 import { default as _rollupMoment, Moment } from 'moment';
-import { informeMensualService } from 'src/app/services/infomemensual.service';
+
+
 import { servicioUsado } from 'src/app/models/informemensual';
 
 
@@ -266,6 +267,28 @@ export class informeMensualComponent implements OnInit {
       this.mesInformeTexto = mesconve;
     }
 
+  }
+
+  date = new FormControl(moment());
+
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.date.setValue(ctrlValue);
+    this.anioInforme = normalizedMonthAndYear.year();
+    this.mesInforme = String(normalizedMonthAndYear.month() + 1);
+    this.convertirMes(this.mesInforme, 2);
+    datepicker.close();
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //SECCION CREAR INFORME
+
+  crearInforme() {
+    alert("crea informe");
+    //this.listarServicioDiario();
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -896,7 +919,7 @@ export class informeMensualComponent implements OnInit {
     let resultadosDoc: any[] = [];
     let conclusionesDoc: any[] = [];
 
-    
+
     let dia: any = this.diaActual;
     let mes: any = this.mesActualTexto;
     let anio: any = this.anioActual;
@@ -999,16 +1022,16 @@ export class informeMensualComponent implements OnInit {
 
     }
 
-    // let nombreDocumento: any = this.mesInformeTexto + ' ' + this.anioInforme + ' Informe Mensual.docx';
+    let nombreDocumento: any = this.mesInformeTexto + ' ' + this.anioInforme + ' Informe Mensual.docx';
 
-    let nombreDocumento: any = 'Informe Mensual.docx';
+    //let nombreDocumento: any = 'Informe Mensual.docx';
     this.generate(dataGeneral, nombreDocumento);
 
   }
 
 
   generate(nom: any, nombreDoc: string) {
-    
+
     loadFile("../../../../assets/documentos/informeMensual.docx", function (
       error,
       content

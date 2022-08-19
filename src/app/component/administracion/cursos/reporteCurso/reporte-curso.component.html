@@ -7,6 +7,10 @@
     <div>
       <h3>CONSULTAR DATOS</h3>
       <mat-form-field appearance="outline" class="filter">
+        <mat-label>Ingrese el Año</mat-label>
+        <input matInput type="number" placeholder="2022" min="2000" max="3000" >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="filter">
         <mat-label>Filtrar Cursos</mat-label>
         <input matInput placeholder="Placeholder">
         <mat-icon matSuffix>find_in_page</mat-icon>
@@ -24,7 +28,7 @@
     </div>
   </div>
   <div class="right">
-    <mat-grid-list cols="3" rowHeight="59.7px">
+    <mat-grid-list cols="3" rowHeight="59.7px" class="table">
       <mat-grid-tile colspan="2">
         <strong>
           CUADRO DE DATOS SEGÚN EL GÉNERO

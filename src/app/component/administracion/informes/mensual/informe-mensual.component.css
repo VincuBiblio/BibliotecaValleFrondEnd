@@ -53,10 +53,21 @@ th, td {
     width: 95%;
     border: 1px solid #455a64;
     background: rgba(255, 255, 255, 0.81);
-    
+
 
 }
 
+.card4{
+    margin: 1% auto;
+    width: max-content;
+    text-align: center;
+    min-width: min-content;
+    width: 95%;
+    border: 1px solid #455a64;
+    background:#f7f2dc;
+
+
+}
 
 
 
@@ -91,9 +102,11 @@ th, td {
 .center-content {
     margin-top: 3%;
     text-align: -webkit-center;
-    
+
 
 }
+
+
 
 
 .example-month-picker .mat-calendar-period-button {
@@ -116,3 +129,5 @@ th, td {
 .colorhueso{
     background-color: #f7f2dc;
 }
+
+

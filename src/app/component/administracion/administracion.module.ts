@@ -55,7 +55,7 @@ import { CrudtallerComponent } from './taller/crudtaller/crudtaller.component';
 import { CrudeventoComponent } from './eventos/crudevento/crudevento.component';
 import { CrudusuarioComponent } from './crudusuario/crudusuario.component';
 import { CrudcomputoComponent } from './computo/crudcomputo/crudcomputo.component';
-
+import { nuevoClienteComponent } from './clientes/nuevoCliente/nuevoCliente.component';
 
 const routes: Routes = [
   {
@@ -182,6 +182,7 @@ const routes: Routes = [
     ReporteImpresionCopiasComponent,
     ReporteEventoComponent,
     registroEventoComponent,
+    nuevoClienteComponent,
     CrudtallerComponent,
     CrudeventoComponent,
     CrudusuarioComponent,

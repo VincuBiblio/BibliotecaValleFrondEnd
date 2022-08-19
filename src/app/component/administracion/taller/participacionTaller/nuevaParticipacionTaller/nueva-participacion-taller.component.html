@@ -4,38 +4,38 @@
         <ng-template matStepLabel>
           <div class="colorclaro">TALLER</div>
         </ng-template>
-  
-  
+
+
         <mat-card class="example-card-two">
-  
+
           <div>
-  
-  
+
+
             <mat-card class="cardTipo">
-  
-  
+
+
               <mat-form-field appearance="outline" class="bordeFiltro">
                 <mat-label>Buscar Taller</mat-label>
                 <input matInput (keyup)="applyFilterTaller($event)" placeholder="Ex. Pintura con acuarela" #input>
                 <mat-icon matSuffix>find_in_page</mat-icon>
               </mat-form-field>
-  
-  
+
+
               <mat-card-content>
-  
+
                 <section class="barra-deslizadora" tabindex="0">
                   <table mat-table [dataSource]="dataSourceTaller" style=" background-color: #f7f2dc ;">
-  
+
                     <ng-container matColumnDef="nombreTaller">
                       <th mat-header-cell *matHeaderCellDef>
                         <div style="text-align: center;">
                           <h3>MIS TALLERES</h3>
                         </div>
                       </th>
-  
+
                       <td mat-cell *matCellDef="let element">
-  
-  
+
+
                         <table class="table2">
                           <tr style="text-align: center;">
                             <td style="text-align:left ; width: 85%;">
@@ -44,7 +44,7 @@
                               <div class="divtipo1"><strong>FECHA:
                                 </strong>{{element.fecha}} <br></div>
                             </td>
-  
+
                             <td>
                               <button mat-stroked-button class="boton1" (click)="prueba(element.nombreTaller)">
                                 <mat-icon>forward</mat-icon>
@@ -52,14 +52,14 @@
                             </td>
                           </tr>
                         </table>
-  
+
                       </td>
-  
+
                     </ng-container>
-  
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumnsTaller"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumnsTaller;"></tr>
-  
+
                     <!-- Row shown when there is no matching data. -->
                     <tr class="mat-row" *matNoDataRow>
                       <td class="mat-cell" colspan="4">No hay datos que coincidan con el
@@ -69,28 +69,28 @@
                     </tr>
                   </table>
                 </section>
-  
-  
+
+
               </mat-card-content>
-  
-  
+
+
             </mat-card>
-  
+
             <mat-card class="cardTipo2">
-  
+
               <div style="width: 500px;">
                 <mat-card-title>
                   <div style="text-align: center;"> DATOS DE TALLER</div>
-  
+
                 </mat-card-title>
               </div>
-  
-  
+
+
               <br>
               <mat-card-content>
-  
+
                 <table class="table2">
-  
+
                   <tr aria-colspan="6">
                     <td colspan="1">
                       <strong>NOMBRE: </strong>
@@ -99,7 +99,7 @@
                       <input matInput formControlName="firstCtrl" required>
                     </td>
                   </tr>
-  
+
                   <tr aria-colspan="6">
                     <td colspan="1">
                       <strong>FECHA INICIO: </strong>
@@ -108,7 +108,7 @@
                       <input matInput formControlName="firstCtrl" required>
                     </td>
                   </tr>
-  
+
                   <tr aria-colspan="6">
                     <td colspan="1">
                       <strong>FECHA FIN: </strong>
@@ -117,7 +117,7 @@
                       <input matInput formControlName="firstCtrl" required>
                     </td>
                   </tr>
-  
+
                   <tr aria-colspan="6">
                     <td colspan="1">
                       <strong>EXTRA1: </strong>
@@ -126,78 +126,78 @@
                       <input matInput formControlName="firstCtrl" required>
                     </td>
                   </tr>
-                 
-  
+
+
                   <tr>
                     <td>
                       <strong>DESCRIPCIÓN: </strong>
                     </td>
                     <td>
                       <textarea matInput formControlName="firstCtrl" required class="texArea"></textarea>
-  
+
                     </td>
 
                   </tr>
 
-                  
 
-  
+
+
                 </table>
-  
-  
+
+
                 <table>
-  
+
                 </table>
-  
+
                 <br>
-  
+
                 <table class="table2">
                   <tr style="text-align: center;">
                     <td style="text-align:left ; width: 70%;">
-  
+
                     </td>
-  
+
                     <td>
-  
+
                       <button mat-button matStepperNext mat-flat-button class="botonnaranja">SIGUIENTE
                         <mat-icon>forward
                         </mat-icon>
                       </button>
                     </td>
-  
-  
+
+
                   </tr>
-  
+
                 </table>
-  
+
               </mat-card-content>
-  
-  
+
+
             </mat-card>
-  
-  
+
+
           </div>
-  
-  
+
+
         </mat-card>
-  
+
       </form>
     </mat-step>
-  
-  
-  
-  
+
+
+
+
     <!--PARTE DE ELECCION DE CLIENTES-->
-  
+
     <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>
           <div class="colorclaro">CLIENTE</div>
         </ng-template>
         <mat-card class="example-card-two">
-  
+
           <mat-card class="cardTipo">
-  
+
             <table class="table2">
               <tr style="text-align: center;">
                 <td style="text-align:left ; width: 85%;">
@@ -207,26 +207,26 @@
                     <mat-icon matSuffix>find_in_page</mat-icon>
                   </mat-form-field>
                 </td>
-  
+
                 <td>
-  
+
                   <button mat-stroked-button class="boton2" (click)="openDialog()">
                     <mat-icon>person_add</mat-icon>
                   </button>
-  
+
                 </td>
               </tr>
             </table>
-  
-  
+
+
             <mat-card-content>
-  
+
               <section class="barra-deslizadora" tabindex="0">
-  
-  
+
+
                 <table mat-table [dataSource]="dataSourceCliente" style="background-color: #f7f2dc ;">
-  
-  
+
+
                   <ng-container matColumnDef="cedula">
                     <th mat-header-cell *matHeaderCellDef>
                       <div style="text-align: center;">
@@ -244,7 +244,7 @@
                             <div class="divtipo1"><strong>EDAD:
                               </strong>{{element.edad}} <br></div>
                           </td>
-  
+
                           <td>
                             <button mat-stroked-button class="boton1" (click)="prueba(element.nombre)">
                               <mat-icon>forward</mat-icon>
@@ -254,11 +254,11 @@
                       </table>
                     </td>
                   </ng-container>
-  
-  
+
+
                   <tr mat-header-row *matHeaderRowDef="displayedColumnsCliente"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumnsCliente;"></tr>
-  
+
                   <!-- Row shown when there is no matching data. -->
                   <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4">No hay datos que coincidan con el
@@ -267,27 +267,27 @@
                     </td>
                   </tr>
                 </table>
-  
+
               </section>
-  
-  
+
+
             </mat-card-content>
-  
-  
+
+
           </mat-card>
-  
+
           <mat-card class="cardTipo">
             <div style="width: 500px;">
               <mat-card-title>
                 <div style="text-align: center;"> DATOS DE CLIENTE</div>
-  
+
               </mat-card-title>
             </div>
             <br>
             <mat-card-content>
-  
+
               <table class="table2">
-  
+
                 <tr aria-colspan="6">
                   <td colspan="1">
                     <strong>CÉDULA: </strong>
@@ -296,7 +296,7 @@
                     <input matInput formControlName="secondCtrl" required>
                   </td>
                 </tr>
-  
+
                 <tr aria-colspan="6">
                   <td colspan="1">
                     <strong>NOMBRES: </strong>
@@ -305,7 +305,7 @@
                     <input matInput formControlName="secondCtrl" required>
                   </td>
                 </tr>
-  
+
                 <tr aria-colspan="6">
                   <td colspan="1">
                     <strong>EDAD: </strong>
@@ -314,7 +314,7 @@
                     <input matInput formControlName="secondCtrl" required>
                   </td>
                 </tr>
-  
+
                 <tr aria-colspan="6">
                   <td colspan="1">
                     <strong>EMAIL: </strong>
@@ -331,7 +331,7 @@
                     <input matInput formControlName="secondCtrl" required>
                   </td>
                 </tr>
-  
+
                 <tr aria-colspan="6">
                   <td colspan="1">
                     <strong>REPRESENTANTE: </strong>
@@ -340,67 +340,67 @@
                     <input matInput formControlName="secondCtrl" required>
                   </td>
                 </tr>
-  
-  
+
+
               </table>
-  
+
               <br>
-  
+
               <table class="table2">
                 <tr style="text-align: center;">
                   <td style="text-align:left ; width: 70%;">
-  
+
                     <button mat-button matStepperPrevious class="botonrojo">
                       <mat-icon>reply</mat-icon>
                       REGRESAR
                     </button>
-  
+
                   </td>
-  
+
                   <td>
                     <button mat-button matStepperNext mat-flat-button class="botonnaranja">SIGUIENTE
                       <mat-icon>forward
                       </mat-icon>
                     </button>
                   </td>
-  
-  
+
+
                 </tr>
-  
+
               </table>
-  
+
             </mat-card-content>
           </mat-card>
         </mat-card>
       </form>
     </mat-step>
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
     <!--PARTE final-->
-  
+
     <mat-step>
       <ng-template matStepLabel>
         <div class="colorclaro">CONFIRMACIÓN</div>
       </ng-template>
-  
+
       <mat-card class="example-card-two">
         <div>
           <mat-card class="cardTipo1">
             <div style="width: 500px;">
               <mat-card-title>
-  
+
                 <div style="text-align: center;"> DATOS DE TALLER</div>
-  
+
               </mat-card-title>
             </div>
             <br>
             <table class="table2">
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>NOMBRE: </strong>
@@ -409,7 +409,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>FECHA INICIO: </strong>
@@ -418,7 +418,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>FECHA FIN: </strong>
@@ -427,7 +427,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>EXTRA1: </strong>
@@ -436,8 +436,8 @@
                   <input matInput>
                 </td>
               </tr>
-              
-  
+
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>DESCRIPCIÓN: </strong>
@@ -446,21 +446,21 @@
                   <textarea matInput class="texArea"></textarea>
                 </td>
               </tr>
-  
-  
+
+
             </table>
           </mat-card>
-  
+
           <mat-card class="cardTipo1">
             <div style="width: 500px;">
               <mat-card-title>
                 <div style="text-align: center;"> DATOS DE CLIENTE</div>
-  
+
               </mat-card-title>
             </div>
             <br>
             <table class="table2">
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>CÉDULA: </strong>
@@ -469,7 +469,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>NOMBRES: </strong>
@@ -478,7 +478,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>EDAD: </strong>
@@ -487,7 +487,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>EMAIL: </strong>
@@ -504,7 +504,7 @@
                   <input matInput>
                 </td>
               </tr>
-  
+
               <tr aria-colspan="6">
                 <td colspan="1">
                   <strong>REPRESENTANTE: </strong>
@@ -513,20 +513,20 @@
                   <input matInput>
                 </td>
               </tr>
-  
-  
+
+
             </table>
-  
+
           </mat-card>
-  
+
           <table class="table2" style=" background-color: transparent;">
             <tr style="text-align: center;">
               <td style="text-align:left;">
-  
+
               </td>
               <td></td>
               <td></td>
-  
+
               <div class="td1">
                 <td>
                   <div>
@@ -536,7 +536,7 @@
                     </button>
                   </div>
                 </td>
-  
+
                 <td>
                   <div>
                     <button mat-button class="botonnaranja">
@@ -544,69 +544,68 @@
                       <mat-icon>save</mat-icon>
                     </button>
                   </div>
-  
+
                 </td>
               </div>
-  
+
             </tr>
-  
-  
+
+
           </table>
-  
-  
+
+
         </div>
       </mat-card>
-  
-  
-  
-  
+
+
+
+
     </mat-step>
   </mat-stepper>
-  
-  
-  
+
+
   <!------------------------------------------------------------------------------------------------------------------------------------------>
-  
-  <!------------------------------------------------------------------------------------------------------------------------------------------>
-  <!--Dialogo para crear cliente-->
-  
-  <p-dialog [(visible)]="dialogoCliente" [style]="{width:'37vw'}" [draggable]="false" [baseZIndex]="10000" [modal]="true"
-    styleClass="p-fluid">
-    <ng-template pTemplate="content">
-  
-      <mat-card class="dialogo">
-  
-        <form [formGroup]="formCliente">
-  
-  
-          <app-listar-inscripcion-curso></app-listar-inscripcion-curso>
-          <table>
-            <tr style="text-align: center;">
-              <td style="text-align:left ; width: 60%;">
-  
-              </td>
-              <td>
-                <button mat-button class="botonrojo" (click)="dialogoCliente=false">
-                  <mat-icon>close</mat-icon>
-                  CERRAR
-                </button>
-              </td>
-            </tr>
-          </table>
-  
-  
-  
-  
-  
-  
-  
-  
-        </form>
-  
-  
-  
-      </mat-card>
-  
-    </ng-template>
-  
-  </p-dialog>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------>
+<!--Dialogo para crear cliente-->
+
+<p-dialog [(visible)]="dialogoCliente" [style]="{width:'43vw'}" [draggable]="false" [baseZIndex]="10000" [modal]="true"
+styleClass="p-fluid">
+<ng-template pTemplate="content">
+
+  <mat-card class="dialogo">
+
+    <form [formGroup]="formCliente">
+
+
+      <app-nuevoCliente></app-nuevoCliente>
+      <table>
+        <tr style="text-align: center;">
+          <td style="text-align:left ; width: 60%;">
+
+          </td>
+          <td>
+            <button mat-button class="botonrojo" (click)="dialogoCliente=false">
+              <mat-icon>close</mat-icon>
+              CERRAR
+            </button>
+          </td>
+        </tr>
+      </table>
+
+
+
+
+
+
+
+
+    </form>
+
+
+
+  </mat-card>
+
+</ng-template>
+
+</p-dialog>
