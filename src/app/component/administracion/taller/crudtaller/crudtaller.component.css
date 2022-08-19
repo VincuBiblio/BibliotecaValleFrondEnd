@@ -1,3 +1,25 @@
+.example-card {
+  width: 650px;
+  margin: 0.5% auto;
+}
+.example-card-two{
+  width: 95%;
+  margin: 0.5% auto;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.textarea {
+
+  height: 100%;
+  width: 100%;
+  background: white;
+
+}
+
 mat-grid-tile{
   text-align: start;
 }

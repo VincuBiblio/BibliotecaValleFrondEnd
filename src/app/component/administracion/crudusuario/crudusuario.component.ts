@@ -53,6 +53,9 @@ const NAMES: string[] = [
 })
 export class CrudusuarioComponent implements OnInit {
 
+  animalControl = new FormControl<null | null>(null, Validators.required);
+  selectFormControl = new FormControl('', Validators.required);
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -104,6 +107,7 @@ export class CrudusuarioComponent implements OnInit {
     descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10), Validators.pattern("[aA-zZ]+")]),
     materiales: new FormControl<String>('', [Validators.required]),
     observacion: new FormControl<String>('', [Validators.required]),
+    estadoCivil: new FormControl<String>('', [Validators.required]),
   })
 
 
