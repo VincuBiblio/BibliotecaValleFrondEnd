@@ -49,6 +49,10 @@ button{
   margin: 1vh 10px;
 }
 
+mat-form-field{
+  width: 50px;
+}
+
 .dates{
   width: 95%;
   font-size: 15px;
