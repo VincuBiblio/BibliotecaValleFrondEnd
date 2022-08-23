@@ -9,6 +9,7 @@
 </head>
 <body>
 <mat-card class="example-card">
+  <form [formGroup]="formGroup">
   <mat-card-content>
     <div class="header">
       <h2>BIBLIOTECA DEL VALLE</h2>
@@ -16,22 +17,24 @@
       <h3>INGRESE LAS CREDENCIALES</h3>
     </div>
     <div class="content">
-      <mat-form-field appearance="outline">
-        <mat-label>CORREO:</mat-label>
-        <input matInput placeholder="ex.jose@gmail.com">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>CONTRASEÑA:</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CORREO:</mat-label>
+          <input matInput placeholder="ex.jose@gmail.com" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>CONTRASEÑA:</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="clave">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      <mat-progress-bar *ngIf="iniciobar" mode="indeterminate"></mat-progress-bar>
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="warn">INICIAR SESION</button>
+    <button mat-raised-button color="warn" [disabled]="formGroup.invalid" (click)="iniciarsesion()">INICIAR SESION</button>
   </mat-card-actions>
+  </form>
 </mat-card>
 </body>
 </html>
