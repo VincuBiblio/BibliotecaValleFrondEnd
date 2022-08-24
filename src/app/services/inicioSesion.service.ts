@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {PersonaUsuario} from "../models/personaUsuario";
 import {Observable} from "rxjs";
 import {FormControl, ɵFormGroupRawValue, ɵTypedOrUntyped} from "@angular/forms";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,12 @@ import {FormControl, ɵFormGroupRawValue, ɵTypedOrUntyped} from "@angular/forms
 export class InicioSesionService {
 
 
-  private urlEndPoint: string = 'http://localhost:8082/api/';
-
   constructor(private http: HttpClient) {
   }
 
   loginUsuario(persona: ɵTypedOrUntyped<{ clave: FormControl<String | null>; email: FormControl<String | null> }, ɵFormGroupRawValue<{ clave: FormControl<String | null>; email: FormControl<String | null> }>, any>): Observable<PersonaUsuario> {
     console.log(persona)
-    return this.http.post<PersonaUsuario>(this.urlEndPoint + "persona/login", persona)
+    return this.http.post<PersonaUsuario>(environment.URL_APP + "/persona/login", persona)
   }
 
 }

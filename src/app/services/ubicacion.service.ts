@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {Barrio, Canton, Parroquia, Provincia} from "../models/ubicacion";
 import {map, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UbicacionService {
 
-  private urlEndPoint: string = 'http://localhost:8082/api';
+  private urlEndPoint=environment.URL_APP;
 
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
