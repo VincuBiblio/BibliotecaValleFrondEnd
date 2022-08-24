@@ -15,18 +15,13 @@
               </mat-grid-tile>
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                  <mat-label>Estado Civil</mat-label>
-                  <mat-select formControlName="estadoCivil">
-                    <mat-option value="SOLTERO">SOLTERO</mat-option>
-                    <mat-option value="CASADO">CASADO</mat-option>
-                    <mat-option value="DIVORSIADO">DIVORSIADO</mat-option>
-                    <mat-option value="VIUDO">VIUDO</mat-option>
-                  </mat-select>
+                  <mat-label>Nombres</mat-label>
+                  <input matInput formControlName="nombrecurso">
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                  <mat-label>Nombres</mat-label>
+                  <mat-label>Apellidos</mat-label>
                   <input matInput formControlName="nombreresponsable">
                 </mat-form-field>
               </mat-grid-tile>
@@ -36,108 +31,34 @@
             <div>
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                  <mat-label>Fecha de Nacimiento</mat-label>
-                  <input matInput [matDatepicker]="picker">
-                  <mat-hint>MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-              </mat-grid-tile>
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="nombrecurso">
+                </mat-form-field>
+              </mat-grid-tile><mat-grid-tile>
+              <mat-form-field appearance="outline">
+                <mat-label>Clave</mat-label>
+                <input matInput formControlName="nombrecurso">
+              </mat-form-field>
+            </mat-grid-tile>
 
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                  <mat-label>Apellidos</mat-label>
-                  <input matInput formControlName="materiales">
+                  <mat-label>Rol</mat-label>
+                  <mat-select formControlName="estadoCivil">
+                    <mat-option value="Administrador">Administrador</mat-option>
+                    <mat-option value="Cliente">Cliente</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </mat-grid-tile>
 
               <mat-grid-tile rowspan="2">
                 <mat-form-field appearance="outline">
-                  <mat-label>Género</mat-label>
+                  <mat-label>Télefono</mat-label>
                   <input matInput formControlName="numparticipantes">
                 </mat-form-field>
               </mat-grid-tile>
 
             </div>
-
-            <div>
-              <mat-grid-tile colspan="2">
-                  <label id="example-radio-group-label">Discapacidad</label>
-                  <mat-radio-group
-                    aria-labelledby="example-radio-group-label"
-                    class="example-radio-group">
-                    <mat-radio-button class="example-radio-button">
-                      Si
-                    </mat-radio-button>
-                    <mat-radio-button class="example-radio-button">
-                      No
-                    </mat-radio-button>
-                  </mat-radio-group>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="2">
-                <mat-form-field appearance="fill">
-                  <mat-label>Provincia</mat-label>
-                  <mat-select [formControl]="animalControl" required>
-                    <mat-option>--</mat-option>
-                    <mat-option>
-                      Azuay
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="animalControl.hasError('required')">Provincia</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Cantón</mat-label>
-                  <mat-select [formControl]="animalControl" required>
-                    <mat-option>--</mat-option>
-                    <mat-option>
-                      Azuay
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="animalControl.hasError('required')">Cantón</mat-error>
-                </mat-form-field>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="2">
-                <mat-form-field appearance="fill">
-                  <mat-label>Parroquia</mat-label>
-                  <mat-select [formControl]="animalControl" required>
-                    <mat-option>--</mat-option>
-                    <mat-option>
-                      Azuay
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="animalControl.hasError('required')">Parroquia</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Ubicacion</mat-label>
-                  <mat-select [formControl]="animalControl" required>
-                    <mat-option>--</mat-option>
-                    <mat-option>
-                      Azuay
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="animalControl.hasError('required')">Ubicacion</mat-error>
-                </mat-form-field>
-              </mat-grid-tile>
-
-            </div>
-
-            <mat-grid-tile colspan="2">
-              <mat-divider></mat-divider>
-              <h4>Representante</h4>
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-              <mat-form-field appearance="outline">
-                <mat-label>Cédula</mat-label>
-                <input matInput formControlName="materiales">
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-form-field appearance="outline">
-                <mat-label>Nombres</mat-label>
-                <input matInput formControlName="materiales">
-              </mat-form-field>
-            </mat-grid-tile>
 
           </mat-grid-list>
         </mat-card-content>
