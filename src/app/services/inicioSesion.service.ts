@@ -10,7 +10,7 @@ import {FormControl, ɵFormGroupRawValue, ɵTypedOrUntyped} from "@angular/forms
 export class InicioSesionService {
 
 
-  private urlEndPoint: string = 'http://localhost:8080/api/';
+  private urlEndPoint: string = 'http://localhost:8082/api/';
 
   constructor(private http: HttpClient) {
   }

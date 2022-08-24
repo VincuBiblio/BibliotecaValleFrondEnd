@@ -12,8 +12,6 @@
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
-
-
 mat-grid-tile {
 }
 mat-grid-tile{
@@ -36,7 +34,7 @@ mat-label{
   margin: 1vh 10px;
 }
 .ubicacion{
-    margin: 0 1vh;
+  margin: 0 1vh;
 }
 table {
   width: 100%;
@@ -48,5 +46,5 @@ table {
 }
 
 td, th {
-  width: 5%;
+  width: 25%;
 }

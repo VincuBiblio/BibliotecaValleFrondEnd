@@ -1,22 +1,18 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from "@angular/material/table";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { CursoService } from 'src/app/services/curso.service';
+import { Curso } from 'src/app/models/curso';
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { __values } from 'tslib';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaCliente } from 'src/app/models/personaCliente';
 
 
-export interface PeriodicElementCurso {
-  curso: string;
-  responsable: string;
-  fecha: string;
-}
-
-export interface PeriodicElementCliente {
-  cedula: string;
-  nombre: string;
-  edad: string;
-}
 
 export interface PeriodicElementCliente {
   cedula: string;
@@ -34,16 +30,7 @@ const ELEMENT_DATA_CLIENTE: PeriodicElementCliente[] = [
 
 ];
 
-const ELEMENT_DATA_CURSO: PeriodicElementCurso[] = [
-  { curso: 'Manualidades', responsable: 'Franklin Dominguez', fecha: '20/08/2022' },
-  { curso: 'Pintura', responsable: 'Alexandra Vanegas', fecha: '24/08/2022' },
-  { curso: 'Cocina', responsable: 'Santiago Yanque', fecha: '02/08/2022' },
-  { curso: 'Colonia Vacacional', responsable: 'Karen Picon', fecha: '14/08/2022' },
-  { curso: 'Gatronomia', responsable: 'Xavier Sucre', fecha: '16/08/2022' },
-  { curso: 'Computación', responsable: 'Abdon Gallegos', fecha: '19/08/2022' },
-  { curso: 'Filosofia', responsable: 'Fabian Carrion', fecha: '21/08/2022' },
 
-];
 
 @Component({
   selector: 'app-nueva-inscripcion-curso',
@@ -56,49 +43,169 @@ const ELEMENT_DATA_CURSO: PeriodicElementCurso[] = [
     },
   ],
 })
-export class NuevaInscripcionComponent {
+export class NuevaInscripcionComponent implements OnInit {
 
-  formCliente: FormGroup;
+  public cursoLista: Curso[] = [];
+  public clienteLista: PersonaCliente[] = [];
 
+  public formCliente: FormGroup;
   public dialogoCliente: boolean;
 
 
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
+
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private cursoService: CursoService,
+    private clienteService: ClienteService,
+  ) { }
+
+  ngOnInit(): void {
+    this.listarCursos();
+    this.listarClientes();
+  }
+
+
+
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    disponibilidad: new FormControl<String>('', [Validators.required]),
+    nombre: new FormControl<String>('', [Validators.required]),
+    responsable: new FormControl<String>('', [Validators.required]),
+    fechaInicioFin: new FormControl<String>('', [Validators.required]),
+    lugar: new FormControl<String>('', [Validators.required]),
+    descripcion: new FormControl<String>('', [Validators.required]),
   });
+
+
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    cedula: new FormControl<String>('', [Validators.required]),
+    nombres: new FormControl<String>('', [Validators.required]),
+    edad: new FormControl<any>('', [Validators.required]),
+    email: new FormControl<String>('', [Validators.required]),
+    direccion: new FormControl<String>('', [Validators.required]),
+    representante: new FormControl<String>('', [Validators.required]),
+
+    /*
+    cedula
+    nombres
+    edad
+    email
+    direccion
+    representante*/
+
   });
   isEditable = true;
 
-  constructor(private _formBuilder: FormBuilder) { }
+
+  //////////////////////////////////////////////////
+  //LISTAR SERVICIOS
+
+  listarCursos() {
+    this.cursoService.getAllCurso().subscribe(value => {
+      this.cursoLista = value;
+      this.dataSourceCurso = new MatTableDataSource(value);
+      this.dataSourceCurso.paginator = this.paginator;
+      this.dataSourceCurso.sort = this.sort;
+      console.log("Listado cursos generado exitosamente");
+    })
+  }
+
+
+  listarClientes() {
+    this.clienteService.getAllClientes().subscribe(value => {
+      this.clienteLista = value;
+      console.log(this.clienteLista);
+      this.dataSourceCliente = new MatTableDataSource(value);
+      this.dataSourceCliente.paginator = this.paginator;
+      this.dataSourceCliente.sort = this.sort;
+      console.log("Listado clientes generado exitosamente");
+    })
+
+  }
+
+  cargarDatosCurso(id: any) {
+
+    for (var i = 0; i < this.cursoLista.length; i++) {
+      if (this.cursoLista[i].id == id) {
+        this.firstFormGroup.setValue({
+          disponibilidad: "/" + this.cursoLista[i].numParticipantes,
+          nombre: this.cursoLista[i].nombre.toUpperCase(),
+          responsable: this.cursoLista[i].responsable.toUpperCase(),
+          fechaInicioFin: this.cursoLista[i].fechaInicio + " hasta " + this.cursoLista[i].fechaFin,
+          lugar: this.cursoLista[i].lugar.toUpperCase(),
+          descripcion: this.cursoLista[i].descripcion.toUpperCase(),
+        })
+
+        console.log("Datos curso cargado correctamente");
+      }
+
+    }
+  }
+
+  
+
+  cargarDatosCliente(id: any) {
+    console.log("numeroo " + id);
+    for (var i = 0; i < this.clienteLista.length; i++) {
+
+      if (this.clienteLista[i].idCliente == id) {
+        this.secondFormGroup.setValue({
+
+          cedula: this.clienteLista[i].cedula,
+          nombres: this.clienteLista[i].nombres + " " + this.clienteLista[i].apellidos,
+          edad: this.clienteLista[i].edad,
+          email: this.clienteLista[i].email,
+          direccion: "Octavio Chacon",
+          representante: this.clienteLista[i].nombreResponsable,
+
+
+        })
+
+        console.log("Datos cliente| cargado correctamente");
+      }
+
+    }
+  }
 
   prueba(valor: any) {
     alert(valor);
   }
-  openDialog(){
-    this.dialogoCliente=true;
+
+  //////////////////////////////////////////////////
+  //DIALOGO PARA CREAR UN NUEVO CLIENTE
+  openDialog() {
+    this.dialogoCliente = true;
   }
 
-  closeDialog(){
-    this.dialogoCliente=false;
+  closeDialog() {
+    this.dialogoCliente = false;
   }
 
   //////////////////////////////////////////////////
   //LISTAR CURSOS
-  displayedColumnsCurso: string[] = ['curso'];
-  dataSourceCurso = new MatTableDataSource(ELEMENT_DATA_CURSO);
+
+  displayedColumnsCurso: string[] = ['nombre'];
+  dataSourceCurso: MatTableDataSource<Curso>;
 
   applyFilterCurso(event: Event) {
-    const filterValueCurso = (event.target as HTMLInputElement).value;
-    this.dataSourceCurso.filter = filterValueCurso.trim().toLowerCase();
-  }
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceCurso.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSourceCurso.paginator) {
+      this.dataSourceCurso.paginator.firstPage();
+    }
+  }
 
   //////////////////////////////////////////////////
   //LISTAR CLIENTE
   displayedColumnsCliente: string[] = ['cedula'];
-  dataSourceCliente = new MatTableDataSource(ELEMENT_DATA_CLIENTE);
+  dataSourceCliente = new MatTableDataSource<PersonaCliente>;
+
 
   applyFilterCliente(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
