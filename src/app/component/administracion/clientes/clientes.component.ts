@@ -7,6 +7,11 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import * as XLSX from 'xlsx';
+import {ClienteService} from "../../../services/cliente.service";
+import {UbicacionService} from "../../../services/ubicacion.service";
+import {PersonaUsuario} from "../../../models/personaUsuario";
+import {PersonaCliente} from "../../../models/personaCliente";
+import {DatePipe} from "@angular/common";
 
 
 export interface UserData {
@@ -56,30 +61,35 @@ const NAMES: string[] = [
 })
 export class ClientesComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+  loaderActualizar:boolean;
 
-  // @ts-ignore
+  displayedColumns: string[] = ['id', 'cedula', 'nombres', 'apellidos','edad','genero','email','telefono','discapacidad','editar'];
+  dataSource: MatTableDataSource<PersonaCliente>;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private ubicacionService: UbicacionService,
+              private clienteService: ClienteService) {
   }
 
   ngOnInit(): void {
-
+    this.listarClientes()
   }
 
 
+  listarClientes(){
+    this.loaderActualizar=true
+    this.clienteService.getAllClientes().subscribe(value => {
+      this.dataSource = new MatTableDataSource(value);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loaderActualizar=false
+    })
+  }
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -92,43 +102,70 @@ export class ClientesComponent implements OnInit {
   }
 
 
-  formGrupos = new FormGroup({
-    cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    apellidos: new FormControl<String>('', [Validators.required]),
-    nombres: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    fechaNacimiento: new FormControl<Date>(null, [Validators.required]),
-    genero: new FormControl<String>('', [Validators.required]),
-    telefono: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    email: new FormControl<String>('', [Validators.required, Validators.email]),
-    estadoCivil: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    discapacidad: new FormControl<boolean>(null, [Validators.required]),
-    barrio: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    idCanton: new FormControl<Number>(null, [Validators.required]),
-    // @ts-ignore
-    idProvincia: new FormControl<Number>(null, [Validators.required]),
-    // @ts-ignore
-    idParroquia: new FormControl<Number>(null, [Validators.required]),
-    telefonoreponsable: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    nombresreposable: new FormControl<String>('', [Validators.required]),
-  })
-
-
-  guardarCliente() {
-    console.log(this.formGrupos.getRawValue())
-  }
-
-
 
   generatePDF() {
-    let docDefinition = {
-      header: 'C#Corner PDF Header',
-      content: 'Sample PDF generated with Angular and PDFMake for C#Corner Blog'
-    };
+    this.loaderActualizar=true
+    var pipe: DatePipe = new DatePipe('en-US')
+    var dia: String = new Date().toISOString();
+    this.clienteService.getAllClientes().subscribe(async value => {
+      const pdfDefinition: any = {
+        content: [
+          {
+            text: '_________________________________________________________________________________________',
+            alignment: 'center'
+          },
+          // @ts-ignore
+          {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
+          {text: 'REPORTE DE FACTURA', fontSize: 15, bold: true, alignment: 'center'},
+          {text: 'Total de ingresos por mes', fontSize: 15, margin: [0, 0, 20, 0]},
+          {text: '    '},
+          {text: 'La aereolinea Vuela V lleva un ingreso de por mes de:'},
+          {text: '    '},
+          {
+            table: {
+              headerRows: 1,
+              widths: ['2%', '11,1%', '11,1%', '11,1%','11,1%','11,1%','17,2%','11,1%','17,2%'],
+              body: [
+                ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS','FECHA DE NACIMIENTO','GENERO','CORREO','TELEFONO','DISCAPACIDAD'],
+                [  value.map(function(item){
+                  return item.id+''
+                }),
+                  value.map(function(item){
+                    return item.cedula+''
+                  }),
+                  value.map(function(item){
+                    return item.nombres+''
+                  }),
+                  value.map(function(item){
+                    return item.apellidos+''
+                  }),
+                  value.map(function(item){
+                    return item.fechaNacimiento+''
+                  }),
+                  value.map(function(item){
+                    return item.genero+''
+                  }),
+                  value.map(function(item){
+                    return item.email+''
+                  }),
+                  value.map(function(item){
+                    return item.telefono+''
+                  }),
+                  value.map(function(item){
+                    return (item.discapacidad==true)?'SI':'NO'
+                  })
+                ],
 
-    pdfMake.createPdf(docDefinition).open();
+              ]
+            }
+          }
+        ],
+        pageOrientation: 'landscape',
+      }
+      this.loaderActualizar=false
+      const pdf = pdfMake.createPdf(pdfDefinition);
+      pdf.open();
+    })
   }
 
   exportToExcel(): void {

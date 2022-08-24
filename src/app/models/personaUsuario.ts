@@ -8,4 +8,5 @@ export class PersonaUsuario {
   clave:String
   idRol:Number
   token:String
+  rol:String
 }

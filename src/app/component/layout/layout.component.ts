@@ -25,6 +25,18 @@ export class LayoutComponent implements OnInit {
         });
       }else {
         this.persona=JSON.parse(sessionStorage['personausuario']);
+        if(this.persona.idRol==1){
+          this.persona.rol="BIBLIOTECARIO"
+        }
+        if(this.persona.idRol==2){
+          this.persona.rol="GESTION"
+        }
+        if(this.persona.idRol==3){
+          this.persona.rol="INCRIPCION Y USO"
+        }
+        if(this.persona.idRol==4){
+          this.persona.rol="REPORTES"
+        }
         this._snackBar.open('Bienvenido/a '+ this.persona.nombres, 'ACEPTAR');
       }
     }catch (e) {

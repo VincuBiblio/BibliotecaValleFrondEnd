@@ -1,25 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import Swal from "sweetalert2";
-import {UbicacionService} from "../../../../services/ubicacion.service";
 import {Barrio, Canton, Parroquia, Provincia} from "../../../../models/ubicacion";
+import {UbicacionService} from "../../../../services/ubicacion.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatSelectChange} from "@angular/material/select";
-import {ClientesComponent} from "../clientes.component";
 import {ClienteService} from "../../../../services/cliente.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatSelectChange} from "@angular/material/select";
+import Swal from "sweetalert2";
+import {ActivatedRoute} from "@angular/router";
+import {PersonaUsuario} from "../../../../models/personaUsuario";
+import {PersonaCliente} from "../../../../models/personaCliente";
 
 @Component({
-  selector: 'app-nuevoCliente',
-  templateUrl: './nuevoCliente.component.html',
-  styleUrls: ['./nuevoCliente.component.css'],
-
-
+  selector: 'app-editarClientes',
+  templateUrl: './editar-clientes.component.html',
+  styleUrls: ['./editar-clientes.component.css']
 })
+export class EditarClientesComponent implements OnInit {
 
-export class nuevoClienteComponent implements OnInit {
 
-
-  loaderGuardar:boolean;
+  loaderGuardar: boolean;
 
   provicias: Provincia[] = [];
   cantones: Canton[] = [];
@@ -30,27 +29,58 @@ export class nuevoClienteComponent implements OnInit {
   parroquiaFiltrado: Parroquia[] = [];
 
 
-  constructor(private ubicacionService:UbicacionService,
+  constructor(private ubicacionService: UbicacionService,
               private _snackBar: MatSnackBar,
-              private clienteService:ClienteService) {
+              private clienteService: ClienteService,
+              private activatedRoute: ActivatedRoute) {
   }
 
 
   ngOnInit(): void {
+    this.listarBarrios();
+    this.cargardatos()
+  }
+
+  cargardatos() {
     this.ubicacionService.getAllProvincias().subscribe(value => {
       this.provicias = value;
+      this.ubicacionService.getAllCantones().subscribe(value => {
+        this.cantones = value;
+        this.ubicacionService.getAllParroquias().subscribe(value => {
+          this.parroquias = value;
+          this.activatedRoute.params.subscribe(params => {
+            this.clienteService.getAllClientes().subscribe(value => {
+              var cliente: PersonaCliente = value.filter(value1 => value1.id == params['id'])[0]
+              console.log(value.filter(value1 => value1.id == params['id'])[0])
+              this.selectProvincia(cliente.idProvincia);
+              this.selectCanton(cliente.idCanton);
+              this.formGrupos.setValue({
+                id: cliente.id,
+                nombreResponsable: cliente.nombreResponsable,
+                telefonoResponsbale: cliente.telefonoResponsbale,
+                apellidos: cliente.apellidos,
+                cedula: cliente.cedula,
+                discapacidad: cliente.discapacidad,
+                email: cliente.email,
+                estadoCivil: cliente.estadoCivil,
+                fechaNacimiento: cliente.fechaNacimiento,
+                genero: cliente.genero,
+                idBarrio: cliente.idBarrio,
+                idCanton: cliente.idCanton,
+                idParroquia: cliente.idParroquia,
+                idProvincia: cliente.idProvincia,
+                nombres: cliente.nombres,
+                telefono: cliente.telefono
+              })
+            })
+          })
+        })
+      })
     })
-    this.ubicacionService.getAllCantones().subscribe(value => {
-      this.cantones = value;
-    })
-    this.ubicacionService.getAllParroquias().subscribe(value => {
-      console.log(value)
-      this.parroquias = value;
-    })
-    this.listarBarrios();
   }
 
   formGrupos = new FormGroup({
+    id: new FormControl<Number>(null),
     cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
     apellidos: new FormControl<String>('', [Validators.required]),
     nombres: new FormControl<String>('', [Validators.required]),
@@ -69,20 +99,20 @@ export class nuevoClienteComponent implements OnInit {
   })
 
 
-  selectProvincia(id?: MatSelectChange) {
+  selectProvincia(id?: Number) {
     this.cantonFiltrado.length = 0;
     this.parroquiaFiltrado.length = 0;
-    this.cantonFiltrado = this.cantones.filter(value => value.idProvincia == id.value);
+    this.cantonFiltrado = this.cantones.filter(value => value.idProvincia == id);
   }
 
-  selectCanton(id?: MatSelectChange) {
+  selectCanton(id?: Number) {
     this.parroquiaFiltrado.length = 0;
-    this.parroquiaFiltrado = this.parroquias.filter(value => value.idCanton == id.value);
+    this.parroquiaFiltrado = this.parroquias.filter(value => value.idCanton == id);
   }
 
-  listarBarrios(){
+  listarBarrios() {
     this.ubicacionService.getAllBarrios().subscribe(value => {
-      this.barrios=value;
+      this.barrios = value;
     })
   }
 
@@ -95,17 +125,17 @@ export class nuevoClienteComponent implements OnInit {
       confirmButtonText: "Guardar",
       cancelButtonText: "Cancelar",
       background: '#f7f2dc',
-      confirmButtonColor:'#a01b20',
+      confirmButtonColor: '#a01b20',
       backdrop: false
     })
       .then(resultado => {
         if (resultado.value) {
-          let barrio:Barrio = new Barrio()
-          barrio.barrio=resultado.value
+          let barrio: Barrio = new Barrio()
+          barrio.barrio = resultado.value
           this.ubicacionService.saveBarrio(barrio).subscribe(value => {
             this.listarBarrios();
             this._snackBar.open('Barrio registrado', 'ACEPTAR');
-          },error => {
+          }, error => {
             this._snackBar.open(error.error.message, 'ACEPTAR');
           })
         }
@@ -114,22 +144,21 @@ export class nuevoClienteComponent implements OnInit {
 
 
   guardarCliente() {
-    this.loaderGuardar=true
+    this.loaderGuardar = true
     console.log(this.formGrupos.getRawValue())
-    this.clienteService.saveCliente(this.formGrupos.getRawValue()).subscribe(value => {
-      this._snackBar.open('Cliente registrado', 'ACEPTAR');
+    this.clienteService.updateCliente(this.formGrupos.getRawValue()).subscribe(value => {
+      this._snackBar.open('Cliente actualizado', 'ACEPTAR');
       this.vaciarFormulario()
-      this.loaderGuardar=false
-    },error => {
+      this.loaderGuardar = false
+    }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
-      this.loaderGuardar=false
+      this.loaderGuardar = false
     })
   }
 
-
-
-  vaciarFormulario(){
+  vaciarFormulario() {
     this.formGrupos.setValue({
+      id: null,
       apellidos: "",
       cedula: "",
       discapacidad: false,
@@ -147,4 +176,5 @@ export class nuevoClienteComponent implements OnInit {
       nombreResponsable: ""
     })
   }
+
 }
