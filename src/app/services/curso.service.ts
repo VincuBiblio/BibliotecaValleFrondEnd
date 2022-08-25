@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
-import { Curso } from '../models/curso';
+import { ContarNumeroClass, ContarPorIdCurso, Curso } from '../models/curso';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -25,4 +25,18 @@ export class CursoService {
         return this.http.get(environment.URL_APP + "/curso/allCursos", { headers: this.httpHeaders }).pipe(map(Response => Response as Curso[]))
     }
 
+    getContarCurso(idCurso: any): Observable<ContarNumeroClass[]> {
+        return this.http.get(environment.URL_APP + "/curso/contarclientesencurso/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarNumeroClass[]))
+    }
+
+    getContarId(): Observable<ContarPorIdCurso[]> {
+        return this.http.get(environment.URL_APP + "/curso/allBylistaclientes/2", { headers: this.httpHeaders }).pipe(map(Response => Response as ContarPorIdCurso[]))
+    }
+
+    saveClienteCurso(idCliente: any, idCurso: any) {
+        return this.http.post(environment.URL_APP + "/curso/agregarcliente/" + idCliente + "/" + idCurso, null, { headers: this.httpHeaders })
+    }
+
 }
+
+

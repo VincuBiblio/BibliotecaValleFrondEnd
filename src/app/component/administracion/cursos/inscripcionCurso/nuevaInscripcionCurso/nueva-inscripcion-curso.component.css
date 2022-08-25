@@ -29,6 +29,8 @@
   margin: 0.5% auto;
 }
 
+
+
 mat-grid-tile {
   background: lightblue;
 }
@@ -209,7 +211,6 @@ th {
   position: relative;
   right: 10px;
   width: 347px
-
 }
 
 
@@ -218,4 +219,3 @@ th {
   background-color: #f7f2dc;
   border: 1px solid #000000;
 }
-

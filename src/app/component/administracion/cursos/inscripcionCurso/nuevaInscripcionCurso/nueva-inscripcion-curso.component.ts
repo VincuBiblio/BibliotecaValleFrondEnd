@@ -1,35 +1,16 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from "@angular/material/table";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CursoService } from 'src/app/services/curso.service';
-import { Curso } from 'src/app/models/curso';
+import { ContarNumeroClass, Curso } from 'src/app/models/curso';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { __values } from 'tslib';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaCliente } from 'src/app/models/personaCliente';
-
-
-
-export interface PeriodicElementCliente {
-  cedula: string;
-  nombre: string;
-  edad: string;
-}
-
-const ELEMENT_DATA_CLIENTE: PeriodicElementCliente[] = [
-  { cedula: '0126578945', nombre: 'Juan Andrade', edad: '18' },
-  { cedula: '01048974569', nombre: 'Alisson Cardenas', edad: '19' },
-  { cedula: '0156789412', nombre: 'Adriana Arevalo', edad: '8' },
-  { cedula: '0108745689', nombre: 'Amalia Nieto', edad: '40' },
-  { cedula: '0198745648', nombre: 'Jose Bermeo', edad: '30' },
-  { cedula: '01897456987', nombre: 'Marco Polo', edad: '15' },
-
-];
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -45,22 +26,31 @@ const ELEMENT_DATA_CLIENTE: PeriodicElementCliente[] = [
 })
 export class NuevaInscripcionComponent implements OnInit {
 
+
+  //DECLARACIÓN DE VARIABLES
   public cursoLista: Curso[] = [];
   public clienteLista: PersonaCliente[] = [];
+  //public contarLista: ContarNumeroClass[] = [];
 
   public formCliente: FormGroup;
   public dialogoCliente: boolean;
 
+  public idCurso: any;
+  public idCliente: any;
 
+  public isEditable = true;
+
+
+  public numeroInscritos: Number;
+  public inscritosCurso: any;
+  Hoy = new Date();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-
-
-
   constructor(
     private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
     private cursoService: CursoService,
     private clienteService: ClienteService,
   ) { }
@@ -71,6 +61,7 @@ export class NuevaInscripcionComponent implements OnInit {
   }
 
 
+  //FormGroup
 
   firstFormGroup = this._formBuilder.group({
     disponibilidad: new FormControl<String>('', [Validators.required]),
@@ -89,25 +80,16 @@ export class NuevaInscripcionComponent implements OnInit {
     email: new FormControl<String>('', [Validators.required]),
     direccion: new FormControl<String>('', [Validators.required]),
     representante: new FormControl<String>('', [Validators.required]),
-
-    /*
-    cedula
-    nombres
-    edad
-    email
-    direccion
-    representante*/
-
   });
-  isEditable = true;
 
 
-  //////////////////////////////////////////////////
+
+
   //LISTAR SERVICIOS
-
   listarCursos() {
     this.cursoService.getAllCurso().subscribe(value => {
       this.cursoLista = value;
+      console.log(this.cursoLista);
       this.dataSourceCurso = new MatTableDataSource(value);
       this.dataSourceCurso.paginator = this.paginator;
       this.dataSourceCurso.sort = this.sort;
@@ -128,12 +110,26 @@ export class NuevaInscripcionComponent implements OnInit {
 
   }
 
-  cargarDatosCurso(id: any) {
+
+  contarClientesCurso(id: any) {
+    this.idCurso = id;
+    this.cursoService.getContarCurso(this.idCurso).subscribe(value => {
+      this.cargarDatosCurso(Object.values(value)[0]);
+      //this.inscritosCurso = Object.values(value)[0];
+      //this.numeroInscritos = Number(Object.values(value)[0]);
+    })
+
+
+  }
+
+
+  //CARGAR INFORMACION EN LOS INPUT
+  cargarDatosCurso(dispo: any) {
 
     for (var i = 0; i < this.cursoLista.length; i++) {
-      if (this.cursoLista[i].id == id) {
+      if (this.cursoLista[i].idCurso == this.idCurso) {
         this.firstFormGroup.setValue({
-          disponibilidad: "/" + this.cursoLista[i].numParticipantes,
+          disponibilidad: dispo + "/" + this.cursoLista[i].numParticipantes,
           nombre: this.cursoLista[i].nombre.toUpperCase(),
           responsable: this.cursoLista[i].responsable.toUpperCase(),
           fechaInicioFin: this.cursoLista[i].fechaInicio + " hasta " + this.cursoLista[i].fechaFin,
@@ -145,15 +141,17 @@ export class NuevaInscripcionComponent implements OnInit {
       }
 
     }
+
+
   }
 
-  
+
 
   cargarDatosCliente(id: any) {
-    console.log("numeroo " + id);
+    this.idCliente = id;
     for (var i = 0; i < this.clienteLista.length; i++) {
 
-      if (this.clienteLista[i].idCliente == id) {
+      if (this.clienteLista[i].idCliente == this.idCliente) {
         this.secondFormGroup.setValue({
 
           cedula: this.clienteLista[i].cedula,
@@ -166,17 +164,27 @@ export class NuevaInscripcionComponent implements OnInit {
 
         })
 
-        console.log("Datos cliente| cargado correctamente");
+        console.log("Datos cliente cargado correctamente");
       }
 
     }
   }
 
-  prueba(valor: any) {
-    alert(valor);
+
+  //GUARDAR INSCRIPCION EN LA BASE
+
+  guardarclienteCurso() {
+
+    this.cursoService.saveClienteCurso(this.idCliente, this.idCurso).subscribe(
+      Response => {
+        console.log("agregado exitosamente");
+        this._snackBar.open("Cliente inscrito con exito", "CERRAR");
+      }
+    )
+
   }
 
-  //////////////////////////////////////////////////
+
   //DIALOGO PARA CREAR UN NUEVO CLIENTE
   openDialog() {
     this.dialogoCliente = true;
@@ -186,8 +194,9 @@ export class NuevaInscripcionComponent implements OnInit {
     this.dialogoCliente = false;
   }
 
-  //////////////////////////////////////////////////
-  //LISTAR CURSOS
+
+
+  //LISTAR CURSOS EN TABLA CON BOTON NARANJA
 
   displayedColumnsCurso: string[] = ['nombre'];
   dataSourceCurso: MatTableDataSource<Curso>;
@@ -201,18 +210,15 @@ export class NuevaInscripcionComponent implements OnInit {
     }
   }
 
-  //////////////////////////////////////////////////
-  //LISTAR CLIENTE
+  //LISTAR CLIENTE CON BOTON NARANJA
   displayedColumnsCliente: string[] = ['cedula'];
   dataSourceCliente = new MatTableDataSource<PersonaCliente>;
 
 
+  //FILTRO DE BUSQUEDA
   applyFilterCliente(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceCliente.filter = filterValue.trim().toLowerCase();
   }
 
 }
-
-
-

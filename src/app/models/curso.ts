@@ -12,3 +12,12 @@ export class Curso {
     actividades?: any;
     numParticipantes?: any;
 }
+
+
+export class ContarNumeroClass{
+    numero?:any;
+}
+
+export class ContarPorIdCurso{
+    
+}

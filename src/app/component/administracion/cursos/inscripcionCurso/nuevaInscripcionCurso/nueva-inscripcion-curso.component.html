@@ -48,7 +48,7 @@
                           </td>
 
                           <td>
-                            <button mat-stroked-button class="boton1" (click)="cargarDatosCurso(element.id)">
+                            <button mat-stroked-button class="boton1" (click)="contarClientesCurso(element.idCurso)">
                               <mat-icon>forward</mat-icon>
                             </button>
                           </td>
@@ -98,7 +98,7 @@
                     <strong>DISPONIBILIDAD: </strong>
                   </td>
                   <td colspan="1" class="txt">
-                    <input matInput formControlName="disponibilidad" required>
+                    <input readonly="true" matInput formControlName="disponibilidad" required>
                   </td>
                 </tr>
 
@@ -369,7 +369,8 @@
                 </td>
 
                 <td>
-                  <button mat-button matStepperNext mat-flat-button class="botonnaranja">SIGUIENTE
+                  <button [disabled]="secondFormGroup.invalid" mat-button matStepperNext mat-flat-button
+                    class="botonnaranja">SIGUIENTE
                     <mat-icon>forward
                     </mat-icon>
                   </button>
@@ -399,143 +400,177 @@
       <div class="colorclaro">CONFIRMACIÓN</div>
     </ng-template>
 
+
+
     <mat-card class="example-card-two">
       <div>
-        <mat-card class="cardCurso1">
-          <div style="width: 500px;">
-            <mat-card-title>
 
-              <div style="text-align: center;"> DATOS DE CURSO</div>
-
-            </mat-card-title>
-          </div>
-          <br>
-          <table class="table2">
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>DISPONIBILIDAD: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>NOMBRE: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>RESPONSABLE: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>F. INICIO - F. FIN: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>LUGAR: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>DESCRIPCIÓN: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <textarea matInput class="texArea"></textarea>
-              </td>
-            </tr>
+        <form [formGroup]="firstFormGroup">
 
 
-          </table>
-        </mat-card>
 
-        <mat-card class="cardCurso1">
-          <div style="width: 500px;">
-            <mat-card-title>
-              <div style="text-align: center;"> DATOS DE CLIENTE</div>
+          <mat-card class="cardCurso2">
 
-            </mat-card-title>
-          </div>
-          <br>
-          <table class="table2">
+            <div style="width: 500px;">
+              <mat-card-title>
+                <div style="text-align: center;"> DATOS DE CURSO</div>
 
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>CÉDULA: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>NOMBRES: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>EDAD: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>EMAIL: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>DIRECCIÓN: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>REPRESENTANTE: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
+              </mat-card-title>
+            </div>
 
 
-          </table>
+            <br>
+            <mat-card-content>
 
-        </mat-card>
+              <table class="table2">
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>DISPONIBILIDAD: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="disponibilidad" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>NOMBRE: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="nombre" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>RESPONSABLE: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+
+                    <input readonly="true" matInput formControlName="responsable" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>F. INICIO - F. FIN: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="fechaInicioFin" required>
+                  </td>
+                </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>LUGAR: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="lugar">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <strong>DESCRIPCIÓN: </strong>
+                  </td>
+                  <td>
+                    <textarea readonly="true" matInput formControlName="descripcion" required
+                      class="texArea"></textarea>
+
+                  </td>
+
+                </tr>
+
+
+
+              </table>
+
+
+              <table>
+
+              </table>
+
+              <br>
+
+            </mat-card-content>
+          </mat-card>
+        </form>
+
+        <form [formGroup]="secondFormGroup">
+          <mat-card class="cardCurso">
+            <div style="width: 500px;">
+              <mat-card-title>
+                <div style="text-align: center;"> DATOS DE CLIENTE</div>
+
+              </mat-card-title>
+            </div>
+            <br>
+            <mat-card-content>
+
+              <table class="table2">
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>CÉDULA: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="cedula" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>NOMBRES: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="nombres" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>EDAD: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="edad" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>EMAIL: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="email" required>
+                  </td>
+                </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>DIRECCIÓN: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="direccion" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>REPRESENTANTE: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="representante" required>
+                  </td>
+                </tr>
+
+
+              </table>
+
+              <br>
+
+            </mat-card-content>
+          </mat-card>
+        </form>
+
 
         <table class="table2" style=" background-color: transparent;">
           <tr style="text-align: center;">
@@ -557,8 +592,8 @@
 
               <td>
                 <div>
-                  <button mat-button class="botonnaranja">
-                    FINALIZAR E INSCRIBIR
+                  <button   mat-button class="botonnaranja" (click)="guardarclienteCurso()">
+                    GUARDAR
                     <mat-icon>save</mat-icon>
                   </button>
                 </div>
