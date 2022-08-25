@@ -8,6 +8,7 @@ export class Curso {
     responsable?: any;
     fechaInicio?: any;
     fechaFin?: any;
+    fechaMaxInscripcion?:any;
     materiales?: any;
     actividades?: any;
     numParticipantes?: any;

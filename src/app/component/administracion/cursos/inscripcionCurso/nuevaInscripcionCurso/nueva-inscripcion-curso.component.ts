@@ -26,10 +26,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NuevaInscripcionComponent implements OnInit {
 
+  public mensajeSinCupos: String = "SIN CuPOS xd"
+  public mensajeSinCuposGuardar: String = "Mensaje jeje";
 
   //DECLARACIÓN DE VARIABLES
   public cursoLista: Curso[] = [];
   public clienteLista: PersonaCliente[] = [];
+  public listaInicialCurso: Curso[] = [];
   //public contarLista: ContarNumeroClass[] = [];
 
   public formCliente: FormGroup;
@@ -39,11 +42,19 @@ export class NuevaInscripcionComponent implements OnInit {
   public idCliente: any;
 
   public isEditable = true;
+  public cardCursoMensaje: Boolean = true;
+  public cardCurso: Boolean = false;
+  public cardClienteMensaje: Boolean = true;
+  public cardCliente: Boolean = false;
 
+  public controlbotonSiguiente: Boolean;
+  public controlmensajeSiguiente: Boolean;
 
   public numeroInscritos: Number;
-  public inscritosCurso: any;
-  Hoy = new Date();
+
+  public Hoy = new Date();
+
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -85,16 +96,69 @@ export class NuevaInscripcionComponent implements OnInit {
 
 
 
+
+
   //LISTAR SERVICIOS
   listarCursos() {
     this.cursoService.getAllCurso().subscribe(value => {
-      this.cursoLista = value;
-      console.log(this.cursoLista);
-      this.dataSourceCurso = new MatTableDataSource(value);
+      this.listaInicialCurso = value;
+
+      var AnyoHoy = this.Hoy.getFullYear();
+      var MesHoy = this.Hoy.getMonth() + 1;
+      var DiaHoy = this.Hoy.getDate();
+
+
+      for (var i = 0; i < this.listaInicialCurso.length; i++) {
+        //alert(this.listaInicialCurso[i].fechaMaxInscripcion);
+
+        let cadena = this.listaInicialCurso[i].fechaMaxInscripcion;
+        let palabra = cadena.split('-')
+
+        var AnyoFecha = palabra[0];
+        var MesFecha = palabra[1];
+        var DiaFecha = palabra[2];
+
+
+        //console.log(DiaFecha);
+
+        if (AnyoFecha < AnyoHoy) {
+          alert("La fecha introducida es anterior a Hoy");
+          
+        }
+        else {
+          if (AnyoFecha == AnyoHoy && MesFecha < MesHoy) {
+           
+          }
+          else {
+            if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy) {
+              
+            }
+            else {
+              if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy) {
+                
+                this.cursoLista.push(this.listaInicialCurso[i]);
+              }
+              else {
+               
+                this.cursoLista.push(this.listaInicialCurso[i]);
+               
+              }
+            }
+          }
+        }
+
+       
+
+      }
+
+
+
+      this.dataSourceCurso = new MatTableDataSource(this.cursoLista);
       this.dataSourceCurso.paginator = this.paginator;
       this.dataSourceCurso.sort = this.sort;
       console.log("Listado cursos generado exitosamente");
     })
+
   }
 
 
@@ -115,8 +179,6 @@ export class NuevaInscripcionComponent implements OnInit {
     this.idCurso = id;
     this.cursoService.getContarCurso(this.idCurso).subscribe(value => {
       this.cargarDatosCurso(Object.values(value)[0]);
-      //this.inscritosCurso = Object.values(value)[0];
-      //this.numeroInscritos = Number(Object.values(value)[0]);
     })
 
 
@@ -124,12 +186,28 @@ export class NuevaInscripcionComponent implements OnInit {
 
 
   //CARGAR INFORMACION EN LOS INPUT
-  cargarDatosCurso(dispo: any) {
+  cargarDatosCurso(inscritos: any) {
+
+    this.cardCursoMensaje = false;
+    this.cardCurso = true;
 
     for (var i = 0; i < this.cursoLista.length; i++) {
       if (this.cursoLista[i].idCurso == this.idCurso) {
+
+        var total = parseInt(this.cursoLista[i].numParticipantes) - parseInt(inscritos);
+
+        if (total <= 0) {
+          this.controlbotonSiguiente = false;
+          this.controlmensajeSiguiente = true;
+
+        } else {
+          this.controlbotonSiguiente = true;
+          this.controlmensajeSiguiente = false;
+
+        }
+
         this.firstFormGroup.setValue({
-          disponibilidad: dispo + "/" + this.cursoLista[i].numParticipantes,
+          disponibilidad: inscritos + "/" + this.cursoLista[i].numParticipantes,
           nombre: this.cursoLista[i].nombre.toUpperCase(),
           responsable: this.cursoLista[i].responsable.toUpperCase(),
           fechaInicioFin: this.cursoLista[i].fechaInicio + " hasta " + this.cursoLista[i].fechaFin,
@@ -149,6 +227,8 @@ export class NuevaInscripcionComponent implements OnInit {
 
   cargarDatosCliente(id: any) {
     this.idCliente = id;
+    this.cardCliente = true;
+    this.cardClienteMensaje = false;
     for (var i = 0; i < this.clienteLista.length; i++) {
 
       if (this.clienteLista[i].idCliente == this.idCliente) {
@@ -177,7 +257,8 @@ export class NuevaInscripcionComponent implements OnInit {
 
     this.cursoService.saveClienteCurso(this.idCliente, this.idCurso).subscribe(
       Response => {
-        console.log("agregado exitosamente");
+        console.log("Cliente inscrito con exito");
+        this.contarClientesCurso(this.idCurso);
         this._snackBar.open("Cliente inscrito con exito", "CERRAR");
       }
     )
