@@ -3,6 +3,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {UsuarioService} from "../../../services/usuario.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {PersonaCliente} from "../../../models/personaCliente";
+import {PersonaUsuario} from "../../../models/personaUsuario";
 
 
 export interface UserData {
@@ -53,38 +57,38 @@ const NAMES: string[] = [
 })
 export class CrudusuarioComponent implements OnInit {
 
-  animalControl = new FormControl<null | null>(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
 
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+  loaderGuardar:boolean;
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
 
-  // @ts-ignore
+  loaderActualizar:boolean;
+
+  displayedColumns: string[] = ['id', 'cedula', 'nombres', 'apellidos','email','telefono','editar'];
+  dataSource: MatTableDataSource<PersonaUsuario>;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-
+  constructor(private usuarioService:UsuarioService,
+              private _snackBar: MatSnackBar) {
   }
 
+
   ngOnInit(): void {
+    this.listarUsuarios()
+  }
+
+  listarUsuarios(){
+    this.usuarioService.getAllUsuarios().subscribe(value => {
+      this.dataSource = new MatTableDataSource(value);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loaderActualizar=false
+    })
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -98,21 +102,37 @@ export class CrudusuarioComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
-    nombrecurso: new FormControl<String>('', [Validators.required, Validators.maxLength(20)]),
-    nombreresponsable: new FormControl<String>('', [Validators.required]),
-    actividades: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    numparticipantes: new FormControl<Date>(null, [Validators.required]),
-    lugar: new FormControl<String>('', [Validators.required]),
-    descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10), Validators.pattern("[aA-zZ]+")]),
-    materiales: new FormControl<String>('', [Validators.required]),
-    observacion: new FormControl<String>('', [Validators.required]),
-    estadoCivil: new FormControl<String>('', [Validators.required]),
+    cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
+    apellidos: new FormControl<String>('', [Validators.required]),
+    nombres: new FormControl<String>('', [Validators.required]),
+    email: new FormControl<String>('', [Validators.required, Validators.email]),
+    telefono: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
+    clave: new FormControl<String>('', [Validators.required, Validators.minLength(5)]),
+    idRol: new FormControl<Number>(null, [Validators.required]),
   })
 
 
-  guardarCliente() {
+  guardarUsuarios() {
     console.log(this.formGrupos.getRawValue())
+    this.usuarioService.saveUsuario(this.formGrupos.getRawValue()).subscribe(value => {
+      this._snackBar.open('Usuario registrado', 'ACEPTAR');
+      this.vaciarFormulario()
+      this.loaderGuardar=false
+    },error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this.loaderGuardar=false
+    })
+  }
+
+
+  vaciarFormulario(){
+    this.formGrupos.setValue({
+      apellidos: "",
+      cedula: "",
+      clave: "", email: "",
+      idRol: null, nombres: "",
+      telefono: ""
+    })
   }
 }
 

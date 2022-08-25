@@ -1,4 +1,4 @@
-<form [formGroup]="formGrupos">
+<form [formGroup]="formGrupos" *ngIf="loaderCargar==false">
   <mat-card-content>
     <mat-grid-list cols="2" rowHeight="5:0.9">
       <mat-progress-bar *ngIf="loaderGuardar"  mode="indeterminate"></mat-progress-bar>
@@ -124,3 +124,6 @@
   <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">REGISTRAR</button>
 </form>
 
+<div *ngIf="loaderCargar">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

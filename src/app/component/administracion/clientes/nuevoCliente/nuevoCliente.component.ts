@@ -18,7 +18,7 @@ import {ClienteService} from "../../../../services/cliente.service";
 
 export class nuevoClienteComponent implements OnInit {
 
-
+  loaderCargar:boolean;
   loaderGuardar:boolean;
 
   provicias: Provincia[] = [];
@@ -37,17 +37,19 @@ export class nuevoClienteComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loaderCargar=true;
     this.ubicacionService.getAllProvincias().subscribe(value => {
       this.provicias = value;
+      this.ubicacionService.getAllCantones().subscribe(value => {
+        this.cantones = value;
+        this.ubicacionService.getAllParroquias().subscribe(value => {
+          console.log(value)
+          this.parroquias = value;
+          this.listarBarrios();
+          this.loaderCargar=false;
+        })
+      })
     })
-    this.ubicacionService.getAllCantones().subscribe(value => {
-      this.cantones = value;
-    })
-    this.ubicacionService.getAllParroquias().subscribe(value => {
-      console.log(value)
-      this.parroquias = value;
-    })
-    this.listarBarrios();
   }
 
   formGrupos = new FormGroup({

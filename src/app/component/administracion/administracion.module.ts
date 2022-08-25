@@ -57,6 +57,7 @@ import { CrudusuarioComponent } from './crudusuario/crudusuario.component';
 import { CrudcomputoComponent } from './computo/crudcomputo/crudcomputo.component';
 import { nuevoClienteComponent } from './clientes/nuevoCliente/nuevoCliente.component';
 import { EditarClientesComponent } from './clientes/editarClientes/editar-clientes.component';
+import { EditarUsuariosComponent } from './crudusuario/editarUsuarios/editar-usuarios.component';
 
 const routes: Routes = [
   {
@@ -154,6 +155,14 @@ const routes: Routes = [
   {
     path: 'editarcliente/:id',
     component:EditarClientesComponent
+  },
+  {
+    path: 'administracionusuarios',
+    component:CrudusuarioComponent
+  },
+  {
+    path: 'editarusuarios/:id',
+    component:EditarUsuariosComponent
   }
 ]
 
@@ -193,6 +202,7 @@ const routes: Routes = [
     CrudusuarioComponent,
     CrudcomputoComponent,
     EditarClientesComponent,
+    EditarUsuariosComponent,
   ],
   imports: [
     CommonModule,

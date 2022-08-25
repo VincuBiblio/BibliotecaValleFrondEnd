@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
@@ -20,8 +20,15 @@
         <mat-icon>home</mat-icon>
         HOME
       </button>
+      <!--USUARIOS-->
+      <button class="botones" mat-raised-button [routerLink]="'/panel/biblioteca/administracionusuarios'"
+              [disabled]="persona.idRol!=1">
+        <mat-icon>person_add</mat-icon>
+        USUARIOS
+      </button>
       <!--CLIENTE-->
-      <button class="botones" mat-raised-button [routerLink]="'/panel/biblioteca/administracionclientes'">
+      <button class="botones" mat-raised-button [routerLink]="'/panel/biblioteca/administracionclientes'"
+              [disabled]="persona.idRol!=1 && persona.idRol!=3">
         <mat-icon>person_add</mat-icon>
         CLIENTES
       </button>
@@ -34,16 +41,20 @@
             CURSOS
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/cursos'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/cursos'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=2">
           M-CURSOS
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/inscripcioncurso'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/inscripcioncurso'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           INSCRIPCION
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/asistenciacurso'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/asistenciacurso'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           ASISTENCIA
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportecurso'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportecurso'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=4">
           REPORTE
         </button>
       </mat-expansion-panel>
@@ -56,16 +67,20 @@
             TALLERES
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudtaller'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudtaller'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=2">
           M-TALLERES
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/inscripciontaller'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/inscripciontaller'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           INSCRIPCION
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/asistenciataller'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/asistenciataller'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           ASISTENCIA
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportetaller'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportetaller'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=4">
           REPORTE
         </button>
       </mat-expansion-panel>
@@ -78,10 +93,12 @@
             LIBROS
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/prestamolibro'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/prestamolibro'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           PRESTAMO
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportelibros'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportelibros'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=4">
           REPORTE
         </button>
       </mat-expansion-panel>
@@ -94,16 +111,16 @@
             COMPUTO
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudcomputo'">
-          M-Computo
-        </button>
-        <button class="botones" mat-flat-button>
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudcomputo'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=2">
           INVENTARIO
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/prestamocomputo'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/prestamocomputo'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           PRESTAMO
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportecomputo'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportecomputo'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=4">
           REPORTE
         </button>
       </mat-expansion-panel>
@@ -116,10 +133,12 @@
             IMPRESIONES <br>/COPIAS
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/usoImpresionCopia'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/usoImpresionCopia'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=3">
           USO
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reporteimpresioncopia'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reporteimpresioncopia'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=4">
           REPORTE
         </button>
       </mat-expansion-panel>
@@ -132,13 +151,16 @@
             EVENTOS
           </button>
         </mat-expansion-panel-header>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudevento'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/crudevento'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=2">
           M-EVENTO
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/registroevento'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/registroevento'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=2">
           REGISTRO
         </button>
-        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reporteeventos'">
+        <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reporteeventos'"
+                [disabled]="persona.idRol!=1 && persona.idRol!=4">
           REPORTE
         </button>
       </mat-expansion-panel>
@@ -170,10 +192,10 @@
     </div>
   </mat-drawer>
 
-    <div class="example-sidenav-content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-container>
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
 </body>
 
 </html>

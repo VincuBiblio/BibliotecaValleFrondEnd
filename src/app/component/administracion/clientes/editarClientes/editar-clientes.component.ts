@@ -17,7 +17,7 @@ import {PersonaCliente} from "../../../../models/personaCliente";
 })
 export class EditarClientesComponent implements OnInit {
 
-
+  loaderCargar:boolean;
   loaderGuardar: boolean;
 
   provicias: Provincia[] = [];
@@ -37,11 +37,13 @@ export class EditarClientesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loaderCargar=true;
     this.listarBarrios();
     this.cargardatos()
   }
 
   cargardatos() {
+
     this.ubicacionService.getAllProvincias().subscribe(value => {
       this.provicias = value;
       this.ubicacionService.getAllCantones().subscribe(value => {
@@ -72,6 +74,7 @@ export class EditarClientesComponent implements OnInit {
                 nombres: cliente.nombres,
                 telefono: cliente.telefono
               })
+              this.loaderCargar=false;
             })
           })
         })

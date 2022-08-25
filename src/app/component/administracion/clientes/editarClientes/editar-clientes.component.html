@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="loaderCargar==false">
   <form [formGroup]="formGrupos">
     <mat-card-content>
       <mat-grid-list cols="2" rowHeight="5:0.9">
@@ -126,3 +126,6 @@
   </form>
 </mat-card>
 
+<div *ngIf="loaderCargar">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
