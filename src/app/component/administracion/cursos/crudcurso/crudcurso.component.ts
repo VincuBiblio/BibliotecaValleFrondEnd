@@ -85,7 +85,7 @@ export class CrudcursoComponent implements OnInit {
     responsable: new FormControl<String>('', [Validators.required]),
     actividades: new FormControl<String>('', [Validators.required]),
 
-    numParticipantes: new FormControl<Number>(null, [Validators.required]),
+    numParticipantes: new FormControl<Number>(null, [Validators.required, Validators.pattern("[0-9]+")]),
     lugar: new FormControl<String>('', [Validators.required]),
     descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10)]),
     materiales: new FormControl<String>('', [Validators.required]),
