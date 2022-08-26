@@ -96,6 +96,22 @@ export class CrudcursoComponent implements OnInit {
   })
 
 
+  borrarCursos(){
+
+    console.log(document.getElementById("idCurso").innerText);
+    this.cursoService.deleteCurso(+document.getElementById("idCurso").innerText).subscribe(value =>{
+      this._snackBar.open('Curso eliminado', 'ACEPTAR');
+      this.vaciarFormulario()
+      this.loaderGuardar=false
+    },error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this.loaderGuardar=false
+    });
+
+
+  }
+
+
   guardarCliente() {
     console.log(this.formGrupos.getRawValue())
     this.cursoService.createCurso(this.formGrupos.getRawValue()).subscribe(value => {

@@ -43,8 +43,12 @@ export class CursoService {
         return this.http.post(environment.URL_APP + "/curso/agregarcliente/" + idCliente + "/" + idCurso, null, { headers: this.httpHeaders })
     }
 
-    updatebyidCurso(idcurso:number){
+    actualizarbyidCurso(idcurso:number){
       return null;
+    }
+
+    deleteCurso(idcurso:number){
+      return this.http.delete(environment.URL_APP+"/curso/"+idcurso,{headers:this.httpHeaders});
     }
 
 }
