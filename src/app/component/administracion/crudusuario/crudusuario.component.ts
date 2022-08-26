@@ -59,8 +59,6 @@ export class CrudusuarioComponent implements OnInit {
 
 
   loaderGuardar:boolean;
-
-
   loaderActualizar:boolean;
 
   displayedColumns: string[] = ['id', 'cedula', 'nombres', 'apellidos','email','telefono','editar'];

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 import { ContarNumeroClass, ContarPorIdCurso, Curso } from '../models/curso';
 import { environment } from 'src/environments/environment';
+import {UserData} from "../component/administracion/crudusuario/crudusuario.component";
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +22,11 @@ export class CursoService {
     }
 
 
+
+    createCurso(curso:Curso):Observable<Curso>{
+      return this.http.post(environment.URL_APP+"/curso/registrarCurso",curso,{headers: this.httpHeaders})
+    }
+
     getAllCurso(): Observable<Curso[]> {
         return this.http.get(environment.URL_APP + "/curso/allCursos", { headers: this.httpHeaders }).pipe(map(Response => Response as Curso[]))
     }
@@ -38,5 +44,6 @@ export class CursoService {
     }
 
 }
+
 
 

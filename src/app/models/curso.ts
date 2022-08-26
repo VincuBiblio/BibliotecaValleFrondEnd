@@ -20,5 +20,5 @@ export class ContarNumeroClass{
 }
 
 export class ContarPorIdCurso{
-    
+
 }

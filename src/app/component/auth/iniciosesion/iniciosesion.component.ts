@@ -30,6 +30,7 @@ export class IniciosesionComponent implements OnInit {
   iniciarsesion(){
     this.iniciobar=true
     this.inicioSesionService.loginUsuario(this.formGroup.getRawValue()).subscribe(value => {
+      console.log(value.token)
       this._snackBar.open('SESION INICIADA', 'ACEPTAR');
       sessionStorage.clear()
       sessionStorage.setItem('personausuario', JSON.stringify(value));
@@ -40,6 +41,7 @@ export class IniciosesionComponent implements OnInit {
       this._snackBar.open(error.error.message, 'ACEPTAR');
       this.iniciobar=false
     })
+
   }
 
 }
