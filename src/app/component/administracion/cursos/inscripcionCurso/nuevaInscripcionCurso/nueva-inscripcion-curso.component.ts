@@ -11,6 +11,7 @@ import { __values } from 'tslib';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaCliente } from 'src/app/models/personaCliente';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ListarinscripcionCursoComponent } from '../listarInscripcionCurso/listar-inscripcion-curso.component';
 
 
 @Component({
@@ -122,15 +123,15 @@ export class NuevaInscripcionComponent implements OnInit {
         //console.log(DiaFecha);
 
         if (AnyoFecha < AnyoHoy) {
-         
+
         }
         else {
           if (AnyoFecha == AnyoHoy && MesFecha < MesHoy) {
-            
+
           }
           else {
             if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy) {
-              
+
             }
             else {
               if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy) {
@@ -260,8 +261,9 @@ export class NuevaInscripcionComponent implements OnInit {
       Response => {
         console.log("Cliente inscrito con exito");
         this.contarClientesCurso(this.idCurso);
+
         this._snackBar.open("Cliente inscrito con exito", "CERRAR");
-      },error =>{
+      }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       }
     )
@@ -274,7 +276,7 @@ export class NuevaInscripcionComponent implements OnInit {
     this.dialogoCliente = true;
   }
 
- 
+
 
 
 

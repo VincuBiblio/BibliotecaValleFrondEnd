@@ -78,13 +78,11 @@
 
           </mat-card>
 
-          <mat-card class="cardCurso2">
+          <div *ngIf="cardCursoMensaje==true">   
+          </div>
 
-            <div *ngIf="cardCursoMensaje==true">
-              ESCOGER CURSO
-            </div>
-
-            <div *ngIf="cardCurso==true">
+          <mat-card class="cardCurso2" *ngIf="cardCurso==true">
+            <div >
               <div style="width: 500px;">
                 <mat-card-title>
                   <div style="text-align: center;"> DATOS DE CURSO</div>
@@ -313,13 +311,15 @@
 
         </mat-card>
 
-        <mat-card class="cardCurso">
+        <div *ngIf="cardClienteMensaje==true">
+         
+        </div>
 
-          <div *ngIf="cardClienteMensaje==true">
-            escoja un cliente
-          </div>
+        <mat-card class="cardCurso" *ngIf="cardCliente==true">
 
-          <div *ngIf="cardCliente==true">
+          
+
+          <div >
             <div style="width: 500px;">
               <mat-card-title>
                 <div style="text-align: center;"> DATOS DE CLIENTE</div>

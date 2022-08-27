@@ -51,6 +51,10 @@ export class CursoService {
       return this.http.delete(environment.URL_APP+"/curso/"+idcurso,{headers:this.httpHeaders});
     }
 
+    deletePersonaCurso(idCliente: any, idCurso: any){
+        return this.http.delete(environment.URL_APP+"/curso/"+idCurso+"/cliente/"+idCliente,{headers:this.httpHeaders});
+    }
+
 }
 
 

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CursoClientes, ListaClientesRequests } from 'src/app/models/clienteCurso';
@@ -31,6 +32,7 @@ export class ListarinscripcionCursoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private cursoService: CursoService,
+    private _snackBar: MatSnackBar,
   ) { }
 
 
@@ -49,9 +51,21 @@ export class ListarinscripcionCursoComponent implements OnInit {
 
   //LISTAR POR ID
 
-  listarParticipantesCurso(event: Event) {
-    this.selectedIdCurso = (event.target as HTMLSelectElement).value;
-    //alert(this.selectedIdCurso);
+
+  hola(){
+alert("hello mundo");
+  }
+
+  listarParticipantesCurso(event: Event, condicion: number, valor: any) {
+
+    if (condicion == 1) {
+      this.selectedIdCurso = (event.target as HTMLSelectElement).value;
+    } else {
+      if (condicion == 2) {
+        this.selectedIdCurso = valor;
+      }
+    }
+
 
     this.cursoService.getClientesCurso(this.selectedIdCurso).subscribe(values => {
 
@@ -128,10 +142,16 @@ export class ListarinscripcionCursoComponent implements OnInit {
 
   }
 
-eliminarClienteCurso(id:any){
-  alert(id);
-  alert(this.selectedIdCurso);
-}
+  eliminarClienteCurso(idCliente: any) {
+
+    this.cursoService.deletePersonaCurso(idCliente, this.selectedIdCurso).subscribe(value => {
+      this.listarParticipantesCurso(this.selectedIdCurso, 2, this.selectedIdCurso);
+      this._snackBar.open('Elimado exitosamente', 'ACEPTAR');
+
+    }, error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+    })
+  }
 
 
 
