@@ -35,8 +35,8 @@ export class CursoService {
         return this.http.get(environment.URL_APP + "/curso/contarclientesencurso/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarNumeroClass[]))
     }
 
-    getContarId(): Observable<ContarPorIdCurso[]> {
-        return this.http.get(environment.URL_APP + "/curso/allBylistaclientes/2", { headers: this.httpHeaders }).pipe(map(Response => Response as ContarPorIdCurso[]))
+    getClientesCurso(idCurso:any): Observable<ContarPorIdCurso[]> {
+        return this.http.get(environment.URL_APP + "/curso/allBylistaclientes/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarPorIdCurso[]))
     }
 
     saveClienteCurso(idCliente: any, idCurso: any) {

@@ -1,3 +1,4 @@
+
 export class Curso {
     id?: any;
     idCurso?: any;
@@ -12,6 +13,7 @@ export class Curso {
     materiales?: any;
     actividades?: any;
     numParticipantes?: any;
+   
 }
 
 
@@ -22,3 +24,4 @@ export class ContarNumeroClass{
 export class ContarPorIdCurso{
 
 }
+

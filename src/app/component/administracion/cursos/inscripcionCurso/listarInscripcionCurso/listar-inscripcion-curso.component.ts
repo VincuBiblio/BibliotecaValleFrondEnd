@@ -1,98 +1,138 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { CursoClientes, ListaClientesRequests } from 'src/app/models/clienteCurso';
+import { Curso } from 'src/app/models/curso';
+import { CursoService } from 'src/app/services/curso.service';
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
 
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
-
-/**
- * @title Data table with sorting, pagination, and filtering.
- */
 @Component({
   selector: 'app-listar-inscripcion-curso',
   templateUrl: './listar-inscripcion-curso.component.html',
   styleUrls: ['./listar-inscripcion-curso.component.css'],
 })
-export class ListarinscripcionCursoComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+export class ListarinscripcionCursoComponent implements OnInit {
+
+
+  public listaInicialCurso: Curso[] = [];
+  public cursoLista: Curso[] = [];
+  public clientesListaCurso: ListaClientesRequests[] = [];
+
+
+  public Hoy = new Date();
+
+
+  public selectedIdCurso: any;
+
+  public listaClientesInscritos: ListaClientesRequests[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  constructor(
+    private cursoService: CursoService,
+  ) { }
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  ngOnInit(): void {
+    this.listarCursosParaLista();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+
+  displayedColumns: string[] = ['position', 'cedula', 'nombres', 'apellidos', 'eliminar'];
+  dataSource = new MatTableDataSource<ListaClientesRequests>;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
+
+  //LISTAR POR ID
+
+  listarParticipantesCurso(event: Event) {
+    this.selectedIdCurso = (event.target as HTMLSelectElement).value;
+    //alert(this.selectedIdCurso);
+
+    this.cursoService.getClientesCurso(this.selectedIdCurso).subscribe(values => {
+
+      var quesirva = JSON.stringify(Object.values(values)[12])
+      var coche = JSON.parse(quesirva);
+
+      this.listaClientesInscritos = coche;
+
+      this.dataSource = new MatTableDataSource(this.listaClientesInscritos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      //console.log(this.listaClientesInscritos.length);
+
+
+    })
+  }
+
+
+  //LISTAR SERVICIOS
+  listarCursosParaLista() {
+    this.cursoService.getAllCurso().subscribe(value => {
+      this.listaInicialCurso = value;
+      var AnyoHoy = this.Hoy.getFullYear();
+      var MesHoy = this.Hoy.getMonth() + 1;
+      var DiaHoy = this.Hoy.getDate();
+
+      for (var i = 0; i < this.listaInicialCurso.length; i++) {
+        //alert(this.listaInicialCurso[i].fechaMaxInscripcion);
+
+        let cadena = this.listaInicialCurso[i].fechaMaxInscripcion;
+        let palabra = cadena.split('-')
+
+        var AnyoFecha = palabra[0];
+        var MesFecha = palabra[1];
+        var DiaFecha = palabra[2];
+
+
+        //console.log(DiaFecha);
+
+        if (AnyoFecha < AnyoHoy) {
+          alert("La fecha introducida es anterior a Hoy");
+
+        }
+        else {
+          if (AnyoFecha == AnyoHoy && MesFecha < MesHoy) {
+
+          }
+          else {
+            if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy) {
+
+            }
+            else {
+              if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy) {
+
+                this.cursoLista.push(this.listaInicialCurso[i]);
+
+              }
+              else {
+
+                this.cursoLista.push(this.listaInicialCurso[i]);
+
+              }
+            }
+          }
+        }
+
+
+      }
+      console.log("Listado para buscar en Combo generado");
+      console.log(this.cursoLista);
+
+    })
+
+  }
+
+eliminarClienteCurso(id:any){
+  alert(id);
+  alert(this.selectedIdCurso);
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
+
 }

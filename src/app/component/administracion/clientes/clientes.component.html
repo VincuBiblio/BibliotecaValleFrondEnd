@@ -7,8 +7,10 @@
   <mat-tab label="VER CLIENTES">
     <mat-card class="example-card-two">
       <button mat-raised-button color="primary" (click)="generatePDF()">DESCARGAR LISTADO EN PDF</button>
-      <button mat-raised-button color="warn" style="margin-left: 1vh" (click)="exportToExcel()">DESCARGAR LISTADO EN EXEL</button>
-      <button mat-raised-button color="accent" style="margin-left: 1vh" (click)="listarClientes()">ACTUALIZAR LISTA</button>
+      <button mat-raised-button color="warn" style="margin-left: 1vh" (click)="exportToExcel()">DESCARGAR LISTADO EN
+        EXEL</button>
+      <button mat-raised-button color="accent" style="margin-left: 1vh" (click)="listarClientes()">ACTUALIZAR
+        LISTA</button>
     </mat-card>
     <mat-card class="example-card-two">
       <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
@@ -82,8 +84,8 @@
             <ng-container matColumnDef="editar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR </th>
               <td mat-cell *matCellDef="let row">
-                <button mat-flat-button color="accent"[routerLink]="['/panel/biblioteca/editarcliente',row.id]"
-                >EDITAR</button>
+                <button mat-flat-button color="accent"
+                  [routerLink]="['/panel/biblioteca/editarcliente',row.id]">EDITAR</button>
               </td>
             </ng-container>
 

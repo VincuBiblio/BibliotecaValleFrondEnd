@@ -122,12 +122,11 @@ export class NuevaInscripcionComponent implements OnInit {
         //console.log(DiaFecha);
 
         if (AnyoFecha < AnyoHoy) {
-          alert("La fecha introducida es anterior a Hoy");
-          
+         
         }
         else {
           if (AnyoFecha == AnyoHoy && MesFecha < MesHoy) {
-           
+            
           }
           else {
             if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy) {
@@ -135,19 +134,19 @@ export class NuevaInscripcionComponent implements OnInit {
             }
             else {
               if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy) {
-                
+
                 this.cursoLista.push(this.listaInicialCurso[i]);
               }
               else {
-               
+
                 this.cursoLista.push(this.listaInicialCurso[i]);
-               
+
               }
             }
           }
         }
 
-       
+
 
       }
 
@@ -157,6 +156,7 @@ export class NuevaInscripcionComponent implements OnInit {
       this.dataSourceCurso.paginator = this.paginator;
       this.dataSourceCurso.sort = this.sort;
       console.log("Listado cursos generado exitosamente");
+      console.log(this.cursoLista)
     })
 
   }
@@ -164,12 +164,13 @@ export class NuevaInscripcionComponent implements OnInit {
 
   listarClientes() {
     this.clienteService.getAllClientes().subscribe(value => {
+      console.log("Listado clientes generado exitosamente");
       this.clienteLista = value;
       console.log(this.clienteLista);
       this.dataSourceCliente = new MatTableDataSource(value);
       this.dataSourceCliente.paginator = this.paginator;
       this.dataSourceCliente.sort = this.sort;
-      console.log("Listado clientes generado exitosamente");
+
     })
 
   }
@@ -238,7 +239,7 @@ export class NuevaInscripcionComponent implements OnInit {
           nombres: this.clienteLista[i].nombres + " " + this.clienteLista[i].apellidos,
           edad: this.clienteLista[i].edad,
           email: this.clienteLista[i].email,
-          direccion: "Octavio Chacon",
+          direccion: this.clienteLista[i].barrio + " - " + this.clienteLista[i].parroquia,
           representante: this.clienteLista[i].nombreResponsable,
 
 
@@ -260,6 +261,8 @@ export class NuevaInscripcionComponent implements OnInit {
         console.log("Cliente inscrito con exito");
         this.contarClientesCurso(this.idCurso);
         this._snackBar.open("Cliente inscrito con exito", "CERRAR");
+      },error =>{
+        this._snackBar.open(error.error.message, 'ACEPTAR');
       }
     )
 
@@ -271,9 +274,7 @@ export class NuevaInscripcionComponent implements OnInit {
     this.dialogoCliente = true;
   }
 
-  closeDialog() {
-    this.dialogoCliente = false;
-  }
+ 
 
 
 
