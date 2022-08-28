@@ -5,6 +5,25 @@
   overflow: hidden;
 }
 
+.borde2 {
+  background-color: #f7f2dc;
+  margin: 0.5% auto;
+  width: 95%;
+}
+
+.borde3{
+  background-color: transparent;
+  width: 95%;
+  float: left;
+  margin-bottom: 10px;
+  border: 2px solid #f7f2dc;
+  overflow: hidden;
+  writing-mode: horizontal-tb;
+  padding: 1rem;
+  text-align: center;
+  left: 20px;
+}
+
 .example-card {
   width: 650px;
   margin: 0.5% auto;
@@ -209,8 +228,8 @@ th {
   border: 1px solid #88c515;
   border-radius: 3px;
   position: relative;
-  right: 10px;
-  width: 347px
+  right: 13px;
+  width: 393px
 }
 
 
@@ -218,4 +237,28 @@ th {
   width: '37vw';
   background-color: #f7f2dc;
   border: 1px solid #000000;
+}
+
+.opcionfd{
+    
+  background-color: #f47f16;
+}
+
+.opcion1fd{
+  text-align: center;
+ 
+}
+
+.botonmenu{
+  background-color: #f47f16;
+  padding: 6px;
+  border-color: transparent;
+  color: #803f00
+  ;
+}
+
+.disponibilidadtxt{
+  color: red;
+  background-color:#f1ebd4;
+  
 }

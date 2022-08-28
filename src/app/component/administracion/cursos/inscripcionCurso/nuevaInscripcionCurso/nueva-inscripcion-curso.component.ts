@@ -12,7 +12,8 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaCliente } from 'src/app/models/personaCliente';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ListarinscripcionCursoComponent } from '../listarInscripcionCurso/listar-inscripcion-curso.component';
-
+import { ListaClientesRequests } from 'src/app/models/clienteCurso';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-nueva-inscripcion-curso',
@@ -27,13 +28,19 @@ import { ListarinscripcionCursoComponent } from '../listarInscripcionCurso/lista
 })
 export class NuevaInscripcionComponent implements OnInit {
 
-  public mensajeSinCupos: String = "SIN CuPOS xd"
-  public mensajeSinCuposGuardar: String = "Mensaje jeje";
+  public mensajeSinCupos: String = "SIN CUPOS"
+  public mensajeSinCuposGuardar: String = "SIN CUPOS";
+  public colorDisponibilidad: String = 'red';
+  public fondoDisponibilidad: String = '#f1ebd4';
+  public numeroCondicion: Number = 0;
+  public totalCuposSobrantes:Number;
+  public totalCuposTotal:any;
 
   //DECLARACIÓN DE VARIABLES
   public cursoLista: Curso[] = [];
   public clienteLista: PersonaCliente[] = [];
   public listaInicialCurso: Curso[] = [];
+  public clientesListaCurso: ListaClientesRequests[] = [];
   //public contarLista: ContarNumeroClass[] = [];
 
   public formCliente: FormGroup;
@@ -47,6 +54,9 @@ export class NuevaInscripcionComponent implements OnInit {
   public cardCurso: Boolean = false;
   public cardClienteMensaje: Boolean = true;
   public cardCliente: Boolean = false;
+  public divNuevo: Boolean = true;
+  public divListar: Boolean = false;
+  public cardListarModulo:Boolean;
 
   public controlbotonSiguiente: Boolean;
   public controlmensajeSiguiente: Boolean;
@@ -55,6 +65,9 @@ export class NuevaInscripcionComponent implements OnInit {
 
   public Hoy = new Date();
 
+  public selectedIdCurso: any;
+
+  public listaClientesInscritos: ListaClientesRequests[];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -72,7 +85,22 @@ export class NuevaInscripcionComponent implements OnInit {
     this.listarClientes();
   }
 
+  public mostrarLista() {
+    this.divListar = true;
+    this.divNuevo = false;
+    this.cardListarModulo=false;
 
+    if (this.numeroCondicion == 0) {
+      this.numeroCondicion = 2;
+    } else {
+      this.numeroCondicion = 1;
+    }
+  }
+
+  public mostrarNuevo() {
+    this.divListar = false;
+    this.divNuevo = true;
+  }
   //FormGroup
 
   firstFormGroup = this._formBuilder.group({
@@ -177,7 +205,8 @@ export class NuevaInscripcionComponent implements OnInit {
   }
 
 
-  contarClientesCurso(id: any) {
+  contarClientesCurso(id: any, condicion: Number) {
+    this.numeroCondicion = condicion;
     this.idCurso = id;
     this.cursoService.getContarCurso(this.idCurso).subscribe(value => {
       this.cargarDatosCurso(Object.values(value)[0]);
@@ -190,22 +219,35 @@ export class NuevaInscripcionComponent implements OnInit {
   //CARGAR INFORMACION EN LOS INPUT
   cargarDatosCurso(inscritos: any) {
 
-    this.cardCursoMensaje = false;
-    this.cardCurso = true;
+    if (this.numeroCondicion == 1) {
+      this.cardCursoMensaje = false;
+      this.cardCurso = true;
+    } else {
+      if (this.numeroCondicion == 2) {
+        this.cardCursoMensaje = false;
+        this.cardCurso = false;
+      }
+    }
+
+
 
     for (var i = 0; i < this.cursoLista.length; i++) {
       if (this.cursoLista[i].idCurso == this.idCurso) {
 
-        var total = parseInt(this.cursoLista[i].numParticipantes) - parseInt(inscritos);
+        this.totalCuposSobrantes = parseInt(this.cursoLista[i].numParticipantes) - parseInt(inscritos);
 
-        if (total <= 0) {
+
+        if (this.totalCuposSobrantes <= 0) {
           this.controlbotonSiguiente = false;
           this.controlmensajeSiguiente = true;
+          this.colorDisponibilidad = "red";
+          this.fondoDisponibilidad = "#f1ebd4";
 
         } else {
           this.controlbotonSiguiente = true;
           this.controlmensajeSiguiente = false;
-
+          this.colorDisponibilidad = "black";
+          this.fondoDisponibilidad = "#f7f2dc";
         }
 
         this.firstFormGroup.setValue({
@@ -226,7 +268,6 @@ export class NuevaInscripcionComponent implements OnInit {
   }
 
 
-
   cargarDatosCliente(id: any) {
     this.idCliente = id;
     this.cardCliente = true;
@@ -237,11 +278,11 @@ export class NuevaInscripcionComponent implements OnInit {
         this.secondFormGroup.setValue({
 
           cedula: this.clienteLista[i].cedula,
-          nombres: this.clienteLista[i].nombres + " " + this.clienteLista[i].apellidos,
+          nombres: this.clienteLista[i].nombres.toUpperCase() + " " + this.clienteLista[i].apellidos.toUpperCase(),
           edad: this.clienteLista[i].edad,
           email: this.clienteLista[i].email,
-          direccion: this.clienteLista[i].barrio + " - " + this.clienteLista[i].parroquia,
-          representante: this.clienteLista[i].nombreResponsable,
+          direccion: this.clienteLista[i].barrio.toUpperCase() + " - " + this.clienteLista[i].parroquia.toUpperCase(),
+          representante: this.clienteLista[i].nombreResponsable.toUpperCase(),
 
 
         })
@@ -260,12 +301,19 @@ export class NuevaInscripcionComponent implements OnInit {
     this.cursoService.saveClienteCurso(this.idCliente, this.idCurso).subscribe(
       Response => {
         console.log("Cliente inscrito con exito");
-        this.contarClientesCurso(this.idCurso);
-
+        this.contarClientesCurso(this.idCurso, 1);
         this._snackBar.open("Cliente inscrito con exito", "CERRAR");
+        var num = this.totalCuposSobrantes;
+        this.totalCuposTotal = Number(num) -1;
+        
+        if(this.totalCuposTotal<=0){
+          location.reload();
+        }
+        
       }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       }
+
     )
 
   }
@@ -305,4 +353,94 @@ export class NuevaInscripcionComponent implements OnInit {
     this.dataSourceCliente.filter = filterValue.trim().toLowerCase();
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  //LISTAR Y ELIMINAR
+  displayedColumns: string[] = ['position', 'cedula', 'nombres', 'apellidos', 'eliminar'];
+  dataSource = new MatTableDataSource<ListaClientesRequests>;
+
+  applyFilter1(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  listarParticipantesCurso(event: Event, condicion: number, valor: any) {
+
+    if (condicion == 1) {
+      this.selectedIdCurso = (event.target as HTMLSelectElement).value;
+    } else {
+      if (condicion == 2) {
+        this.selectedIdCurso = valor;
+      }
+    }
+
+    this.cardListarModulo =true;
+
+    this.cursoService.getClientesCurso(this.selectedIdCurso).subscribe(values => {
+
+      var quesirva = JSON.stringify(Object.values(values)[12])
+      var coche = JSON.parse(quesirva);
+      this.listaClientesInscritos = coche;
+
+      this.dataSource = new MatTableDataSource(this.listaClientesInscritos);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      //console.log(this.listaClientesInscritos.length);
+
+
+    })
+  }
+
+
+  eliminarClienteCurso(idCliente: any) {
+
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: "¡Sí, bórralo!",
+      cancelButtonText: "Cancelar",
+      background: '#f7f2dc',
+      confirmButtonColor: '#f47f16',
+      cancelButtonColor: '#d33',
+      backdrop: false
+    })
+      .then(resultado => {
+        if (resultado.value) {
+          this.cursoService.deletePersonaCurso(idCliente, this.selectedIdCurso).subscribe(value => {
+            this.listarParticipantesCurso(this.selectedIdCurso, 2, this.selectedIdCurso);
+            this.contarClientesCurso(this.selectedIdCurso, this.numeroCondicion);
+            this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
+
+          }, error => {
+            this._snackBar.open(error.error.message, 'ACEPTAR');
+          })
+        }
+      });
+
+    /*
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.cursoService.deletePersonaCurso(idCliente, this.selectedIdCurso).subscribe(value => {
+        this.listarParticipantesCurso(this.selectedIdCurso, 2, this.selectedIdCurso);
+        this.contarClientesCurso(this.selectedIdCurso);
+        this._snackBar.open('Elimindo exitosamente', 'ACEPTAR');
+  
+      }, error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+      })
+    }
+  })*/
+
+
+  }
 }

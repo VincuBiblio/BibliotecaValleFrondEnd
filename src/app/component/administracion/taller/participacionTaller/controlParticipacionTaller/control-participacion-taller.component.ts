@@ -18,4 +18,8 @@ export class ControlParticipacionTallerComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  prueba1(){
+    alert("hola bola");
+  }
 }

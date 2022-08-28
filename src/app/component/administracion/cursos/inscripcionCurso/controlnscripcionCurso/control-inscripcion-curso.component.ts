@@ -18,4 +18,6 @@ export class ControlInscripcionCursoComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  
 }

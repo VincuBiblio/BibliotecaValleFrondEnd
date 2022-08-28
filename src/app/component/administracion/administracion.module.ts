@@ -75,7 +75,7 @@ const routes: Routes = [
   },
   {
     path: 'inscripcioncurso',
-    component: ControlInscripcionCursoComponent
+    component: NuevaInscripcionComponent
 
   },
   {

@@ -44,7 +44,7 @@ export class ListarinscripcionCursoComponent implements OnInit {
   displayedColumns: string[] = ['position', 'cedula', 'nombres', 'apellidos', 'eliminar'];
   dataSource = new MatTableDataSource<ListaClientesRequests>;
 
-  applyFilter(event: Event) {
+  applyFilter1(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
