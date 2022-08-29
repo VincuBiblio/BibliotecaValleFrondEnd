@@ -2,6 +2,18 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {CursoService} from "../../../../services/curso.service";
+import {Curso} from "../../../../models/curso";
+import {map, Observable, startWith} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {DatePipe} from "@angular/common";
+import {MatSelect, MatSelectChange} from "@angular/material/select";
+import {PersonaCliente} from "../../../../models/personaCliente";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import {UsuarioService} from "../../../../services/usuario.service";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export interface UserData {
   id: string;
@@ -51,28 +63,156 @@ const NAMES: string[] = [
 })
 export class AsistenciacursoComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+
+  displayedColumns: string[] = ['id', 'cedula', 'nombres'];
+  dataSource: MatTableDataSource<PersonaCliente>;
+
+
+  cargauno:boolean;
+
+
+  curso: Curso[] = [];
+  myControl = new FormControl();
+  dataCursos?: Observable<Curso[]>;
+  diasListado: fechas[] = [];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private cursoService: CursoService,
+              private usuarioService:UsuarioService) {
   }
 
   ngOnInit(): void {
+    this.cargauno=true;
+    this.cursoService.getAllCurso().subscribe(value => {
+      this.cursoService.getFecha().subscribe(fecha => {
+          this.curso = value.filter(value1 => value1.fechaFin < fecha);
+          this.dataCursos = this.myControl.valueChanges.pipe(
+            startWith(''),
+            map(values => this.filter(values)),
+          );
+        this.cargauno=false;
+        }
+      )
+    })
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  filter(value: any): Curso[] {
+    var pipe: DatePipe = new DatePipe('en-US')
+    const filterValue = value.toLowerCase();
+    return this.curso.filter(option => option.nombre?.toLowerCase().includes(filterValue)
+      || pipe.transform(option.fechaFin, 'YYYY').toLocaleLowerCase().includes(filterValue)
+    );
+  }
+
+  obtenerfechas(select: MatSelect) {
+    this.cargauno=true;
+    var dia: fechas[] = [];
+    this.cursoService.getClientesCurso(select.value).subscribe(value => {
+      var fechaInicio = new Date((value.fechaInicio)).getTime()
+      var fechaFin = new Date(value.fechaFin).getTime()
+      var diff = fechaFin - fechaInicio;
+      for (let i = 1; i < diff / (1000 * 60 * 60 * 24) + 2; i++) {
+        dia.push({
+          id: value.id,
+          fecha: addDaysToDate(value.fechaInicio, i)
+        })
+      }
+      this.cargauno=false;
+      this.diasListado = dia;
+    })
+
+  }
+
+  obtnerlistado(select: MatSelect) {
+    this.cargauno=true;
+    this.cursoService.getClientesCurso(select.value.id).subscribe(value => {
+      this.dataSource = new MatTableDataSource<PersonaCliente>(value.listaClientesRequests)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.cargauno=false;
+    })
+
+  }
+
+  onbtenerPDF(select: MatSelect) {
+    this.cargauno=true;
+    var pipe: DatePipe = new DatePipe('en-US')
+    var dia: String = new Date().toISOString();
+    this.usuarioService.getAllUsuarios().subscribe(valueb =>{
+      this.cursoService.getClientesCurso(select.value.id).subscribe(value => {
+        var alumnos: PersonaCliente[] = value.listaClientesRequests.sort((a, b) => {
+          if (a.apellidos > b.apellidos) {
+            return 1;
+          }
+          if (a.apellidos < b.apellidos) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        })
+        const pdfDefinition: any = {
+          content: [
+            {
+              text: '_________________________________________________________________________________________',
+              alignment: 'center'
+            },
+            // @ts-ignore
+            {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
+            {text: 'LISTA DE PARTICIPANTES', fontSize: 15, bold: true, alignment: 'center'},
+            {text: 'Curso de ' + value.nombre, fontSize: 15, margin: [0, 0, 20, 0]},
+            {text: '    '},
+            {text: 'Nombre del responsable: ' + value.responsable},
+            {text: '    '},
+            {text: 'Lugar donde se llevara a cabo: ' + value.lugar},
+            {text: '    '},
+            {text: 'Dia de actividad: ' + pipe.transform(select.value.fecha, 'MMMM d, y')},
+            {text: '    '},
+            {text: 'Participantes'},
+            {
+              table: {
+                headerRows: 1,
+                widths: ['10%', '25%', '40%', '25%'],
+                body: [
+                  ['ID', 'CEDULA', 'MOMBRES COMPLETOS', 'FIRMA'],
+                  [alumnos.map(function (item, index) {
+                    return index + 1
+                  }),
+                    alumnos.map(function (item) {
+                      return item.cedula + ''
+                    }),
+                    alumnos.map(function (item) {
+                      return item.apellidos + ' ' + item.nombres
+                    }),
+                    alumnos.map(function (item) {
+                      return '_____________________'
+                    })
+                  ],
+                ]
+              }
+            },
+            {text: '    '},
+            {text: '    '},
+            {
+              table: {
+                headerRows: 1,
+                widths: ['50%', '50%'],
+                body: [
+                  ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: '+valueb.filter(value1 => value1.idRol==1).pop().apellidos+' '+valueb.filter(value1 => value1.idRol==1).pop().nombres],
+                  ['Firma:', 'Firma:']
+                ]
+              },
+            }
+          ]
+        }
+        const pdf = pdfMake.createPdf(pdfDefinition);
+        pdf.open();
+        this.cargauno=false;
+      })
+    })
   }
 
   applyFilter(event: Event) {
@@ -100,4 +240,15 @@ function createNewUser(id: number): UserData {
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
   };
+}
+
+interface fechas {
+  id: Number;
+  fecha: Date
+}
+
+function addDaysToDate(date, days): any {
+  var res = new Date(date);
+  res.setDate(res.getDate() + days);
+  return res;
 }

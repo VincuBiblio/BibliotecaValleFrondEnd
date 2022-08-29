@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 import { ContarNumeroClass, ContarPorIdCurso, Curso } from '../models/curso';
 import { environment } from 'src/environments/environment';
+import {Fecha} from "../models/fecha";
 
 @Injectable({
     providedIn: 'root'
@@ -34,8 +35,8 @@ export class CursoService {
         return this.http.get(environment.URL_APP + "/curso/contarclientesencurso/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarNumeroClass[]))
     }
 
-    getClientesCurso(idCurso:any): Observable<ContarPorIdCurso[]> {
-        return this.http.get(environment.URL_APP + "/curso/allBylistaclientes/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarPorIdCurso[]))
+    getClientesCurso(idCurso:any): Observable<Curso> {
+        return this.http.get(environment.URL_APP + "/curso/allBylistaclientes/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as Curso))
     }
 
     saveClienteCurso(idCliente: any, idCurso: any) {
@@ -53,6 +54,13 @@ export class CursoService {
     deletePersonaCurso(idCliente: any, idCurso: any){
         return this.http.delete(environment.URL_APP+"/curso/"+idCurso+"/cliente/"+idCliente,{headers:this.httpHeaders});
     }
+
+  getFecha(): Observable<Date> {
+    return this.http.get(environment.URL_APP+"/fecha",{headers: this.httpHeaders}).pipe(map(
+      data => data as Date
+    ));
+  }
+
 
 }
 
