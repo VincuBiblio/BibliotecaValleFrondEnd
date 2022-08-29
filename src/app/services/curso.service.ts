@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 import { ContarNumeroClass, ContarPorIdCurso, Curso } from '../models/curso';
 import { environment } from 'src/environments/environment';
-import {UserData} from "../component/administracion/crudusuario/crudusuario.component";
 
 @Injectable({
     providedIn: 'root'

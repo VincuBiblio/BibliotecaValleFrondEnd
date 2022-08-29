@@ -12,6 +12,7 @@ import {
 import {ReporteCursoComponent} from "./cursos/reporteCurso/reporte-curso.component";
 import {CrudcursoComponent} from "./cursos/crudcurso/crudcurso.component";
 import {
+
   ControlParticipacionTallerComponent
 } from './taller/participacionTaller/controlParticipacionTaller/control-participacion-taller.component';
 import {
@@ -80,7 +81,7 @@ const routes: Routes = [
   },
   {
     path: 'inscripciontaller',
-    component: ControlParticipacionTallerComponent
+    component: NuevaParticipacionTallerComponent
   },
   {
     path: 'reportecurso',

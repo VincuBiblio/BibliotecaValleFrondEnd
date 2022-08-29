@@ -33,8 +33,8 @@ export class NuevaInscripcionComponent implements OnInit {
   public colorDisponibilidad: String = 'red';
   public fondoDisponibilidad: String = '#f1ebd4';
   public numeroCondicion: Number = 0;
-  public totalCuposSobrantes:Number;
-  public totalCuposTotal:any;
+  public totalCuposSobrantes: Number;
+  public totalCuposTotal: any;
 
   //DECLARACIÓN DE VARIABLES
   public cursoLista: Curso[] = [];
@@ -56,7 +56,7 @@ export class NuevaInscripcionComponent implements OnInit {
   public cardCliente: Boolean = false;
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
-  public cardListarModulo:Boolean;
+  public cardListarModulo: Boolean;
 
   public controlbotonSiguiente: Boolean;
   public controlmensajeSiguiente: Boolean;
@@ -88,7 +88,7 @@ export class NuevaInscripcionComponent implements OnInit {
   public mostrarLista() {
     this.divListar = true;
     this.divNuevo = false;
-    this.cardListarModulo=false;
+    this.cardListarModulo = false;
 
     if (this.numeroCondicion == 0) {
       this.numeroCondicion = 2;
@@ -304,12 +304,12 @@ export class NuevaInscripcionComponent implements OnInit {
         this.contarClientesCurso(this.idCurso, 1);
         this._snackBar.open("Cliente inscrito con exito", "CERRAR");
         var num = this.totalCuposSobrantes;
-        this.totalCuposTotal = Number(num) -1;
-        
-        if(this.totalCuposTotal<=0){
+        this.totalCuposTotal = Number(num) - 1;
+
+        if (this.totalCuposTotal <= 0) {
           location.reload();
         }
-        
+
       }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       }
@@ -373,7 +373,7 @@ export class NuevaInscripcionComponent implements OnInit {
       }
     }
 
-    this.cardListarModulo =true;
+    this.cardListarModulo = true;
 
     this.cursoService.getClientesCurso(this.selectedIdCurso).subscribe(values => {
 
