@@ -352,7 +352,8 @@ export class NuevaParticipacionTallerComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  listarParticipantesCurso(event: Event, condicion: number, valor: any) {
+  listarParticipantesTaller(event: Event, condicion: number, valor: any) {
+
 
     if (condicion == 1) {
       this.selectedIdTaller = (event.target as HTMLSelectElement).value;
@@ -362,21 +363,22 @@ export class NuevaParticipacionTallerComponent implements OnInit {
       }
     }
 
+
     this.cardListarModulo = true;
 
-    this.tallerService.getClientesCurso(this.selectedIdTaller).subscribe(values => {
+    this.tallerService.getClientesTaller(this.selectedIdTaller).subscribe(values => {
+      
+      console.log("listado clientes taller generado y listado en table");
+      console.log(Object.values(values)[9]);
 
-      var quesirva = JSON.stringify(Object.values(values)[12])
+      var quesirva = JSON.stringify(Object.values(values)[9])
       var coche = JSON.parse(quesirva);
       this.listaClientesInscritos = coche;
 
       this.dataSource = new MatTableDataSource(this.listaClientesInscritos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
-      //console.log(this.listaClientesInscritos.length);
-
-
+      
     })
   }
 

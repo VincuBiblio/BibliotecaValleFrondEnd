@@ -23,7 +23,7 @@ export class TallerService {
         return this.http.get(environment.URL_APP + "/taller/allTalleres", { headers: this.httpHeaders }).pipe(map(Response => Response as Taller[]))
     }
 
-    getClientesCurso(idCurso:any): Observable<ContarPorIdTaller[]> {
+    getClientesTaller(idCurso:any): Observable<ContarPorIdTaller[]> {
         return this.http.get(environment.URL_APP + "/taller/allBylistaclientestaller/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarPorIdTaller[]))
     }
 

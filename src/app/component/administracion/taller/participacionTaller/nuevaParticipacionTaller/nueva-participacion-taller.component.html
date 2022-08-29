@@ -655,7 +655,7 @@
   <mat-card class="borde2">
     <mat-form-field appearance="outline" class="seleccion">
       <mat-label>Seleccione un Curso</mat-label>
-      <select matNativeControl (change)="listarParticipantesCurso($event,1,$event)">
+      <select matNativeControl (change)="listarParticipantesTaller($event,1,$event)">
         <option value=""></option>
         <option *ngFor="let option of tallerLista" [value]="option.idTaller"
           [selected]="selectedIdTaller === option.idTaller">{{ option.nombre|uppercase }}</option>

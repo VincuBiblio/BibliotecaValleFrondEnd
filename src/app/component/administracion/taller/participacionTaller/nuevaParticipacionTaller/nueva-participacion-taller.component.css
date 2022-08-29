@@ -259,3 +259,32 @@ th {
   color: #803f00
   ;
 }
+
+
+
+.borde1 {
+  background-color: transparent;
+  margin: 0.5% auto;
+  width: 95%;
+  overflow: hidden;
+}
+
+.borde2 {
+  background-color: #f7f2dc;
+  margin: 0.5% auto;
+  width: 95%;
+}
+
+.borde3{
+  background-color: transparent;
+  width: 95%;
+  float: left;
+  margin-bottom: 10px;
+  border: 2px solid #f7f2dc;
+  overflow: hidden;
+  writing-mode: horizontal-tb;
+  padding: 1rem;
+  text-align: center;
+  left: 20px;
+}
+
