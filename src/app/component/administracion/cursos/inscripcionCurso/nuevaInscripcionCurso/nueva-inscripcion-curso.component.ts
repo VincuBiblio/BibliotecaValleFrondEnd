@@ -11,6 +11,7 @@ import { __values } from 'tslib';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaCliente } from 'src/app/models/personaCliente';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ListarinscripcionCursoComponent } from '../listarInscripcionCurso/listar-inscripcion-curso.component';
 import { ListaClientesRequests } from 'src/app/models/clienteCurso';
 import Swal from "sweetalert2";
@@ -151,6 +152,8 @@ export class NuevaInscripcionComponent implements OnInit {
         //console.log(DiaFecha);
 
         if (AnyoFecha < AnyoHoy) {
+          alert("La fecha introducida es anterior a Hoy");
+
 
         }
         else {
@@ -309,8 +312,7 @@ export class NuevaInscripcionComponent implements OnInit {
         if (this.totalCuposTotal <= 0) {
           location.reload();
         }
-
-      }, error => {
+      },error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       }
 
@@ -434,7 +436,7 @@ export class NuevaInscripcionComponent implements OnInit {
         this.listarParticipantesCurso(this.selectedIdCurso, 2, this.selectedIdCurso);
         this.contarClientesCurso(this.selectedIdCurso);
         this._snackBar.open('Elimindo exitosamente', 'ACEPTAR');
-  
+
       }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       })

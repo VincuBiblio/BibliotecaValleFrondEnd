@@ -148,12 +148,12 @@
 
             <ng-container matColumnDef="Editar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit</th>
-              <td mat-cell *matCellDef="let row"> <button>Editar</button> </td>
+              <td mat-cell *matCellDef="let row"> <button mat-flat-button color="primary">Editar</button> </td>
             </ng-container>
 
             <ng-container matColumnDef="Eliminar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit</th>
-              <td mat-cell *matCellDef="let row"> <button (click)="borrarCursos()">Eliminar</button> </td>
+              <td mat-cell *matCellDef="let row"> <button  mat-flat-button  color="warn" (click)="borrarCursos()">Eliminar</button> </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
