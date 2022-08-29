@@ -1,9 +1,13 @@
 
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from "@angular/material/table";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup } from '@angular/forms';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaCliente } from 'src/app/models/personaCliente';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 
 export interface PeriodicElementComputo {
@@ -14,29 +18,13 @@ export interface PeriodicElementComputo {
 
 
 
-export interface PeriodicElementCliente {
-  cedula: string;
-  nombre: string;
-  edad: string;
-}
-
-const ELEMENT_DATA_CLIENTE: PeriodicElementCliente[] = [
-  { cedula: '0126578945', nombre: 'Juan Andrade', edad: '18' },
-  { cedula: '01048974569', nombre: 'Alisson Cardenas', edad: '19' },
-  { cedula: '0156789412', nombre: 'Adriana Arevalo', edad: '8' },
-  { cedula: '0108745689', nombre: 'Amalia Nieto', edad: '40' },
-  { cedula: '0198745648', nombre: 'Jose Bermeo', edad: '30' },
-  { cedula: '01897456987', nombre: 'Marco Polo', edad: '15' },
-
-];
-
 const ELEMENT_DATA_COMPUTO: PeriodicElementComputo[] = [
   { codigo: '1', procesador: 'Core™ i7-11700K', ram: '4RAM' },
   { codigo: '2', procesador: 'Core™ i7-11700K', ram: '8RAM' },
   { codigo: '3', procesador: 'Core™ i7-11700K', ram: '8RAM' },
   { codigo: '4', procesador: 'Core™ i7-11700K', ram: '8RAM' },
   { codigo: '5', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  
+
 
 ];
 
@@ -51,7 +39,20 @@ const ELEMENT_DATA_COMPUTO: PeriodicElementComputo[] = [
     },
   ],
 })
-export class NuevaPrestamoComputoComponent {
+export class NuevaPrestamoComputoComponent implements OnInit {
+
+  public clienteLista: PersonaCliente[] = [];
+
+  public idCliente: any;
+  public cardClienteMensaje: Boolean = true;
+  public cardCliente: Boolean = false;
+
+  //ojo borraar el true
+  public controlbotonSiguiente: Boolean=true;
+  public controlmensajeSiguiente: Boolean;
+
+  public mensajeSinCupos: String = "SIN CUPOS"
+  public mensajeSinCuposGuardar: String = "SIN CUPOS";
 
   formCliente: FormGroup;
 
@@ -61,22 +62,34 @@ export class NuevaPrestamoComputoComponent {
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
+  secondFormGroup1 = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
   isEditable = true;
 
-  constructor(private _formBuilder: FormBuilder) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private clienteService: ClienteService,
+  ) { }
+
+  ngOnInit(): void {
+    //this.listarCursos();
+    this.listarClientes();
+  }
 
   prueba(valor: any) {
     alert(valor);
   }
-  openDialog(){
-    this.dialogoCliente=true;
+  openDialog() {
+    this.dialogoCliente = true;
   }
 
-  closeDialog(){
-    this.dialogoCliente=false;
+  closeDialog() {
+    this.dialogoCliente = false;
   }
 
   //////////////////////////////////////////////////
@@ -90,14 +103,65 @@ export class NuevaPrestamoComputoComponent {
   }
 
 
-  //////////////////////////////////////////////////
-  //LISTAR CLIENTE
-  displayedColumnsCliente: string[] = ['cedula'];
-  dataSourceCliente = new MatTableDataSource(ELEMENT_DATA_CLIENTE);
 
+  //////////////////////
+  //CLIENTE
+
+  //LISTAR CLIENTE CON BOTON NARANJA
+  displayedColumnsCliente: string[] = ['cedula'];
+  dataSourceCliente = new MatTableDataSource<PersonaCliente>;
+
+  //FILTRO DE BUSQUEDA
   applyFilterCliente(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceCliente.filter = filterValue.trim().toLowerCase();
+  }
+
+  listarClientes() {
+    this.clienteService.getAllClientes().subscribe(value => {
+      console.log("Listado clientes generado exitosamente");
+      this.clienteLista = value;
+      console.log(this.clienteLista);
+      this.dataSourceCliente = new MatTableDataSource(value);
+      this.dataSourceCliente.paginator = this.paginator;
+      this.dataSourceCliente.sort = this.sort;
+
+    })
+
+  }
+
+  secondFormGroup = this._formBuilder.group({
+    cedula: new FormControl<String>('', [Validators.required]),
+    nombres: new FormControl<String>('', [Validators.required]),
+    edad: new FormControl<any>('', [Validators.required]),
+    email: new FormControl<String>('', [Validators.required]),
+    direccion: new FormControl<String>('', [Validators.required]),
+    representante: new FormControl<String>('', [Validators.required]),
+  });
+
+  cargarDatosCliente(id: any) {
+    this.idCliente = id;
+    this.cardCliente = true;
+    this.cardClienteMensaje = false;
+    for (var i = 0; i < this.clienteLista.length; i++) {
+
+      if (this.clienteLista[i].idCliente == this.idCliente) {
+        this.secondFormGroup.setValue({
+
+          cedula: this.clienteLista[i].cedula,
+          nombres: this.clienteLista[i].nombres.toUpperCase() + " " + this.clienteLista[i].apellidos.toUpperCase(),
+          edad: this.clienteLista[i].edad,
+          email: this.clienteLista[i].email,
+          direccion: this.clienteLista[i].barrio.toUpperCase() + " - " + this.clienteLista[i].parroquia.toUpperCase(),
+          representante: this.clienteLista[i].nombreResponsable.toUpperCase(),
+
+
+        })
+
+        console.log("Datos cliente cargado correctamente");
+      }
+
+    }
   }
 
 }

@@ -206,7 +206,7 @@
       </ng-template>
       <mat-card class="example-card-two">
 
-        <mat-card class="cardTipoA1">
+        <mat-card class="cardCurso">
 
           <table class="table2">
             <tr style="text-align: center;">
@@ -250,13 +250,13 @@
                           <div class="divtipo1"><strong>CÉDULA:
                             </strong>{{element.cedula|uppercase}}<br></div>
                           <div class="divtipo1"><strong>NOMBRE:
-                            </strong>{{element.nombre|uppercase}}<br></div>
+                            </strong>{{element.nombres|uppercase}} {{element.apellidos|uppercase}}<br></div>
                           <div class="divtipo1"><strong>EDAD:
                             </strong>{{element.edad}} <br></div>
                         </td>
 
                         <td>
-                          <button mat-stroked-button class="boton1" (click)="prueba(element.nombre)">
+                          <button mat-stroked-button class="boton1" (click)="cargarDatosCliente(element.idCliente)">
                             <mat-icon>forward</mat-icon>
                           </button>
                         </td>
@@ -286,104 +286,125 @@
 
         </mat-card>
 
-        <mat-card class="cardTipoA1">
-          <div style="width: 500px;">
-            <mat-card-title>
-              <div style="text-align: center;"> DATOS DE CLIENTE</div>
+        <div *ngIf="cardClienteMensaje==true">
 
-            </mat-card-title>
-          </div>
-          <br>
-          <mat-card-content>
+        </div>
 
-            <table class="table2">
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>CÉDULA: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput formControlName="secondCtrl" required>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>NOMBRES: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput formControlName="secondCtrl" required>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>EDAD: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput formControlName="secondCtrl" required>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>EMAIL: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput formControlName="secondCtrl" required>
-                </td>
-              </tr>
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>DIRECCIÓN: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput formControlName="secondCtrl" required>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>REPRESENTANTE: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput formControlName="secondCtrl" required>
-                </td>
-              </tr>
+        <mat-card class="cardCurso" *ngIf="cardCliente==true">
 
 
-            </table>
 
+          <div>
+            <div style="width: 500px;">
+              <mat-card-title>
+                <div style="text-align: center;"> DATOS DE CLIENTE</div>
+
+              </mat-card-title>
+            </div>
             <br>
+            <mat-card-content>
 
-            <table class="table2">
-              <tr style="text-align: center;">
-                <td style="text-align:left ; width: 70%;">
+              <table class="table2">
 
-                  <button mat-button matStepperPrevious class="botonrojo">
-                    <mat-icon>reply</mat-icon>
-                    REGRESAR
-                  </button>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>CÉDULA: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="cedula" required>
+                  </td>
+                </tr>
 
-                </td>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>NOMBRES: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="nombres" required>
+                  </td>
+                </tr>
 
-                <td>
-                  <button mat-button matStepperNext mat-flat-button class="botonnaranja">SIGUIENTE
-                    <mat-icon>forward
-                    </mat-icon>
-                  </button>
-                </td>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>EDAD: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="edad" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>EMAIL: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="email" required>
+                  </td>
+                </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>DIRECCIÓN: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="direccion" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>REPRESENTANTE: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="representante" required>
+                  </td>
+                </tr>
 
 
-              </tr>
+              </table>
 
-            </table>
+              <br>
 
-          </mat-card-content>
+              <table class="table2">
+                <tr style="text-align: center;">
+                  <td style="text-align:left ; width: 70%;">
+
+                    <button mat-button matStepperPrevious class="botonrojo">
+                      <mat-icon>reply</mat-icon>
+                      REGRESAR
+                    </button>
+
+                  </td>
+
+                  <div *ngIf="controlbotonSiguiente==true">
+                    <td>
+                      <button [disabled]="secondFormGroup.invalid" mat-button matStepperNext mat-flat-button
+                        class="botonnaranja">SIGUIENTE
+                        <mat-icon>forward
+                        </mat-icon>
+                      </button>
+                    </td>
+                  </div>
+
+                  <div *ngIf="controlmensajeSiguiente==true">
+                    <td>
+                      <strong>{{mensajeSinCupos}}</strong>
+                    </td>
+                  </div>
+
+
+                </tr>
+
+              </table>
+
+            </mat-card-content>
+          </div>
+
+
         </mat-card>
       </mat-card>
     </form>
   </mat-step>
+
 
 
 
@@ -416,7 +437,7 @@
                 <strong>CÓDIGO: </strong>
               </td>
               <td colspan="1" class="txt">
-                <input matInput >
+                <input matInput>
               </td>
             </tr>
 
@@ -425,7 +446,7 @@
                 <strong>PROCESADOR: </strong>
               </td>
               <td colspan="1" class="txt">
-                <input matInput >
+                <input matInput>
               </td>
             </tr>
 
@@ -443,7 +464,7 @@
                 <strong>DATO EXTRA 1: </strong>
               </td>
               <td colspan="1" class="txt">
-                <input matInput >
+                <input matInput>
               </td>
             </tr>
             <tr aria-colspan="6">
@@ -451,7 +472,7 @@
                 <strong>DATO EXTRA 2: </strong>
               </td>
               <td colspan="1" class="txt">
-                <input matInput >
+                <input matInput>
               </td>
             </tr>
 
@@ -460,7 +481,7 @@
                 <strong>DATO EXTRA 3: </strong>
               </td>
               <td colspan="1" class="txt">
-                <input matInput >
+                <input matInput>
               </td>
             </tr>
 
@@ -471,73 +492,80 @@
 
         </mat-card>
 
-        <mat-card class="cardTipoB2">
-          <div style="width: 500px;">
-            <mat-card-title>
-              <div style="text-align: center;"> DATOS DE CLIENTE</div>
+        <form [formGroup]="secondFormGroup">
+          <mat-card class="cardCurso">
+            <div style="width: 500px;">
+              <mat-card-title>
+                <div style="text-align: center;"> DATOS DE CLIENTE</div>
 
-            </mat-card-title>
-          </div>
-          <br>
-          <table class="table2">
+              </mat-card-title>
+            </div>
+            <br>
+            <mat-card-content>
 
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>CÉDULA: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
+              <table class="table2">
 
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>NOMBRES: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>CÉDULA: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="cedula" required>
+                  </td>
+                </tr>
 
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>EDAD: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>NOMBRES: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="nombres" required>
+                  </td>
+                </tr>
 
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>EMAIL: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>DIRECCIÓN: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>EDAD: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="edad" required>
+                  </td>
+                </tr>
 
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>REPRESENTANTE: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput>
-              </td>
-            </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>EMAIL: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="email" required>
+                  </td>
+                </tr>
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>DIRECCIÓN: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="direccion" required>
+                  </td>
+                </tr>
+
+                <tr aria-colspan="6">
+                  <td colspan="1">
+                    <strong>REPRESENTANTE: </strong>
+                  </td>
+                  <td colspan="1" class="txt">
+                    <input readonly="true" matInput formControlName="representante" required>
+                  </td>
+                </tr>
 
 
-          </table>
+              </table>
 
-        </mat-card>
+              <br>
+
+            </mat-card-content>
+          </mat-card>
+        </form>
 
         <table class="table2" style=" background-color: transparent;">
           <tr style="text-align: center;">
