@@ -1,8 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { Evento } from 'src/app/models/evento';
+import { EventoService } from 'src/app/services/evento.serice';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface UserData {
@@ -53,6 +56,9 @@ const NAMES: string[] = [
 })
 export class CrudeventoComponent implements OnInit {
 
+  public eventoLista: Evento = new Evento();
+
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -67,10 +73,13 @@ export class CrudeventoComponent implements OnInit {
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
+  constructor(
+    public eventoService: EventoService,
+    private _snackBar: MatSnackBar,
+  ) {
 
     // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
@@ -92,22 +101,51 @@ export class CrudeventoComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
-    nombrecurso: new FormControl<String>('', [Validators.required, Validators.maxLength(20)]),
-    nombreresponsable: new FormControl<String>('', [Validators.required]),
+    descripcion: new FormControl<String>('', [Validators.required]),
     actividades: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    numparticipantes: new FormControl<Date>(null, [Validators.required]),
-    lugar: new FormControl<String>('', [Validators.required]),
-    descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10), Validators.pattern("[aA-zZ]+")]),
-    materiales: new FormControl<String>('', [Validators.required]),
+    fecha: new FormControl<Date>(null, [Validators.required]),
     observacion: new FormControl<String>('', [Validators.required]),
   })
 
   guardarCliente() {
-    console.log(this.formGrupos.getRawValue())
+
+    this.eventoLista.descripcion = Object.values(this.formGrupos.getRawValue())[0];
+    this.eventoLista.actividades = Object.values(this.formGrupos.getRawValue())[1];
+    this.eventoLista.fecha = Object.values(this.formGrupos.getRawValue())[2];
+    this.eventoLista.observacion = Object.values(this.formGrupos.getRawValue())[3];
+    this.eventoLista.documento = null;
+    this.eventoLista.numParticipantes = null;
+    this.eventoLista.usuarioid = "1";
+
+    console.log("Evento Guardado");
+    console.log(this.eventoLista);
+
+    this.eventoService.createEvento(this.eventoLista).subscribe(value => {
+      this._snackBar.open('Evento registrado', 'ACEPTAR');
+      this.vaciarFormulario();
+      //this.loaderGuardar=false
+    }, error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      //this.loaderGuardar=false
+    })
+
   }
 
+  vaciarFormulario() {
+    this.formGrupos.setValue({
+      actividades: "",
+      descripcion: "",
+      fecha: null,
+      observacion: "",
+
+    })
+  }
+
+
 }
+
+
+
 
 /** Builds and returns a new User. */
 function createNewUser(id: number): UserData {

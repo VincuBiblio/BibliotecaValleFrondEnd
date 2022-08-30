@@ -1,8 +1,14 @@
 <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVO EVENTO">
+
+
+
+
+
     <mat-card class="example-card" style="background: #f7f2dc">
       <form [formGroup]="formGrupos">
         <mat-card-content style="background: #f7f2dc">
+
           <mat-grid-list cols="2" rowHeight="5:0.9">
             <h3>EVENTOS</h3>
             <h4>DATOS DEL EVENTO</h4>
@@ -10,50 +16,42 @@
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre del evento</mat-label>
-                  <input matInput formControlName="nombrecurso">
+                  <input matInput formControlName="descripcion">
                 </mat-form-field>
               </mat-grid-tile>
-              <mat-grid-tile rowspan="2">
-                <mat-form-field appearance="outline">
-                  <mat-label>Observaciones</mat-label>
-                  <textarea matInput formControlName="actividades"></textarea>
-                </mat-form-field>
-              </mat-grid-tile>
+
 
             </div>
 
             <div>
               <mat-grid-tile>
-                <mat-form-field appearance="outline">
-                  <mat-label>Fecha de duración</mat-label>
-                  <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                    <input matStartDate formControlName="start" placeholder="Start date">
-                    <input matEndDate formControlName="end" placeholder="End date">
-                  </mat-date-range-input>
-                  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-form-field appearance="outline" >
+                  <mat-label>Fecha de nacimiento</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fecha">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-
-                  <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-                  <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+                  <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
               </mat-grid-tile>
+            </div>
+
+
+            <div>
 
               <mat-grid-tile rowspan="2">
                 <mat-form-field appearance="outline">
                   <mat-label>Actividades</mat-label>
-                  <textarea matInput formControlName="materiales"></textarea>
+                  <textarea matInput formControlName="actividades"></textarea>
                 </mat-form-field>
               </mat-grid-tile>
 
 
             </div>
 
-            <div>
+            <div >
               <mat-grid-tile rowspan="2">
                 <mat-form-field appearance="outline">
-                  <mat-label>Descripción</mat-label>
-                  <textarea matInput formControlName="descripcion"></textarea>
+                  <mat-label>Observación</mat-label>
+                  <textarea matInput formControlName="observacion"></textarea>
                 </mat-form-field>
               </mat-grid-tile>
 
@@ -61,10 +59,15 @@
 
           </mat-grid-list>
         </mat-card-content>
+
         <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">REGISTRAR
         </button>
+
+
       </form>
     </mat-card>
+
+
   </mat-tab>
   <mat-tab label="VER EVENTOS">
     <mat-card class="example-card-two">
@@ -116,4 +119,3 @@
     </mat-card>
   </mat-tab>
 </mat-tab-group>
-

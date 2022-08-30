@@ -8,6 +8,8 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaCliente } from 'src/app/models/personaCliente';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ComputoService } from 'src/app/services/computo.service';
+import { Computo } from 'src/app/models/computo';
 
 
 export interface PeriodicElementComputo {
@@ -59,6 +61,15 @@ export class NuevaPrestamoComputoComponent implements OnInit {
   public dialogoCliente: boolean;
 
 
+  //COMPUTO
+  public listaInicialCurso:Computo[]=[];
+  public ComputoLista:Computo[]=[];
+
+
+  //OTROS
+public Hoy = new Date();
+
+
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
@@ -74,10 +85,11 @@ export class NuevaPrestamoComputoComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private clienteService: ClienteService,
+    private computoService: ComputoService,
   ) { }
 
   ngOnInit(): void {
-    //this.listarCursos();
+    this.listarComputadoras();
     this.listarClientes();
   }
 
@@ -163,6 +175,72 @@ export class NuevaPrestamoComputoComponent implements OnInit {
 
     }
   }
+
+
+  //COMPUTO
+  listarComputadoras() {
+    this.computoService.getAllComputo().subscribe(value => {
+      this.listaInicialCurso = value;
+      console.log(value);
+
+
+      /*
+      var AnyoHoy = this.Hoy.getFullYear();
+      var MesHoy = this.Hoy.getMonth() + 1;
+      var DiaHoy = this.Hoy.getDate();
+      for (var i = 0; i < this.listaInicialTaller.length; i++) {
+
+        let cadena = this.listaInicialTaller[i].fechaMaxInscripcion;
+        let palabra = cadena.split('-')
+
+        var AnyoFecha = palabra[0];
+        var MesFecha = palabra[1];
+        var DiaFecha = palabra[2];
+
+
+        //console.log(DiaFecha);
+
+        if (AnyoFecha < AnyoHoy) {
+
+        }
+        else {
+          if (AnyoFecha == AnyoHoy && MesFecha < MesHoy) {
+
+          }
+          else {
+            if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy) {
+
+            }
+            else {
+              if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy) {
+
+                this.tallerLista.push(this.listaInicialTaller[i]);
+              }
+              else {
+
+                this.tallerLista.push(this.listaInicialTaller[i]);
+
+              }
+            }
+          }
+        }
+
+
+
+      }*/
+
+      /*
+      this.dataSourceTaller = new MatTableDataSource(this.ComputoLista);
+      this.dataSourceTaller.paginator = this.paginator;
+      this.dataSourceTaller.sort = this.sort;
+      console.log("Listado talleres generado exitosamente");
+      console.log(this.tallerLista)*/
+    })
+
+
+
+  }
+  
 
 }
 

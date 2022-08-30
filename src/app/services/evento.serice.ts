@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Evento } from '../models/evento';
 import { map, Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
-import { Computo } from '../models/computo';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ComputoService {
+export class EventoService {
     private httpHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + JSON.parse(sessionStorage["personausuario"]).token
@@ -19,8 +19,10 @@ export class ComputoService {
         private http: HttpClient) {
     }
 
-    getAllComputo(): Observable<Computo[]> {
-        return this.http.get(environment.URL_APP + "/inventario/computo/all", { headers: this.httpHeaders }).pipe(map(Response => Response as Computo[]))
+
+    createEvento(evento: Evento): Observable<Evento> {
+        return this.http.post(environment.URL_APP + "/eventos/registrarEvento", evento, { headers: this.httpHeaders })
     }
+
 
 }
