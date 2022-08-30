@@ -2,6 +2,19 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {Curso} from "../../../../models/curso";
+import {FormControl} from "@angular/forms";
+import {map, Observable, startWith} from "rxjs";
+import {Taller} from "../../../../models/taller";
+import {TallerService} from "../../../../services/taller.service";
+import {CursoService} from "../../../../services/curso.service";
+import {DatePipe} from "@angular/common";
+import {MatSelect} from "@angular/material/select";
+import {PersonaCliente} from "../../../../models/personaCliente";
+import {UsuarioService} from "../../../../services/usuario.service";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -53,28 +66,149 @@ const NAMES: string[] = [
 })
 export class AsistenciaTallerComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id', 'cedula', 'nombres'];
+  dataSource: MatTableDataSource<PersonaCliente>;
+
+
+  taller: Taller[] = [];
+  myControl = new FormControl();
+  dataTaller?: Observable<Taller[]>;
+  diasListado: fechas[] = [];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private tallerService:TallerService,
+              private cursoService: CursoService,
+              private usuarioService:UsuarioService) {
   }
 
   ngOnInit(): void {
+    this.tallerService.getAllTaller().subscribe(value => {
+      this.cursoService.getFecha().subscribe(fecha => {
+          this.taller = value.filter(value1 => value1.fechaFin < fecha);
+          this.dataTaller = this.myControl.valueChanges.pipe(
+            startWith(''),
+            map(values => this.filter(values)),
+          );
+        }
+      )
+    })
+  }
+
+  filter(value: any): Taller[] {
+    var pipe: DatePipe = new DatePipe('en-US')
+    const filterValue = value.toLowerCase();
+    return this.taller.filter(option => option.nombre?.toLowerCase().includes(filterValue)
+      || pipe.transform(option.fechaFin, 'YYYY').toLocaleLowerCase().includes(filterValue)
+    );
+  }
+
+  obtenerfechas(select: MatSelect) {
+    var dia: fechas[] = [];
+    this.tallerService.getClientesTaller(select.value).subscribe(value => {
+      var fechaInicio = new Date((value.fechaInicio)).getTime()
+      var fechaFin = new Date(value.fechaFin).getTime()
+      var diff = fechaFin - fechaInicio;
+      for (let i = 1; i < diff / (1000 * 60 * 60 * 24) + 2; i++) {
+        dia.push({
+          id: value.idTaller,
+          fecha: addDaysToDate(value.fechaInicio, i)
+        })
+      }
+      this.diasListado = dia;
+    })
+
+  }
+
+  obtnerlistado(select: MatSelect) {
+    this.tallerService.getClientesTaller(select.value.id).subscribe(value => {
+      this.dataSource = new MatTableDataSource<PersonaCliente>(value.listaClientesTallerRequests)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+
+  }
+
+  onbtenerPDF(select: MatSelect) {
+    var pipe: DatePipe = new DatePipe('en-US')
+    var dia: String = new Date().toISOString();
+    this.usuarioService.getAllUsuarios().subscribe(valueb =>{
+      this.tallerService.getClientesTaller(select.value.id).subscribe(value => {
+        var alumnos: PersonaCliente[] = value.listaClientesTallerRequests.sort((a, b) => {
+          if (a.apellidos > b.apellidos) {
+            return 1;
+          }
+          if (a.apellidos < b.apellidos) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        })
+        const pdfDefinition: any = {
+          content: [
+            {
+              text: '_________________________________________________________________________________________',
+              alignment: 'center'
+            },
+            // @ts-ignore
+            {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
+            {text: 'LISTA DE PARTICIPANTES', fontSize: 15, bold: true, alignment: 'center'},
+            {text: 'Taller de ' + value.nombre, fontSize: 15, margin: [0, 0, 20, 0]},
+            {text: '    '},
+            {text: 'Nombre del responsable: ' + value.responsable},
+            {text: '    '},
+            {text: 'Lugar donde se llevara a cabo: ' + value.lugar},
+            {text: '    '},
+            {text: 'Dia de actividad: ' + pipe.transform(select.value.fecha, 'MMMM d, y')},
+            {text: '    '},
+            {text: 'Participantes'},
+            {
+              table: {
+                headerRows: 1,
+                widths: ['10%', '25%', '40%', '25%'],
+                body: [
+                  ['ID', 'CEDULA', 'MOMBRES COMPLETOS', 'FIRMA'],
+                  [alumnos.map(function (item, index) {
+                    return index + 1
+                  }),
+                    alumnos.map(function (item) {
+                      return item.cedula + ''
+                    }),
+                    alumnos.map(function (item) {
+                      return item.apellidos + ' ' + item.nombres
+                    }),
+                    alumnos.map(function (item) {
+                      return '_____________________'
+                    })
+                  ],
+                ]
+              }
+            },
+            {text: '    '},
+            {text: '    '},
+            {
+              table: {
+                headerRows: 1,
+                widths: ['50%', '50%'],
+                body: [
+                  ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: '+valueb.filter(value1 => value1.idRol==1).pop().apellidos+' '+valueb.filter(value1 => value1.idRol==1).pop().nombres],
+                  ['Firma:', 'Firma:']
+                ]
+              },
+            }
+          ]
+        }
+        const pdf = pdfMake.createPdf(pdfDefinition);
+        pdf.open();
+      })
+    })
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -101,4 +235,16 @@ function createNewUser(id: number): UserData {
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
   };
+}
+
+
+interface fechas {
+  id: Number;
+  fecha: Date
+}
+
+function addDaysToDate(date, days): any {
+  var res = new Date(date);
+  res.setDate(res.getDate() + days);
+  return res;
 }

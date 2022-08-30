@@ -117,7 +117,7 @@ export class AsistenciacursoComponent implements OnInit {
       var diff = fechaFin - fechaInicio;
       for (let i = 1; i < diff / (1000 * 60 * 60 * 24) + 2; i++) {
         dia.push({
-          id: value.id,
+          id: value.idCurso,
           fecha: addDaysToDate(value.fechaInicio, i)
         })
       }

@@ -8,7 +8,7 @@
     <mat-form-field appearance="outline" class="seleccion">
       <mat-label>Seleccione el Curso</mat-label>
       <mat-select #cursoSelect>
-        <mat-option *ngFor="let curso of dataCursos | async" [value]="curso.id">{{curso.nombre}}
+        <mat-option *ngFor="let curso of dataCursos | async" [value]="curso.idCurso">{{curso.nombre}}
           de {{curso.fechaFin | date:'MMMM-YYYY'}}</mat-option>
       </mat-select>
     </mat-form-field>

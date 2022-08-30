@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { ContarPorIdTaller, Taller } from '../models/taller';
+import {PersonaCliente} from "../models/personaCliente";
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +24,8 @@ export class TallerService {
         return this.http.get(environment.URL_APP + "/taller/allTalleres", { headers: this.httpHeaders }).pipe(map(Response => Response as Taller[]))
     }
 
-    getClientesTaller(idCurso:any): Observable<ContarPorIdTaller[]> {
-        return this.http.get(environment.URL_APP + "/taller/allBylistaclientestaller/"+idCurso, { headers: this.httpHeaders }).pipe(map(Response => Response as ContarPorIdTaller[]))
+    getClientesTaller(id:any): Observable<Taller> {
+        return this.http.get(environment.URL_APP + "/taller/allBylistaclientestaller/"+id, { headers: this.httpHeaders }).pipe(map(Response => Response as Taller))
     }
 
     saveClienteTaller(idTaller: any, idCurso: any) {

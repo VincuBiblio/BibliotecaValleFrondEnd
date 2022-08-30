@@ -1,3 +1,5 @@
+import {PersonaCliente} from "./personaCliente";
+
 export class Taller {
     id?: any;
     idTaller?: any;
@@ -5,11 +7,12 @@ export class Taller {
     lugar?: any;
     descripcion?: any;
     responsable?: any;
-    fechaInicio?: any;
-    fechaFin?: any;
+    fechaInicio?: Date;
+    fechaFin?: Date;
     fechaMaxInscripcion?:any;
     numParticipantes?: any;
-   
+    listaClientesTallerRequests?:PersonaCliente[]
+
 }
 
 export class ContarNumeroClassT{

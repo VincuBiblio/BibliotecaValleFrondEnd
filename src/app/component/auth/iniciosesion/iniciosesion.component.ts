@@ -23,7 +23,7 @@ export class IniciosesionComponent implements OnInit {
 
   formGroup = new FormGroup({
     clave: new FormControl<String>('', [Validators.required]),
-    email: new FormControl<String>('', [Validators.required,Validators.email])
+    cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")])
   })
 
 

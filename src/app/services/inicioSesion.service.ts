@@ -14,7 +14,7 @@ export class InicioSesionService {
   constructor(private http: HttpClient) {
   }
 
-  loginUsuario(persona: ɵTypedOrUntyped<{ clave: FormControl<String | null>; email: FormControl<String | null> }, ɵFormGroupRawValue<{ clave: FormControl<String | null>; email: FormControl<String | null> }>, any>): Observable<PersonaUsuario> {
+  loginUsuario(persona: ɵTypedOrUntyped<{ clave: FormControl<String | null>; cedula: FormControl<String | null> }, ɵFormGroupRawValue<{ clave: FormControl<String | null>; cedula: FormControl<String | null> }>, any>): Observable<PersonaUsuario> {
     console.log(persona)
     return this.http.post<PersonaUsuario>(environment.URL_APP + "/persona/login", persona)
   }
