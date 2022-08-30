@@ -24,5 +24,16 @@ export class EventoService {
         return this.http.post(environment.URL_APP + "/eventos/registrarEvento", evento, { headers: this.httpHeaders })
     }
 
+    getEventoSinParticipantes(): Observable<Evento[]> {
+        return this.http.get(environment.URL_APP + "/eventos/listeventossinparticipantes", { headers: this.httpHeaders }).pipe(map(Response => Response as Evento[]))
+    }
+
+    getEventoConParticipantes(): Observable<Evento[]> {
+        return this.http.get(environment.URL_APP + "/eventos/listeventosconparticipantes", { headers: this.httpHeaders }).pipe(map(Response => Response as Evento[]))
+    }
+
+    deleteEvento(id:number){
+        return this.http.delete(environment.URL_APP+"/eventos/eliminarevento/"+id,{headers:this.httpHeaders});
+      }
 
 }

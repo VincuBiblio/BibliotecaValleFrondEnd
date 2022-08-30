@@ -6,47 +6,9 @@ import { MatSort } from "@angular/material/sort";
 import { Evento } from 'src/app/models/evento';
 import { EventoService } from 'src/app/services/evento.serice';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from "sweetalert2";
 
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 
 
 @Component({
@@ -56,7 +18,15 @@ const NAMES: string[] = [
 })
 export class CrudeventoComponent implements OnInit {
 
-  public eventoLista: Evento = new Evento();
+  public eventoListaGuardar: Evento = new Evento();
+
+
+  public eventoLista: Evento[] = [];
+
+
+  public divNuevo: Boolean = true;
+  public divListar: Boolean = false;
+  public cardListarModulo: Boolean;
 
 
   range = new FormGroup({
@@ -64,9 +34,6 @@ export class CrudeventoComponent implements OnInit {
     end: new FormControl<Date | null>(null),
   });
 
-
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -76,27 +43,21 @@ export class CrudeventoComponent implements OnInit {
   constructor(
     public eventoService: EventoService,
     private _snackBar: MatSnackBar,
-  ) {
-
-    // Create 100 users
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-
-  }
+  ) {  }
 
   ngOnInit(): void {
+    this.listarEventoSinParticipantes();
   }
 
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  public mostrarLista() {
+    this.divListar = true;
+    this.divNuevo = false;
+  }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  public mostrarNuevo() {
+    this.divListar = false;
+    this.divNuevo = true;
   }
 
 
@@ -107,20 +68,20 @@ export class CrudeventoComponent implements OnInit {
     observacion: new FormControl<String>('', [Validators.required]),
   })
 
-  guardarCliente() {
+  guardarEvento() {
 
-    this.eventoLista.descripcion = Object.values(this.formGrupos.getRawValue())[0];
-    this.eventoLista.actividades = Object.values(this.formGrupos.getRawValue())[1];
-    this.eventoLista.fecha = Object.values(this.formGrupos.getRawValue())[2];
-    this.eventoLista.observacion = Object.values(this.formGrupos.getRawValue())[3];
-    this.eventoLista.documento = null;
-    this.eventoLista.numParticipantes = null;
-    this.eventoLista.usuarioid = "1";
+    this.eventoListaGuardar.descripcion = Object.values(this.formGrupos.getRawValue())[0];
+    this.eventoListaGuardar.actividades = Object.values(this.formGrupos.getRawValue())[1];
+    this.eventoListaGuardar.fecha = Object.values(this.formGrupos.getRawValue())[2];
+    this.eventoListaGuardar.observacion = Object.values(this.formGrupos.getRawValue())[3];
+    this.eventoListaGuardar.documento = null;
+    this.eventoListaGuardar.numParticipantes = null;
+    this.eventoListaGuardar.usuarioid = "1";
 
     console.log("Evento Guardado");
-    console.log(this.eventoLista);
+    console.log(this.eventoListaGuardar);
 
-    this.eventoService.createEvento(this.eventoLista).subscribe(value => {
+    this.eventoService.createEvento(this.eventoListaGuardar).subscribe(value => {
       this._snackBar.open('Evento registrado', 'ACEPTAR');
       this.vaciarFormulario();
       //this.loaderGuardar=false
@@ -142,23 +103,70 @@ export class CrudeventoComponent implements OnInit {
   }
 
 
+
+  displayedColumnsTaller: string[] = ['id','descripcion','fecha','editar','eliminar'];
+  dataSourceEvento: MatTableDataSource<Evento>;
+
+
+  applyFilterEvento(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceEvento.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceEvento.paginator) {
+      this.dataSourceEvento.paginator.firstPage();
+    }
+  }
+
+  listarEventoSinParticipantes() {
+    this.eventoService.getEventoSinParticipantes().subscribe(value => {
+
+      this.eventoLista = value;
+
+
+      this.dataSourceEvento = new MatTableDataSource(this.eventoLista);
+      this.dataSourceEvento.paginator = this.paginator;
+      this.dataSourceEvento.sort = this.sort;
+      console.log("Listado eventos generado exitosamente");
+      console.log(this.eventoLista)
+    })
+
+  }
+
+
+  //ELIMINAR
+
+  eliminarEvento(idEvento: any) {
+
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: "¡Sí, bórralo!",
+      cancelButtonText: "Cancelar",
+      background: '#f7f2dc',
+      confirmButtonColor: '#f47f16',
+      cancelButtonColor: '#d33',
+      backdrop: false
+    })
+      .then(resultado => {
+        if (resultado.value) {
+
+          this.eventoService.deleteEvento(idEvento).subscribe(value => {
+            this.listarEventoSinParticipantes();
+            this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
+
+          }, error => {
+            this._snackBar.open(error.error.message, 'ACEPTAR');
+          })
+        }
+      });
+
+
+
+  }
+
+
+
 }
 
-
-
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
-}
