@@ -19,14 +19,16 @@ import Swal from "sweetalert2";
 export class CrudeventoComponent implements OnInit {
 
   public eventoListaGuardar: Evento = new Evento();
-
+  public idEvento: any;
 
   public eventoLista: Evento[] = [];
-
 
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
   public cardListarModulo: Boolean;
+  public botonParaGuardar: Boolean = true;
+  public botonParaEditar: Boolean = false;
+
 
 
   range = new FormGroup({
@@ -43,7 +45,7 @@ export class CrudeventoComponent implements OnInit {
   constructor(
     public eventoService: EventoService,
     private _snackBar: MatSnackBar,
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     this.listarEventoSinParticipantes();
@@ -51,6 +53,7 @@ export class CrudeventoComponent implements OnInit {
 
 
   public mostrarLista() {
+    this.listarEventoSinParticipantes();
     this.divListar = true;
     this.divNuevo = false;
   }
@@ -84,7 +87,7 @@ export class CrudeventoComponent implements OnInit {
     this.eventoService.createEvento(this.eventoListaGuardar).subscribe(value => {
       this._snackBar.open('Evento registrado', 'ACEPTAR');
       this.vaciarFormulario();
-      //this.loaderGuardar=false
+      this.listarEventoSinParticipantes()
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
       //this.loaderGuardar=false
@@ -104,7 +107,7 @@ export class CrudeventoComponent implements OnInit {
 
 
 
-  displayedColumnsTaller: string[] = ['id','descripcion','fecha','editar','eliminar'];
+  displayedColumnsTaller: string[] = ['id', 'descripcion', 'fecha', 'editar', 'eliminar'];
   dataSourceEvento: MatTableDataSource<Evento>;
 
 
@@ -132,6 +135,56 @@ export class CrudeventoComponent implements OnInit {
 
   }
 
+  //EDITAR
+
+  editarEvento(id: any) {
+    this.idEvento = id;
+    this.botonParaGuardar = false;
+    this.botonParaEditar = true;
+
+    for (var k = 0; k < this.eventoLista.length; k++) {
+      if (this.eventoLista[k].id == id) {
+        this.formGrupos.setValue({
+          actividades: this.eventoLista[k].actividades,
+          descripcion: this.eventoLista[k].descripcion,
+          fecha: this.eventoLista[k].fecha,
+          observacion: "",
+
+        })
+        this.mostrarNuevo();
+      }
+
+    }
+  }
+
+
+  guardarEditarEvento() {
+    this.eventoListaGuardar.descripcion = Object.values(this.formGrupos.getRawValue())[0];
+    this.eventoListaGuardar.actividades = Object.values(this.formGrupos.getRawValue())[1];
+    this.eventoListaGuardar.fecha = Object.values(this.formGrupos.getRawValue())[2];
+    this.eventoListaGuardar.observacion = Object.values(this.formGrupos.getRawValue())[3];
+    this.eventoListaGuardar.documento = null;
+    this.eventoListaGuardar.numParticipantes = null;
+    this.eventoListaGuardar.usuarioid = "1";
+    this.eventoListaGuardar.id = this.idEvento;
+
+
+    console.log("Datos Actualizar");
+    console.log(this.eventoListaGuardar);
+
+    this.eventoService.putEvento(this.eventoListaGuardar).subscribe(value => {
+      this._snackBar.open('Evento Actualizado', 'ACEPTAR');
+      this.vaciarFormulario();
+      this.botonParaGuardar = true;
+      this.botonParaEditar = false;
+      this.listarEventoSinParticipantes()
+    }, error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      //this.loaderGuardar=false
+    })
+
+
+  }
 
   //ELIMINAR
 

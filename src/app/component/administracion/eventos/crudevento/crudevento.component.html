@@ -28,8 +28,8 @@
 
           <div>
             <mat-grid-tile>
-              <mat-form-field appearance="outline" >
-                <mat-label>Fecha de nacimiento</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-label>Fecha Evento</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="fecha">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -50,7 +50,7 @@
 
           </div>
 
-          <div >
+          <div>
             <mat-grid-tile rowspan="2">
               <mat-form-field appearance="outline">
                 <mat-label>Observación</mat-label>
@@ -63,7 +63,10 @@
         </mat-grid-list>
       </mat-card-content>
 
-      <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarEvento()">REGISTRAR
+      <button *ngIf="botonParaGuardar==true" mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarEvento()">REGISTRAR
+      </button>
+      <br>
+      <button *ngIf="botonParaEditar==true" mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarEditarEvento()">ACTUALIZAR
       </button>
 
 
@@ -79,7 +82,7 @@
 <br>
 <mat-card class="borde3" *ngIf="divListar==true">
 
-  
+
   <mat-card class="borde2">
 
     <mat-form-field appearance="outline" class="bordeFiltro">
@@ -88,30 +91,30 @@
       <mat-icon matSuffix>find_in_page</mat-icon>
     </mat-form-field>
 
-    <div class="mat-elevation-z8">
+    
 
       <table mat-table [dataSource]="dataSourceEvento" class="mat-elevation-z8" style="background-color: #f7f2dc;">
 
         <!-- Position Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> ID. </th>
+        <ng-container matColumnDef="id"  >
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID. </th>
           <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="descripcion">
-          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <ng-container matColumnDef="descripcion"  >
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Nombre </th>
           <td mat-cell *matCellDef="let element"> <strong> {{element.descripcion}} </strong></td>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <ng-container matColumnDef="fecha"  >
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Fecha </th>
           <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="apellidos">
+        <ng-container matColumnDef="apellidos"  style="text-align: center;">
           <th mat-header-cell *matHeaderCellDef> Apellidos </th>
           <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
         </ng-container>
@@ -120,16 +123,15 @@
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="editar">
-          <th mat-header-cell *matHeaderCellDef> Editar </th>
-          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent"
-              > EDITAR </button> </td>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Editar </th>
+          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" (click)="editarEvento(element.id)"> EDITAR </button> </td>
         </ng-container>
 
-         <!-- Symbol Column -->
-         <ng-container matColumnDef="eliminar">
-          <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn" (click)="eliminarEvento(element.id)"
-              > ELIMINAR </button> </td>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="eliminar"  >
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Eliminar </th>
+          <td mat-cell *matCellDef="let element"> <button mat-raised-button color="warn"
+              (click)="eliminarEvento(element.id)"> ELIMINAR </button> </td>
         </ng-container>
 
 
@@ -142,7 +144,7 @@
         </tr>
       </table>
 
-    </div>
+  
   </mat-card>
 
 

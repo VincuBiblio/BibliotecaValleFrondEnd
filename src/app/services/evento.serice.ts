@@ -24,6 +24,10 @@ export class EventoService {
         return this.http.post(environment.URL_APP + "/eventos/registrarEvento", evento, { headers: this.httpHeaders })
     }
 
+    putEvento(evento: Evento): Observable<Evento> {
+        return this.http.put(environment.URL_APP + "/eventos/updateevento", evento, { headers: this.httpHeaders })
+    }
+
     getEventoSinParticipantes(): Observable<Evento[]> {
         return this.http.get(environment.URL_APP + "/eventos/listeventossinparticipantes", { headers: this.httpHeaders }).pipe(map(Response => Response as Evento[]))
     }
