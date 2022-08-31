@@ -12,6 +12,7 @@ import {UbicacionService} from "../../../services/ubicacion.service";
 import {PersonaUsuario} from "../../../models/personaUsuario";
 import {PersonaCliente} from "../../../models/personaCliente";
 import {DatePipe} from "@angular/common";
+import {UsuarioService} from "../../../services/usuario.service";
 
 
 export interface UserData {
@@ -70,7 +71,8 @@ export class ClientesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private ubicacionService: UbicacionService,
-              private clienteService: ClienteService) {
+              private clienteService: ClienteService,
+              private usuarioService:UsuarioService) {
   }
 
   ngOnInit(): void {
@@ -107,65 +109,107 @@ export class ClientesComponent implements OnInit {
     this.loaderActualizar=true
     var pipe: DatePipe = new DatePipe('en-US')
     var dia: String = new Date().toISOString();
-    this.clienteService.getAllClientes().subscribe(async value => {
-      const pdfDefinition: any = {
-        content: [
-          {
-            text: '_________________________________________________________________________________________',
-            alignment: 'center'
-          },
-          // @ts-ignore
-          {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
-          {text: 'REPORTE DE FACTURA', fontSize: 15, bold: true, alignment: 'center'},
-          {text: 'Total de ingresos por mes', fontSize: 15, margin: [0, 0, 20, 0]},
-          {text: '    '},
-          {text: 'La aereolinea Vuela V lleva un ingreso de por mes de:'},
-          {text: '    '},
-          {
-            table: {
-              headerRows: 1,
-              widths: ['2%', '11,1%', '11,1%', '11,1%','11,1%','11,1%','17,2%','11,1%','17,2%'],
-              body: [
-                ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS','FECHA DE NACIMIENTO','GENERO','CORREO','TELEFONO','DISCAPACIDAD'],
-                [  value.map(function(item){
-                  return item.id+''
-                }),
-                  value.map(function(item){
-                    return item.cedula+''
+    this.clienteService.getAllClientes().subscribe( value => {
+      this.usuarioService.getAllUsuarios().subscribe(async valueb => {
+        const pdfDefinition: any = {
+          content: [
+            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
+            {
+              text: '_________________________________________________________________________________________',
+              alignment: 'center'
+            },
+            // @ts-ignore
+            {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
+            {text: 'CLIENTES REGISTRADOS', fontSize: 15, bold: true, alignment: 'center'},
+            {text: 'Clientes que han usado la biblioteca', fontSize: 15, margin: [0, 0, 20, 0]},
+            {text: '    '},
+            {
+              table: {
+                headerRows: 1,
+                widths: ['2%', '11,1%', '11,1%', '11,1%', '11,1%', '11,1%', '17,2%', '11,1%', '15,2%'],
+                body: [
+                  ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'FECHA DE NACIMIENTO', 'GENERO', 'CORREO', 'TELEFONO', 'DISCAPACIDAD'],
+                  [value.map(function (item) {
+                    return item.id + ''
                   }),
-                  value.map(function(item){
-                    return item.nombres+''
-                  }),
-                  value.map(function(item){
-                    return item.apellidos+''
-                  }),
-                  value.map(function(item){
-                    return item.fechaNacimiento+''
-                  }),
-                  value.map(function(item){
-                    return item.genero+''
-                  }),
-                  value.map(function(item){
-                    return item.email+''
-                  }),
-                  value.map(function(item){
-                    return item.telefono+''
-                  }),
-                  value.map(function(item){
-                    return (item.discapacidad==true)?'SI':'NO'
-                  })
-                ],
+                    value.map(function (item) {
+                      return item.cedula + ''
+                    }),
+                    value.map(function (item) {
+                      return item.nombres + ''
+                    }),
+                    value.map(function (item) {
+                      return item.apellidos + ''
+                    }),
+                    value.map(function (item) {
+                      return item.fechaNacimiento + ''
+                    }),
+                    value.map(function (item) {
+                      return item.genero + ''
+                    }),
+                    value.map(function (item) {
+                      return item.email + ''
+                    }),
+                    value.map(function (item) {
+                      return item.telefono + ''
+                    }),
+                    value.map(function (item) {
+                      return (item.discapacidad == true) ? 'SI' : 'NO'
+                    })
+                  ],
 
-              ]
+                ]
+              }
+
+            },
+            {text: '    '},
+            {text: '    '},
+            {
+              table: {
+                headerRows: 1,
+                widths: ['100%'],
+                body: [
+                  ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
+                  ['Firma:']
+                ]
+              },
             }
-          }
-        ],
-        pageOrientation: 'landscape',
-      }
-      this.loaderActualizar=false
-      const pdf = pdfMake.createPdf(pdfDefinition);
-      pdf.open();
+          ],
+          pageOrientation: 'landscape',
+        }
+        this.loaderActualizar = false
+        const pdf = pdfMake.createPdf(pdfDefinition);
+        pdf.open();
+      })
     })
+  }
+
+
+  getBase64ImageFromURL(url:any) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        // @ts-ignore
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
   }
 
   exportToExcel(): void {
@@ -174,7 +218,7 @@ export class ClientesComponent implements OnInit {
     const book: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
-    XLSX.writeFile(book, 'EXAMPLE.xlsx');
+    XLSX.writeFile(book, 'Lista de Clientes.xlsx');
   }
 
 }

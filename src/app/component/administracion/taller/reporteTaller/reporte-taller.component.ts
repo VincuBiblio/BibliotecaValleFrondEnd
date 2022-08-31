@@ -19,7 +19,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ReporteTallerComponent implements OnInit {
 
-
+  cargar:boolean;
 
   reporteTaller:ReporteTaller=new ReporteTaller();
 
@@ -34,6 +34,7 @@ export class ReporteTallerComponent implements OnInit {
     this.filterAnio('')
   }
   filterAnio(anio:any){
+    this.cargar=true;
     var pipe: DatePipe = new DatePipe('en-US')
     if(anio!=''){
       console.log(anio.target.value)
@@ -43,6 +44,7 @@ export class ReporteTallerComponent implements OnInit {
           startWith(''),
           map(values => this.filter(values)),
         );
+        this.cargar=false;
       })
     } else {
       this.tallerService.getAllTaller().subscribe(value => {
@@ -51,6 +53,7 @@ export class ReporteTallerComponent implements OnInit {
           startWith(''),
           map(values => this.filter(values)),
         );
+        this.cargar=false;
       })
     }
   }
@@ -63,22 +66,26 @@ export class ReporteTallerComponent implements OnInit {
   }
 
   consultaDatos(select: MatSelect){
+    this.cargar=true;
     this.tallerService.getReporteTaller(select.value.idTaller).subscribe(value => {
       this.reporteTaller=value
       this.reporteTaller.porcent_Femenino=Math.round(value.porcent_Femenino)
       this.reporteTaller.porcent_Masculino=Math.round(value.porcent_Masculino)
       this.reporteTaller.porcent_Otro=Math.round(value.porcent_Otro)
+      this.cargar=false;
     })
   }
 
 
   generatePDF(select: MatSelect) {
+    this.cargar=true;
     var pipe: DatePipe = new DatePipe('en-US')
     var dia: String = new Date().toISOString();
     this.usuarioService.getAllUsuarios().subscribe(valueb =>{
-      this.tallerService.getReporteTaller(select.value.idTaller).subscribe(value => {
+      this.tallerService.getReporteTaller(select.value.idTaller).subscribe(async value => {
         const pdfDefinition: any = {
           content: [
+            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
             {
               text: '_________________________________________________________________________________________',
               alignment: 'center'
@@ -96,13 +103,13 @@ export class ReporteTallerComponent implements OnInit {
             {
               table: {
                 headerRows: 1,
-                widths: ['34,4%', '33,4%','33,4%'],
+                widths: ['34,4%', '33,4%', '33,4%'],
                 body: [
-                  ['CUADRO DE DATOS SEGÚN EL GÉNERO','Nº','%'],
-                  ['MASCULINO',value.n_Masculino, Math.round(value.porcent_Masculino)+'%'],
-                  ['FEMENINO',value.n_Femenino, Math.round(value.porcent_Femenino)+'%'],
-                  ['OTRO',value.n_Otro, Math.round(value.porcent_Otro)+'%'],
-                  ['TOTAL',value.total, '100%'],
+                  ['CUADRO DE DATOS SEGÚN EL GÉNERO', 'Nº', '%'],
+                  ['MASCULINO', value.n_Masculino, Math.round(value.porcent_Masculino) + '%'],
+                  ['FEMENINO', value.n_Femenino, Math.round(value.porcent_Femenino) + '%'],
+                  ['OTRO', value.n_Otro, Math.round(value.porcent_Otro) + '%'],
+                  ['TOTAL', value.total, '100%'],
                 ]
               }
             },
@@ -113,17 +120,45 @@ export class ReporteTallerComponent implements OnInit {
                 headerRows: 1,
                 widths: ['100%'],
                 body: [
-                  ['BIBLIOTECARIO/A: '+valueb.filter(value1 => value1.idRol==1).pop().apellidos+' '+valueb.filter(value1 => value1.idRol==1).pop().nombres],
+                  ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:']
                 ]
               },
             }
           ]
         }
+        this.cargar = false;
         const pdf = pdfMake.createPdf(pdfDefinition);
         pdf.open();
       })
     })
+  }
+
+  getBase64ImageFromURL(url:any) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        // @ts-ignore
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
   }
 
 }

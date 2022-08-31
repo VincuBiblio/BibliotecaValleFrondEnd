@@ -14,8 +14,8 @@ import {PersonaCliente} from "../../../../models/personaCliente";
 import {UsuarioService} from "../../../../services/usuario.service";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 export interface UserData {
@@ -69,6 +69,7 @@ export class AsistenciaTallerComponent implements OnInit {
   displayedColumns: string[] = ['id', 'cedula', 'nombres'];
   dataSource: MatTableDataSource<PersonaCliente>;
 
+  cargauno: boolean;
 
   taller: Taller[] = [];
   myControl = new FormControl();
@@ -80,12 +81,13 @@ export class AsistenciaTallerComponent implements OnInit {
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private tallerService:TallerService,
+  constructor(private tallerService: TallerService,
               private cursoService: CursoService,
-              private usuarioService:UsuarioService) {
+              private usuarioService: UsuarioService) {
   }
 
   ngOnInit(): void {
+    this.cargauno = true;
     this.tallerService.getAllTaller().subscribe(value => {
       this.cursoService.getFecha().subscribe(fecha => {
           this.taller = value.filter(value1 => value1.fechaFin < fecha);
@@ -93,6 +95,7 @@ export class AsistenciaTallerComponent implements OnInit {
             startWith(''),
             map(values => this.filter(values)),
           );
+          this.cargauno = false;
         }
       )
     })
@@ -107,6 +110,7 @@ export class AsistenciaTallerComponent implements OnInit {
   }
 
   obtenerfechas(select: MatSelect) {
+    this.cargauno=true;
     var dia: fechas[] = [];
     this.tallerService.getClientesTaller(select.value).subscribe(value => {
       var fechaInicio = new Date((value.fechaInicio)).getTime()
@@ -118,25 +122,29 @@ export class AsistenciaTallerComponent implements OnInit {
           fecha: addDaysToDate(value.fechaInicio, i)
         })
       }
+      this.cargauno=false;
       this.diasListado = dia;
     })
 
   }
 
   obtnerlistado(select: MatSelect) {
+    this.cargauno=true;
     this.tallerService.getClientesTaller(select.value.id).subscribe(value => {
       this.dataSource = new MatTableDataSource<PersonaCliente>(value.listaClientesTallerRequests)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.cargauno=false;
     })
 
   }
 
   onbtenerPDF(select: MatSelect) {
+    this.cargauno=true;
     var pipe: DatePipe = new DatePipe('en-US')
     var dia: String = new Date().toISOString();
-    this.usuarioService.getAllUsuarios().subscribe(valueb =>{
-      this.tallerService.getClientesTaller(select.value.id).subscribe(value => {
+    this.usuarioService.getAllUsuarios().subscribe(valueb => {
+      this.tallerService.getClientesTaller(select.value.id).subscribe(async value => {
         var alumnos: PersonaCliente[] = value.listaClientesTallerRequests.sort((a, b) => {
           if (a.apellidos > b.apellidos) {
             return 1;
@@ -149,6 +157,7 @@ export class AsistenciaTallerComponent implements OnInit {
         })
         const pdfDefinition: any = {
           content: [
+            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
             {
               text: '_________________________________________________________________________________________',
               alignment: 'center'
@@ -194,17 +203,45 @@ export class AsistenciaTallerComponent implements OnInit {
                 headerRows: 1,
                 widths: ['50%', '50%'],
                 body: [
-                  ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: '+valueb.filter(value1 => value1.idRol==1).pop().apellidos+' '+valueb.filter(value1 => value1.idRol==1).pop().nombres],
+                  ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:', 'Firma:']
                 ]
               },
             }
           ]
         }
+        this.cargauno = false;
         const pdf = pdfMake.createPdf(pdfDefinition);
         pdf.open();
       })
     })
+  }
+
+  getBase64ImageFromURL(url:any) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        // @ts-ignore
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
   }
 
   ngAfterViewInit() {
@@ -221,6 +258,7 @@ export class AsistenciaTallerComponent implements OnInit {
   }
 
 }
+
 /** Builds and returns a new User. */
 function createNewUser(id: number): UserData {
   const name =

@@ -13,6 +13,7 @@
       </mat-select>
     </mat-form-field>
     <button mat-flat-button color="primary" (click)="obtenerfechas(tallerSelect)">CONSULTAR</button>
+    <mat-progress-bar *ngIf="cargauno" mode="indeterminate"></mat-progress-bar>
   </mat-card>
   <mat-card class="busqueda">
     <mat-form-field appearance="outline" class="selecciondia">

@@ -143,7 +143,7 @@ export class AsistenciacursoComponent implements OnInit {
     var pipe: DatePipe = new DatePipe('en-US')
     var dia: String = new Date().toISOString();
     this.usuarioService.getAllUsuarios().subscribe(valueb =>{
-      this.cursoService.getClientesCurso(select.value.id).subscribe(value => {
+      this.cursoService.getClientesCurso(select.value.id).subscribe(async value => {
         var alumnos: PersonaCliente[] = value.listaClientesRequests.sort((a, b) => {
           if (a.apellidos > b.apellidos) {
             return 1;
@@ -156,6 +156,7 @@ export class AsistenciacursoComponent implements OnInit {
         })
         const pdfDefinition: any = {
           content: [
+            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
             {
               text: '_________________________________________________________________________________________',
               alignment: 'center'
@@ -201,7 +202,7 @@ export class AsistenciacursoComponent implements OnInit {
                 headerRows: 1,
                 widths: ['50%', '50%'],
                 body: [
-                  ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: '+valueb.filter(value1 => value1.idRol==1).pop().apellidos+' '+valueb.filter(value1 => value1.idRol==1).pop().nombres],
+                  ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:', 'Firma:']
                 ]
               },
@@ -210,9 +211,36 @@ export class AsistenciacursoComponent implements OnInit {
         }
         const pdf = pdfMake.createPdf(pdfDefinition);
         pdf.open();
-        this.cargauno=false;
+        this.cargauno = false;
       })
     })
+  }
+
+  getBase64ImageFromURL(url:any) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        // @ts-ignore
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
   }
 
   applyFilter(event: Event) {

@@ -19,8 +19,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ReporteCursoComponent implements OnInit {
 
-
-
   cargar:boolean;
 
   reporteCurso:ReporteCurso=new ReporteCurso();
@@ -86,9 +84,10 @@ export class ReporteCursoComponent implements OnInit {
     var pipe: DatePipe = new DatePipe('en-US')
     var dia: String = new Date().toISOString();
     this.usuarioService.getAllUsuarios().subscribe(valueb =>{
-      this.cursoService.getReporteCurso(select.value.idCurso).subscribe(value => {
+      this.cursoService.getReporteCurso(select.value.idCurso).subscribe(async value => {
         const pdfDefinition: any = {
           content: [
+            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
             {
               text: '_________________________________________________________________________________________',
               alignment: 'center'
@@ -106,13 +105,13 @@ export class ReporteCursoComponent implements OnInit {
             {
               table: {
                 headerRows: 1,
-                widths: ['34,4%', '33,4%','33,4%'],
+                widths: ['34,4%', '33,4%', '33,4%'],
                 body: [
-                  ['CUADRO DE DATOS SEGÚN EL GÉNERO','Nº','%'],
-                  ['MASCULINO',value.n_Masculino, Math.round(value.porcent_Masculino)+'%'],
-                  ['FEMENINO',value.n_Femenino, Math.round(value.porcent_Femenino)+'%'],
-                  ['OTRO',value.n_Otro, Math.round(value.porcent_Otro)+'%'],
-                  ['TOTAL',value.total, '100%'],
+                  ['CUADRO DE DATOS SEGÚN EL GÉNERO', 'Nº', '%'],
+                  ['MASCULINO', value.n_Masculino, Math.round(value.porcent_Masculino) + '%'],
+                  ['FEMENINO', value.n_Femenino, Math.round(value.porcent_Femenino) + '%'],
+                  ['OTRO', value.n_Otro, Math.round(value.porcent_Otro) + '%'],
+                  ['TOTAL', value.total, '100%'],
                 ]
               }
             },
@@ -123,18 +122,45 @@ export class ReporteCursoComponent implements OnInit {
                 headerRows: 1,
                 widths: ['100%'],
                 body: [
-                  ['BIBLIOTECARIO/A: '+valueb.filter(value1 => value1.idRol==1).pop().apellidos+' '+valueb.filter(value1 => value1.idRol==1).pop().nombres],
+                  ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:']
                 ]
               },
             }
           ]
         }
-        this.cargar=false;
+        this.cargar = false;
         const pdf = pdfMake.createPdf(pdfDefinition);
         pdf.open();
       })
     })
+  }
+
+  getBase64ImageFromURL(url:any) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        // @ts-ignore
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
   }
 
 
