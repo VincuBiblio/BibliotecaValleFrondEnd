@@ -15,6 +15,16 @@ export class Taller {
 
 }
 
+export class ReporteTaller {
+  n_Femenino:number;
+  n_Masculino:number;
+  n_Otro:number;
+  porcent_Femenino:number;
+  porcent_Masculino:number;
+  porcent_Otro:number;
+  total:number;
+}
+
 export class ContarNumeroClassT{
     numero?:any;
 }

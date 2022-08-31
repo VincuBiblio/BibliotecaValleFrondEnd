@@ -4,7 +4,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Evento } from 'src/app/models/evento';
-import { EventoService } from 'src/app/services/evento.serice';
+import { EventoService } from 'src/app/services/evento.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 
