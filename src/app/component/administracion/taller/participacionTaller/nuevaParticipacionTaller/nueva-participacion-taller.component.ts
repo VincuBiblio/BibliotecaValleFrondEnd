@@ -315,12 +315,11 @@ export class NuevaParticipacionTallerComponent implements OnInit {
   contarTallerCurso(id: any, condicion: Number) {
     this.numeroCondicion = condicion;
     this.idTaller = id;
-    /*
-    this.cursoService.getContarCurso(this.idCurso).subscribe(value => {
-      this.cargarDatosCurso(Object.values(value)[0]);
-    })*/
+   
+    this.tallerService.getContarTaller(this.idTaller).subscribe(value => {
+      this.cargarDatosTaller(Object.values(value)[0]);
+    })
 
-    this.cargarDatosTaller(2);
   }
 
 
@@ -367,7 +366,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
     this.cardListarModulo = true;
 
     this.tallerService.getClientesTaller(this.selectedIdTaller).subscribe(values => {
-      
+
       console.log("listado clientes taller generado y listado en table");
       console.log(Object.values(values)[9]);
 
@@ -378,7 +377,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.listaClientesInscritos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      
+
     })
   }
 
@@ -398,20 +397,22 @@ export class NuevaParticipacionTallerComponent implements OnInit {
       backdrop: false
     })
       .then(resultado => {
-        /*
+
+
         if (resultado.value) {
-          this.cursoService.deletePersonaCurso(idCliente, this.selectedIdCurso).subscribe(value => {
-            this.listarParticipantesCurso(this.selectedIdCurso, 2, this.selectedIdCurso);
-            this.contarClientesCurso(this.selectedIdCurso, this.numeroCondicion);
+          this.tallerService.deletePersonaTalller(idCliente, this.selectedIdTaller).subscribe(value => {
+            this.listarParticipantesTaller(this.selectedIdTaller,2,this.selectedIdTaller);
+            //this.contarClientesCurso(this.selectedIdCurso, this.numeroCondicion);
+            this.contarTallerCurso(this.selectedIdTaller,this.numeroCondicion);
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
 
           }, error => {
             this._snackBar.open(error.error.message, 'ACEPTAR');
           })
-        }*/
+        }
       });
 
-   
+
 
   }
 
