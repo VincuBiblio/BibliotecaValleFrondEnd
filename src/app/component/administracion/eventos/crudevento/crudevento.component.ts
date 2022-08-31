@@ -76,7 +76,7 @@ export class CrudeventoComponent implements OnInit {
     this.eventoListaGuardar.descripcion = Object.values(this.formGrupos.getRawValue())[0];
     this.eventoListaGuardar.actividades = Object.values(this.formGrupos.getRawValue())[1];
     this.eventoListaGuardar.fecha = Object.values(this.formGrupos.getRawValue())[2];
-    this.eventoListaGuardar.observacion = Object.values(this.formGrupos.getRawValue())[3];
+    this.eventoListaGuardar.observaciones = Object.values(this.formGrupos.getRawValue())[3];
     this.eventoListaGuardar.documento = null;
     this.eventoListaGuardar.numParticipantes = null;
     this.eventoListaGuardar.usuarioid = "1";
@@ -107,7 +107,7 @@ export class CrudeventoComponent implements OnInit {
 
 
 
-  displayedColumnsTaller: string[] = ['id', 'descripcion', 'fecha', 'editar', 'eliminar'];
+  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'observaciones', 'editar', 'eliminar'];
   dataSourceEvento: MatTableDataSource<Evento>;
 
 
@@ -144,11 +144,19 @@ export class CrudeventoComponent implements OnInit {
 
     for (var k = 0; k < this.eventoLista.length; k++) {
       if (this.eventoLista[k].id == id) {
+
+        var fecha = new Date(this.eventoLista[k].fecha);
+        var dias = 1; // Número de días a agregar
+        fecha.setDate(fecha.getDate() + dias);
+        console.info(fecha)
+
+
         this.formGrupos.setValue({
           actividades: this.eventoLista[k].actividades,
           descripcion: this.eventoLista[k].descripcion,
-          fecha: this.eventoLista[k].fecha,
-          observacion: "",
+          fecha: fecha,
+          //fecha: this.eventoLista[k].fecha,
+          observacion: this.eventoLista[k].observaciones,
 
         })
         this.mostrarNuevo();
@@ -162,7 +170,7 @@ export class CrudeventoComponent implements OnInit {
     this.eventoListaGuardar.descripcion = Object.values(this.formGrupos.getRawValue())[0];
     this.eventoListaGuardar.actividades = Object.values(this.formGrupos.getRawValue())[1];
     this.eventoListaGuardar.fecha = Object.values(this.formGrupos.getRawValue())[2];
-    this.eventoListaGuardar.observacion = Object.values(this.formGrupos.getRawValue())[3];
+    this.eventoListaGuardar.observaciones = Object.values(this.formGrupos.getRawValue())[3];
     this.eventoListaGuardar.documento = null;
     this.eventoListaGuardar.numParticipantes = null;
     this.eventoListaGuardar.usuarioid = "1";

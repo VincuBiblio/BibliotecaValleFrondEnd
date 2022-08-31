@@ -6,5 +6,5 @@ export class Evento{
     numParticipantes?:any;
     documento?:any;
     usuarioid?:any;
-    observacion?:any;
+    observaciones?:any;
 }

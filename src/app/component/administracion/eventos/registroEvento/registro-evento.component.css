@@ -1,110 +1,125 @@
-  .example-card-two {
-    width: 95%;
-    left: 20px;
-    background-color: transparent;
-    float: left;
-    margin-bottom: 10px;
-    border: 2px solid #f7f2dc;
-    overflow: hidden;
-    writing-mode: horizontal-tb;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  .busqueda{
-    margin: 0.5% auto;
-    width: 95%;
-    background-color: #f7f2dc;
-    overflow: hidden;
-  }
+.example-card {
+  width: 700px;
+  margin: 0.5% auto;
+  background-color: #f7f2dc;
+}
 
-  .filter{
-    width: 100%;
-  }
-  button{
-    width: 25%;
-    margin-left: 1vh;
-  }
-  .seleccion{
-    width: 73%;
-  }
 
-  .card1{
-    margin: 0.5% auto;
-    width: 95%;
-    background-color: #f7f2dc;
-    overflow: hidden;
-  }
+.bordeev {
+  background-color: transparent;
+  border: 2px solid #f7f2dc;
+  width: 800px;
+  margin: 0.5% auto;
+  margin-bottom: 10px;
+  overflow: hidden;
+  writing-mode: horizontal-tb;
+  padding: 1rem;
+  text-align: center;
+}
 
-  .table2 {
-    width: 95%;
-    margin: 1%;
-    background-color: #f7f2dc;
-  }
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
 
-  
-  .texArea {
-    border: 1px solid #88c515;
-    border-radius: 3px;
-    position: relative; 
-    right: 35px;
-    width: 270px
-  
-  }  
+.textarea {
 
-  .cardCurso2 {
-    background-color: #f7f2dc;
-    width: 530px;
-    float: left;
-    margin-left: 25px;
-    height: 210px;
-    writing-mode: horizontal-tb;
-    overflow: auto;
-  }
+  height: 100%;
+  width: 100%;
+  background: white;
 
-  .txt {
-    width: 70%;
-  }
-  
-  .txt input {
-    display: block;
-    width: 70%;
-    padding: 13px 16px;
-    margin-bottom: 2%;
-    font-size: 16px;
-    border: 1px solid #F2921D;
-    transition: border-width 0.2s ease;
-    border-radius: 4px;
-    color: #000000;
-    outline: none;
-  }
+}
 
-  .card3{
-    background-color: transparent;
-    width: 97%;
-    overflow: hidden;
-    left: 3px;
-  }
+mat-grid-tile {
+  text-align: start;
+}
 
-  .card4 {
-    background-color: #f7f2dc;
-    width: 44%;
-    float: left;
-    margin-left: 25px;
-    
-    height: 230px;
-    writing-mode: horizontal-tb;
-    overflow: auto;
-  }
+mat-form-field {
+  height: 100%;
+  width: 100%;
+}
 
-  .botonnaranja {
-    background-color: #ecb435;
-    width: 150px;
-    color: #000000;
-  }
+mat-label {
+  color: black;
+}
 
- 
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
 
-  .example-form-field {
-    width: 200px;
-  }
+.example-margin {
+  margin: 1vh 10px;
+}
+
+.ubicacion {
+  margin: 0 1vh;
+}
+
+table {
+  width: 100%;
+}
+
+.input {
+  background: #FFFFFF;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.table2 {
+  width: 100%;
+  margin: 1%;
+  background-color: #f7f2dc;
+}
+
+.opcionfd {
+
+  background-color: #f47f16;
+}
+
+.opcion1fd {
+  text-align: center;
+
+}
+
+.botonmenu {
+  background-color: #f47f16;
+  padding: 6px;
+  border-color: transparent;
+  color: #803f00;
+}
+
+
+.borde2 {
+  background-color: #f7f2dc;
+  margin: 0.5% auto;
+  width: 95%;
+}
+
+.borde3 {
+  background-color: transparent;
+  width: 95%;
+  float: left;
+  margin-bottom: 10px;
+  border: 2px solid #f7f2dc;
+  overflow: hidden;
+  writing-mode: horizontal-tb;
+  padding: 1rem;
+  text-align: center;
+  left: 20px;
+}
+
+.bordeFiltro {
+  width: 100%;
+  margin-bottom: 4%;
+}

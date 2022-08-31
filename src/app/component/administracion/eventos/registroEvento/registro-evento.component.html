@@ -2,180 +2,109 @@
 
 <section>
 
-  <mat-card class="example-card-two">
+  <mat-card class="bordeev">
 
-    <mat-card class="busqueda">
 
+    <mat-card class="example-card">
       <mat-form-field appearance="outline" class="seleccion">
-        <mat-label>Seleccione un evento</mat-label>
-        <mat-select>
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
-        </mat-select>
+        <mat-label>Seleccione un Evento</mat-label>
+        <select matNativeControl (change)="cargarParticipantesCurso($event)">
+          <option value=""></option>
+          <option *ngFor="let option of eventoLista" [value]="option.id" [selected]="selectedIdEvento === option.id">{{
+            option.descripcion }}</option>
+        </select>
       </mat-form-field>
-      <button mat-flat-button color="primary">CONSULTAR</button>
     </mat-card>
 
 
-    <mat-card class="card1">
-      <div class="card3">
+    <div *ngIf="divMostrar==true">
 
-        <div style="text-align: center;"> <strong>
-            <h1>DATOS DEL EVENTO</h1>
-          </strong> </div>
+      <mat-card class="example-card" style="background: #f7f2dc">
+        <form [formGroup]="formGrupos">
+          <mat-card-content style="background: #f7f2dc">
 
-
-        <div class="cardCurso2">
-          <table class="table2">
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>NOMBRE:: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput required>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>FECHA: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input matInput required>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <strong>ACTIVIDADES </strong>
-              </td>
-              <td>
-                <textarea matInput required class="texArea"></textarea>
-
-              </td>
-
-            </tr>
-
-
-          </table>
-        </div>
-
-        <div class="cardCurso2">
-          <table class="table2">
-            <tr>
-              <td>
-                <strong>OBSERVACIÓN: </strong>
-              </td>
-              <td>
-                <textarea matInput required class="texArea"></textarea>
-
-              </td>
-
-            </tr>
-
-            <br>
-            <tr>
-              <td>
-                <strong>DESCRIPCIÓN</strong>
-              </td>
-              <td>
-                <textarea matInput required class="texArea"></textarea>
-
-              </td>
-
-            </tr>
-          </table>
-
-        </div>
-
-      </div>
-
-      <br>
-
-      <div class="card3">
-
-        <div style="text-align: center;"> <strong>
-            <h1>DATOS FINALES</h1>
-          </strong></div>
-
-
-        <div class="card4">
-          <table class="table2">
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>NÚMERO PARTICIPANTES: </strong>
-              </td>
-              <td colspan="1" class="txt">
-                <input type="number" matInput>
-              </td>
-            </tr>
-
-            <tr aria-colspan="6">
-              <td colspan="1">
-                <strong>EVIDENCIA: </strong>
-              </td>
-              <td colspan="1">
-                <mat-card-content>
-                  <br><br>
-
-
-                  <mat-form-field style="width: 100%;">
-                    <mat-label>Seleccione un documento</mat-label>
-                    <button mat-icon-button matPrefix (click)="f_input.click()">
-                      <mat-icon>attach_file</mat-icon>
-                    </button>
-                    <input type="text" readonly matInput [formControl]="display" />
-                    <input type="file" multiple hidden #f_input (change)="handleFileInputChange(f_input.files)" />
-                    <mat-error>El documento es requerido</mat-error>
+            <mat-grid-list cols="2" rowHeight="5:0.9">
+              <h3>EVENTOS</h3>
+              <h4>DATOS DEL EVENTO</h4>
+              <div>
+                <mat-grid-tile>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nombre del evento</mat-label>
+                    <input readonly="true" matInput formControlName="descripcion">
                   </mat-form-field>
-                  <br><br>
-                </mat-card-content>
-              </td>
-            </tr>
+                </mat-grid-tile>
 
 
-          </table>
-        </div>
+              </div>
 
-        <div class="card4">
+              <div>
+                <mat-grid-tile>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Fecha Evento</mat-label>
+                    <input readonly="true" matInput formControlName="fecha">
+                  </mat-form-field>
+                </mat-grid-tile>
+
+
+              </div>
+
+              <div>
+
+                <mat-grid-tile rowspan="2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Actividades</mat-label>
+                    <textarea readonly="true" matInput formControlName="actividades"></textarea>
+                  </mat-form-field>
+                </mat-grid-tile>
+
+
+              </div>
+
+              <div>
+                <mat-grid-tile rowspan="2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Observación</mat-label>
+                    <textarea readonly="true" matInput formControlName="observacion"></textarea>
+                  </mat-form-field>
+                </mat-grid-tile>
+
+              </div>
+
+              <div>
+                <mat-grid-tile>
+                  <mat-form-field appearance="outline">
+                    <mat-label>NÚMERO PARTICIPANTES</mat-label>
+                    <input type="number" matInput formControlName="participantes">
+                  </mat-form-field>
+                </mat-grid-tile>
+
+
+              </div>
+
+              <div>
+
+                <mat-grid-tile>
+                  <button type="button" mat-raised-button (click)="fileInput.click()" accept=".pdf">Elija el archivo</button>
+                  <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                </mat-grid-tile>
+              </div>
+
+            </mat-grid-list>
+          </mat-card-content>
+
+          <br>
+          <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarEditarEvento()">GUARDAR
+          </button>
+
           
 
-          <br><br><br><br><br><br>
 
-          <table class="table2">
-            <tr style="text-align: center;">
-              <td style="text-align:left ; width: 70%;">
-
-              </td>
-
-              <td>
-
-                <button mat-button class="botonnaranja">GUARDAR
-                  <mat-icon>save
-                  </mat-icon>
-                </button>
-              </td>
-
-
-            </tr>
-
-          </table>
-
-        </div>
-
-      </div>
+        </form>
+      </mat-card>
 
 
 
-
-    </mat-card>
-
-
-
-
-
+    </div>
 
   </mat-card>
 </section>
