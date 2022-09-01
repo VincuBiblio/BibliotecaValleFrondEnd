@@ -117,6 +117,7 @@ export class CrudcursoComponent implements OnInit {
     this.cursoService.createCurso(this.formGrupos.getRawValue()).subscribe(value => {
       this._snackBar.open('Curso registrado', 'ACEPTAR');
       this.vaciarFormulario()
+      this.listarCursos()
       this.loaderGuardar=false
     },error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
