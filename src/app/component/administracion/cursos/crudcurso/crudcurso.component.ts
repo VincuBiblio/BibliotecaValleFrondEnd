@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Curso} from "../../../../models/curso";
 import {CursoService} from "../../../../services/curso.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 export interface UserData {
   id: string;
@@ -38,7 +39,7 @@ export class CrudcursoComponent implements OnInit {
   cursos: Curso[]=[]
 
 
-  displayedColumns: string[] = ['id', 'nombre', 'lugar', 'responsable', 'fechaInicio', 'fechaFin', 'Editar','Eliminar'];
+  displayedColumns: string[] = ['id', 'nombre', 'lugar', 'responsable', 'fechaInicio', 'fechaFin', 'Editar'];
   dataSource: MatTableDataSource<Curso>;
 
 
@@ -48,7 +49,9 @@ export class CrudcursoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private cursoService: CursoService,
-              private _snackBar: MatSnackBar,) {
+              private _snackBar: MatSnackBar,
+              private router: Router,
+              ) {
 
 
 
@@ -89,7 +92,7 @@ export class CrudcursoComponent implements OnInit {
     lugar: new FormControl<String>('', [Validators.required]),
     descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10)]),
     materiales: new FormControl<String>('', [Validators.required]),
-    observaciones: new FormControl<String>('', [Validators.required]),
+    //observaciones: new FormControl<String>('', [Validators.required]),
     fechaInicio: new FormControl<Date | null>(null,[Validators.required]),
     fechaFin: new FormControl<Date | null>(null,[Validators.required]),
     fechaMaxInscripcion: new FormControl<Date | null>(null,[Validators.required]),
@@ -126,6 +129,11 @@ export class CrudcursoComponent implements OnInit {
   }
 
 
+  irEditar() {
+
+  }
+
+
   vaciarFormulario(){
     this.formGrupos.setValue({
       actividades: "",
@@ -137,7 +145,7 @@ export class CrudcursoComponent implements OnInit {
       materiales: "",
       nombre: "",
       numParticipantes: 0,
-      observaciones: "",
+      //observaciones: "",
       responsable: ""
 
     })

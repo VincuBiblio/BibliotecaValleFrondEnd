@@ -4,7 +4,7 @@ import { map, Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { ContarNumeroClassT, ContarPorIdTaller, ReporteTaller, Taller } from '../models/taller';
 import { PersonaCliente } from "../models/personaCliente";
-import { ReporteCurso } from "../models/curso";
+import {Curso, ReporteCurso} from "../models/curso";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,10 @@ export class TallerService {
 
   constructor(
     private http: HttpClient) {
+  }
+
+  saveTaller(taller: Taller):Observable<Taller>{
+    return this.http.post(environment.URL_APP+"/taller/registrarTaller",taller,{headers:this.httpHeaders})
   }
 
   getAllTaller(): Observable<Taller[]> {
@@ -44,6 +48,10 @@ export class TallerService {
 
   deletePersonaTalller(idCliente: any, idTaller: any) {
     return this.http.delete(environment.URL_APP + "/taller/" + idTaller + "/cliente/" + idCliente, { headers: this.httpHeaders });
+  }
+
+  updateTaller(taller: Taller): Observable<Taller> {
+    return this.http.put(environment.URL_APP + "/taller/actualizarbyidtaller", taller, {headers: this.httpHeaders})
   }
 
 }

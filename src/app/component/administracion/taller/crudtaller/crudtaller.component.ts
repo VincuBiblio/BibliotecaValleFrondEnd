@@ -3,47 +3,11 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+import {CursoService} from "../../../../services/curso.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
+import {TallerService} from "../../../../services/taller.service";
+import {Taller} from "../../../../models/taller";
 
 
 @Component({
@@ -53,32 +17,26 @@ const NAMES: string[] = [
 })
 export class CrudtallerComponent implements OnInit {
 
-
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+  loaderGuardar:boolean;
+  loaderActualizar:boolean;
 
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id', 'nombre', 'fechaInicio', 'fechaFin', 'responsable', 'acciones'];
+  dataSource: MatTableDataSource<Taller>;
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private tallerService: TallerService,
+              private _snackBar: MatSnackBar,
+              private router: Router,) {
 
   }
 
   ngOnInit(): void {
+    this.listarTalleres();
   }
 
 
@@ -92,38 +50,56 @@ export class CrudtallerComponent implements OnInit {
   }
 
 
+
+  listarTalleres(){
+    this.tallerService.getAllTaller().subscribe(value => {
+
+      this.dataSource=new MatTableDataSource(value);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loaderActualizar=false
+
+    })
+  }
+
+
   formGrupos = new FormGroup({
-    nombrecurso: new FormControl<String>('', [Validators.required, Validators.maxLength(20)]),
-    nombreresponsable: new FormControl<String>('', [Validators.required]),
-    actividades: new FormControl<String>('', [Validators.required]),
-    // @ts-ignore
-    numparticipantes: new FormControl<Date>(null, [Validators.required]),
+    nombre: new FormControl<String>('', [Validators.required]),
+    responsable: new FormControl<String>('', [Validators.required]),
     lugar: new FormControl<String>('', [Validators.required]),
-    descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10), Validators.pattern("[aA-zZ]+")]),
-    materiales: new FormControl<String>('', [Validators.required]),
-    observacion: new FormControl<String>('', [Validators.required]),
+    descripcion: new FormControl<String>('', [Validators.required]),
+    fechaMaxInscripcion: new FormControl<Date | null>(null,[Validators.required]),
+    fechaInicio: new FormControl<Date | null>(null,[Validators.required]),
+    fechaFin: new FormControl<Date | null>(null,[Validators.required]),
   })
 
-  guardarCliente() {
-    console.log(this.formGrupos.getRawValue())
+  guardarTaller() {
+    console.log(this.formGrupos.getRawValue());
+    this.tallerService.saveTaller(this.formGrupos.getRawValue()).subscribe(value => {
+      this._snackBar.open('Taller registrado', 'ACEPTAR');
+      this.vaciarFormulario()
+      this.listarTalleres()
+      this.loaderGuardar=false
+    },error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this.loaderGuardar=false
+    })
   }
 
 
 
-}
+  vaciarFormulario(){
+    this.formGrupos.setValue({
+      descripcion: "",
+      fechaFin: undefined,
+      fechaInicio: undefined,
+      fechaMaxInscripcion: undefined,
+      lugar: "",
+      nombre: "",
+      responsable: ""
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
+    })
+  }
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
+
 }

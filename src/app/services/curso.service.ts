@@ -46,8 +46,13 @@ export class CursoService {
     return this.http.post(environment.URL_APP + "/curso/agregarcliente/" + idCliente + "/" + idCurso, null, {headers: this.httpHeaders})
   }
 
-  actualizarbyidCurso(idcurso: number) {
-    return null;
+  findbyId(idCurso: any){
+    return this.http.get(environment.URL_APP+"/curso/listarcursos/"+idCurso,{headers: this.httpHeaders}).pipe(map(Response => Response as Curso))
+  }
+
+
+  updateCurso(curso: Curso): Observable<Curso> {
+    return this.http.put(environment.URL_APP + "/curso/updatebyidcurso", curso, {headers: this.httpHeaders})
   }
 
   deleteCurso(idcurso: number) {

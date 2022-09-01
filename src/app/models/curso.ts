@@ -6,7 +6,6 @@ export class Curso {
   nombre?: any;
   lugar?: any;
   descripcion?: any;
-  observaciones?: any;
   responsable?: any;
   fechaInicio?: Date;
   fechaFin?: Date;
