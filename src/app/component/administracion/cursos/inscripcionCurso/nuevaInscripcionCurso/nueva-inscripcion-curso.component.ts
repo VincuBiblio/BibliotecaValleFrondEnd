@@ -12,7 +12,6 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { PersonaCliente } from 'src/app/models/personaCliente';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ListarinscripcionCursoComponent } from '../listarInscripcionCurso/listar-inscripcion-curso.component';
 import { ListaClientesRequests } from 'src/app/models/clienteCurso';
 import Swal from "sweetalert2";
 

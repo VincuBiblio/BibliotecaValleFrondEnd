@@ -315,7 +315,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
   contarTallerCurso(id: any, condicion: Number) {
     this.numeroCondicion = condicion;
     this.idTaller = id;
-   
+
     this.tallerService.getContarTaller(this.idTaller).subscribe(value => {
       this.cargarDatosTaller(Object.values(value)[0]);
     })
@@ -401,9 +401,9 @@ export class NuevaParticipacionTallerComponent implements OnInit {
 
         if (resultado.value) {
           this.tallerService.deletePersonaTalller(idCliente, this.selectedIdTaller).subscribe(value => {
-            this.listarParticipantesTaller(this.selectedIdTaller,2,this.selectedIdTaller);
+            this.listarParticipantesTaller(this.selectedIdTaller, 2, this.selectedIdTaller);
             //this.contarClientesCurso(this.selectedIdCurso, this.numeroCondicion);
-            this.contarTallerCurso(this.selectedIdTaller,this.numeroCondicion);
+            this.contarTallerCurso(this.selectedIdTaller, this.numeroCondicion);
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
 
           }, error => {

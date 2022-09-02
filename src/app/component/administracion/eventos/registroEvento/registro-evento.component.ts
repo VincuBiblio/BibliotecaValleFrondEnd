@@ -185,7 +185,7 @@ export class registroEventoComponent implements OnInit {
   }
 
   descargarDocumento(base64: any) {
-    alert(base64);
+   
     try {
       if (base64 == null) {
         this._snackBar.open('No existe un documento', 'ACEPTAR');
