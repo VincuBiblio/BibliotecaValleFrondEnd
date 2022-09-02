@@ -8,16 +8,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AsistenciacursoComponent } from "./cursos/asistenciacurso/asistenciacurso.component";
 import { ReporteCursoComponent } from "./cursos/reporteCurso/reporte-curso.component";
 import { CrudcursoComponent } from "./cursos/crudcurso/crudcurso.component";
-import { NuevaInscripcionComponent } from './cursos/inscripcionCurso/nuevaInscripcionCurso/nueva-inscripcion-curso.component';
-import {
-  NuevaParticipacionTallerComponent
-} from "./taller/participacionTaller/nuevaParticipacionTaller/nueva-participacion-taller.component";
-
-import {
-  NuevaPrestamoComputoComponent
-} from './computo/prestamoComputo/nuevoPrestamoComputo/nuevo-prestamo-computo.component';
-
-import { NuevaPrestamoLibroComponent } from './libros/prestamoLibro/nuevoPrestamoLibro/nuevo-prestamo-libro.component';
+import { NuevaInscripcionComponent } from './cursos/inscripcionCurso/nueva-inscripcion-curso.component';
+import { NuevaParticipacionTallerComponent } from './taller/participacionTaller/nueva-participacion-taller.component';
+import { PrestamoComputoComponent } from './computo/prestamoComputo/prestamo-computo.component';
+import { NuevaPrestamoLibroComponent } from './libros/prestamoLibro/nuevo-prestamo-libro.component';
 import { AsistenciaTallerComponent } from './taller/asistenciaTaller/asistencia-taller.component';
 import { ReporteTallerComponent } from './taller/reporteTaller/reporte-taller.component';
 import { ReporteLibrosComponent } from './libros/reporteLibros/reporte-libros.component';
@@ -71,7 +65,7 @@ const routes: Routes = [
   },
   {
     path: 'prestamocomputo',
-    component: NuevaPrestamoComputoComponent
+    component: PrestamoComputoComponent
   },
   {
     path: 'prestamolibro',
@@ -161,7 +155,7 @@ const routes: Routes = [
     CrudcursoComponent,
     NuevaInscripcionComponent,
     NuevaParticipacionTallerComponent,
-    NuevaPrestamoComputoComponent,
+    PrestamoComputoComponent,
     NuevaPrestamoLibroComponent,
     NuevaUsoImpresionCopiaComponent,
     AsistenciaTallerComponent,
