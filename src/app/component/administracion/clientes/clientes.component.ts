@@ -62,6 +62,7 @@ const NAMES: string[] = [
 })
 export class ClientesComponent implements OnInit {
 
+
   loaderActualizar:boolean;
 
   displayedColumns: string[] = ['id', 'cedula', 'nombres', 'apellidos','edad','genero','email','telefono','discapacidad','editar'];

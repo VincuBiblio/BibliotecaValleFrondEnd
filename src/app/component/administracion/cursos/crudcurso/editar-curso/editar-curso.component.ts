@@ -33,18 +33,18 @@ export class EditarCursoComponent implements OnInit {
         console.log(value.filter(value1 => value1.id == params['id'])[0]);
         this.formGrupos.setValue({
           id: curso.id,
+          idCurso: curso.idCurso,
           nombre: curso.nombre,
           responsable: curso.responsable,
           actividades: curso.actividades,
-
           numParticipantes: curso.numParticipantes,
           lugar: curso.lugar,
           descripcion: curso.descripcion,
           materiales: curso.materiales,
           //observaciones: curso.observaciones,
-          fechaInicio: curso.fechaInicio,
-          fechaFin: curso.fechaFin,
-          fechaMaxInscripcion: curso.fechaMaxInscripcion,
+          fechaInicio: addDaysToDate(curso.fechaInicio,1),
+          fechaFin:  addDaysToDate(curso.fechaFin,1),
+          fechaMaxInscripcion: addDaysToDate(curso.fechaMaxInscripcion,1),
 
         })
       })
@@ -55,10 +55,10 @@ export class EditarCursoComponent implements OnInit {
 
   formGrupos = new FormGroup({
     id: new FormControl<Number>(null),
+    idCurso: new FormControl<Number>(0),
     nombre: new FormControl<String>('', [Validators.required, Validators.maxLength(20)]),
     responsable: new FormControl<String>('', [Validators.required]),
     actividades: new FormControl<String>('', [Validators.required]),
-
     numParticipantes: new FormControl<Number>(null, [Validators.required, Validators.pattern("[0-9]+")]),
     lugar: new FormControl<String>('', [Validators.required]),
     descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10)]),
@@ -87,16 +87,17 @@ export class EditarCursoComponent implements OnInit {
 
   vaciarFormulario(){
     this.formGrupos.setValue({
-      id: 0,
+      id: null,
+      idCurso: null,
       actividades: "",
       descripcion: "",
-      fechaFin: undefined,
-      fechaInicio: undefined,
-      fechaMaxInscripcion: undefined,
+      fechaFin: null,
+      fechaInicio: null,
+      fechaMaxInscripcion: null,
       lugar: "",
       materiales: "",
       nombre: "",
-      numParticipantes: 0,
+      numParticipantes: null,
       //observaciones: "",
       responsable: ""
 
@@ -106,4 +107,8 @@ export class EditarCursoComponent implements OnInit {
 
 }
 
-
+function addDaysToDate(date, days): any {
+  var res = new Date(date);
+  res.setDate(res.getDate() + days);
+  return res;
+}

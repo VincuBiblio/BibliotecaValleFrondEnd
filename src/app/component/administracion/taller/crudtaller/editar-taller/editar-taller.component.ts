@@ -64,7 +64,6 @@ export class EditarTallerComponent implements OnInit {
   guardarTaller() {
     console.log(this.formGrupos.getRawValue())
     this.tallerService.updateTaller(this.formGrupos.getRawValue()).subscribe(value => {
-
       this._snackBar.open('Taller actualizado', 'ACEPTAR');
       this.vaciarFormulario()
       this.loaderGuardar=false
@@ -78,15 +77,15 @@ export class EditarTallerComponent implements OnInit {
 
   vaciarFormulario(){
     this.formGrupos.setValue({
-      id: 0,
-      idTaller: 0,
+      id: null,
+      idTaller: null,
       nombre: "",
       responsable: "",
       lugar: "",
       descripcion: "",
-      fechaMaxInscripcion: undefined,
-      fechaInicio: undefined,
-      fechaFin: undefined
+      fechaMaxInscripcion: null,
+      fechaInicio: null,
+      fechaFin: null
     })
   }
 

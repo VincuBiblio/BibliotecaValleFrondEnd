@@ -74,7 +74,6 @@ export class CrudcursoComponent implements OnInit {
 
   listarCursos(){
     this.cursoService.getAllCurso().subscribe(value => {
-
       this.dataSource=new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -105,6 +104,7 @@ export class CrudcursoComponent implements OnInit {
     this.cursoService.deleteCurso(+document.getElementById("idCurso").innerText).subscribe(value =>{
       this._snackBar.open('Curso eliminado', 'ACEPTAR');
       this.vaciarFormulario()
+
       this.loaderGuardar=false
     },error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
@@ -119,8 +119,8 @@ export class CrudcursoComponent implements OnInit {
     console.log(this.formGrupos.getRawValue())
     this.cursoService.createCurso(this.formGrupos.getRawValue()).subscribe(value => {
       this._snackBar.open('Curso registrado', 'ACEPTAR');
-      this.vaciarFormulario()
       this.listarCursos()
+      this.vaciarFormulario()
       this.loaderGuardar=false
     },error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
