@@ -15,7 +15,7 @@ import { NuevaPrestamoLibroComponent } from './libros/prestamoLibro/nuevo-presta
 import { AsistenciaTallerComponent } from './taller/asistenciaTaller/asistencia-taller.component';
 import { ReporteTallerComponent } from './taller/reporteTaller/reporte-taller.component';
 import { ReporteLibrosComponent } from './libros/reporteLibros/reporte-libros.component';
-import { NuevaUsoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/nuevoUsoImpresionCopia/nuevo-uso-impresion-copia.component';
+import { NuevaUsoImpresionCopiaComponent } from './ImpresionesCopias/UsoImpresionCopia/nuevo-uso-impresion-copia.component';
 import { ReporteComputoComponent } from './computo/reporteComputo/reporte-computo.component';
 import { ReporteImpresionCopiasComponent } from './ImpresionesCopias/reporteImpresionCopias/reporte-impresion-copias.component';
 import { ReporteEventoComponent } from './eventos/reporteEvento/reporte-evento.component';
@@ -32,6 +32,9 @@ import { EditarCursoComponent } from './cursos/crudcurso/editar-curso/editar-cur
 import { EditarTallerComponent } from './taller/crudtaller/editar-taller/editar-taller.component';
 
 const routes: Routes = [
+
+
+
   {
     path: 'bienvenida',
     component: BienvenidaComponent

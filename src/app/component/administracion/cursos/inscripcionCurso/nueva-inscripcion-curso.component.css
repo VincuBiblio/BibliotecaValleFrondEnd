@@ -5,6 +5,25 @@
   overflow: hidden;
 }
 
+.borde2 {
+  background-color: #f7f2dc;
+  margin: 0.5% auto;
+  width: 95%;
+}
+
+.borde3{
+  background-color: transparent;
+  width: 95%;
+  float: left;
+  margin-bottom: 10px;
+  border: 2px solid #f7f2dc;
+  overflow: hidden;
+  writing-mode: horizontal-tb;
+  padding: 1rem;
+  text-align: center;
+  left: 20px;
+}
+
 .example-card {
   width: 650px;
   margin: 0.5% auto;
@@ -29,6 +48,8 @@
   margin: 0.5% auto;
 }
 
+
+
 mat-grid-tile {
   background: lightblue;
 }
@@ -41,7 +62,7 @@ mat-grid-tile {
 
 
 
-.cardTipoA1 {
+.cardCurso {
   background-color: #f7f2dc;
   width: 44%;
   float: left;
@@ -53,7 +74,7 @@ mat-grid-tile {
   writing-mode: horizontal-tb;
 }
 
-.cardTipoB2 {
+.cardCurso1 {
   background-color: #f7f2dc;
   width: 44%;
   float: left;
@@ -65,7 +86,7 @@ mat-grid-tile {
   writing-mode: horizontal-tb;
 }
 
-.cardTipoC3 {
+.cardCurso2 {
   background-color: #f7f2dc;
   width: 44%;
   float: left;
@@ -207,10 +228,8 @@ th {
   border: 1px solid #88c515;
   border-radius: 3px;
   position: relative;
-  right: 10px;
-  width: 347px;
-  padding-top: 40px;
-
+  right: 13px;
+  width: 393px
 }
 
 
@@ -220,19 +239,26 @@ th {
   border: 1px solid #000000;
 }
 
-.tdcombo{
-  border: 1px solid #88c515;
-  border-radius: 3px;
-  position: relative;
-  right: -2px;
-  width: 347px;
-  padding-top: 9px;
-   margin-bottom: 10px;
-   padding-top: 9px;
-   color: #000000;
+.opcionfd{
+    
+  background-color: #f47f16;
 }
 
-.centrar1{
-  position: relative;
-              bottom: 5px;
+.opcion1fd{
+  text-align: center;
+ 
+}
+
+.botonmenu{
+  background-color: #f47f16;
+  padding: 6px;
+  border-color: transparent;
+  color: #803f00
+  ;
+}
+
+.disponibilidadtxt{
+  color: red;
+  background-color:#f1ebd4;
+  
 }
