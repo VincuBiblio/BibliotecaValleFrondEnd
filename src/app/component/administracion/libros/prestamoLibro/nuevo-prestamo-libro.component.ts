@@ -38,7 +38,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
 
 
   public dialogoCliente: boolean;
-
+  public dialogoVerDatoCliente: boolean;
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],

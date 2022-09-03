@@ -38,6 +38,7 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit{
 
 
   public dialogoCliente: boolean;
+  public dialogoVerDatoCliente: boolean;
 
 
   firstFormGroup = this._formBuilder.group({
