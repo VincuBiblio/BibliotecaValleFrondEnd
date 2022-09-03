@@ -26,7 +26,7 @@ export class LayoutComponent implements OnInit {
       }else {
         this.persona=JSON.parse(sessionStorage['personausuario']);
         if(this.persona.idRol==1){
-          this.persona.rol="BIBLIOTECARIO"
+          this.persona.rol="BIBLIOTECARI@"
         }
         if(this.persona.idRol==2){
           this.persona.rol="GESTION"

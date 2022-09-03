@@ -56,7 +56,7 @@ table {
 }
 
 td, th {
-  width: 25%;
+  width: 15%;
 }
 
 .table2 {
@@ -66,13 +66,13 @@ td, th {
 }
 
 .opcionfd{
-    
+
   background-color: #f47f16;
 }
 
 .opcion1fd{
   text-align: center;
- 
+
 }
 
 .botonmenu{
@@ -105,5 +105,5 @@ td, th {
 
 .bordeFiltro {
   width: 100%;
-  margin-bottom: 4%;
+
 }

@@ -5,8 +5,6 @@
   </div>
 </div>
 
-
-
 <div *ngIf="divNuevo==true">
   <mat-card class="example-card" style="background: #f7f2dc">
     <form [formGroup]="formGrupos">
@@ -91,7 +89,7 @@
       <mat-icon matSuffix>find_in_page</mat-icon>
     </mat-form-field>
 
-    
+
 
       <table mat-table [dataSource]="dataSourceEvento" class="mat-elevation-z8" style="background-color: #f7f2dc;">
 
@@ -132,6 +130,13 @@
               (click)="eliminarEvento(element.id)"> ELIMINAR </button> </td>
         </ng-container>
 
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="poster"  >
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Poster </th>
+          <td mat-cell *matCellDef="let element"> <button  mat-raised-button color="primary"
+                                                           (click)="optenerPoste(element)"> POSTER </button> </td>
+        </ng-container>
+
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsTaller"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsTaller;"></tr>
@@ -142,7 +147,7 @@
         </tr>
       </table>
 
-  
+
   </mat-card>
 
 

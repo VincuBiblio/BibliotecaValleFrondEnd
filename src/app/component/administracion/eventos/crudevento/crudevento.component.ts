@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { Evento } from 'src/app/models/evento';
-import { EventoService } from 'src/app/services/evento.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {Evento} from 'src/app/models/evento';
+import {EventoService} from 'src/app/services/evento.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import {DatePipe} from "@angular/common";
 
-
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
@@ -30,7 +33,6 @@ export class CrudeventoComponent implements OnInit {
   public botonParaEditar: Boolean = false;
 
 
-
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -45,7 +47,8 @@ export class CrudeventoComponent implements OnInit {
   constructor(
     public eventoService: EventoService,
     private _snackBar: MatSnackBar,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.listarEventoSinParticipantes();
@@ -106,8 +109,7 @@ export class CrudeventoComponent implements OnInit {
   }
 
 
-
-  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'observaciones', 'editar', 'eliminar'];
+  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'observaciones', 'editar', 'eliminar', 'poster'];
   dataSourceEvento: MatTableDataSource<Evento>;
 
 
@@ -222,12 +224,76 @@ export class CrudeventoComponent implements OnInit {
           })
         }
       });
-
-
-
   }
 
+  async optenerPoste(evento:Evento) {
+    var pipe: DatePipe = new DatePipe('en-US')
+    const pdfDefinition: any = {
+      pageSize: 'LETTER',
+      background: [
+        {
+          image: await this.getBase64ImageFromURL('assets/images/evento2.jpg'),
+          height: 792,
+          width: 612,
+        }
+      ],
+      content: [
+        {text:'  '},
+        {text:'  '},
+        {text:'  '},
+        {text:'  '},
+        {text:'  '},
+        {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 200},
+        {text:'  '},
+        {text:'EVENTO', fontSize: 70, bold: true,alignment: 'center' },
+        {text:'  '},
+        {text:'  '},
+        {text: evento.descripcion.toUpperCase(), fontSize: 50, bold: true,alignment: 'center' },
+        {text:'  '},
+        {text: pipe.transform(evento.fecha,'MMMM d, y'), fontSize: 40, bold: true,alignment: 'center' },
+        {text:'  '},
+        {text:'  '},
+        {
+          table: {
+            headerRows: 1,
+            widths: ['50%', '50%'],
+            body: [
+              ['ACTIVIDADES','OBSERVACIONES'],
+              [evento.actividades,evento.observaciones]
+            ]
+          }
+        }
+      ]
+    }
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
+  }
 
+  getBase64ImageFromURL(url: any) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
 
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        // @ts-ignore
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
+  }
 }
 
