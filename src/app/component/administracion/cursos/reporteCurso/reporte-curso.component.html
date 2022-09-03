@@ -28,7 +28,7 @@
       <button mat-flat-button color="warn" (click)="generatePDF(cursoSelect)">OBTENER PDF</button>
     </div>
   </div>
-  <div class="right">
+  <div class="right" *ngIf="habilitar">
     <mat-grid-list cols="3" rowHeight="59.7px" class="table">
       <mat-grid-tile colspan="2">
         <strong>

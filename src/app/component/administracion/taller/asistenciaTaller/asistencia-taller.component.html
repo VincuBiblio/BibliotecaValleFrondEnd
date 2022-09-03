@@ -15,7 +15,7 @@
     <button mat-flat-button color="primary" (click)="obtenerfechas(tallerSelect)">CONSULTAR</button>
     <mat-progress-bar *ngIf="cargauno" mode="indeterminate"></mat-progress-bar>
   </mat-card>
-  <mat-card class="busqueda">
+  <mat-card class="busqueda" *ngIf="habilitar">
     <mat-form-field appearance="outline" class="selecciondia">
       <mat-label>Seleccione el Dia</mat-label>
       <mat-select #diaSelect>

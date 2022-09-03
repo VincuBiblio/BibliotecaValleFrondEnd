@@ -10,6 +10,7 @@ import {UsuarioService} from "../../../../services/usuario.service";
 import {TallerService} from "../../../../services/taller.service";
 import {DatePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
+import {PersonaCliente} from "../../../../models/personaCliente";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -20,6 +21,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class ReporteTallerComponent implements OnInit {
 
   cargar:boolean;
+  habilitar:boolean;
 
   reporteTaller:ReporteTaller=new ReporteTaller();
 
@@ -73,6 +75,7 @@ export class ReporteTallerComponent implements OnInit {
       this.reporteTaller.porcent_Masculino=Math.round(value.porcent_Masculino)
       this.reporteTaller.porcent_Otro=Math.round(value.porcent_Otro)
       this.cargar=false;
+      this.habilitar=true;
     })
   }
 
@@ -82,54 +85,91 @@ export class ReporteTallerComponent implements OnInit {
     var pipe: DatePipe = new DatePipe('en-US')
     var dia: String = new Date().toISOString();
     this.usuarioService.getAllUsuarios().subscribe(valueb =>{
-      this.tallerService.getReporteTaller(select.value.idTaller).subscribe(async value => {
-        const pdfDefinition: any = {
-          content: [
-            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
-            {
-              text: '_________________________________________________________________________________________',
-              alignment: 'center'
-            },
-            // @ts-ignore
-            {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
-            {text: 'REPORTE DE TALLERES', fontSize: 15, bold: true, alignment: 'center'},
-            {text: 'Taller de ' + select.value.nombre, fontSize: 15, margin: [0, 0, 20, 0]},
-            {text: '    '},
-            {text: 'Nombre del responsable: ' + select.value.responsable},
-            {text: '    '},
-            {text: 'Lugar donde se llevara a cabo: ' + select.value.lugar},
-            {text: '    '},
-            {text: 'REPORTE POR GENERO'},
-            {
-              table: {
-                headerRows: 1,
-                widths: ['34,4%', '33,4%', '33,4%'],
-                body: [
-                  ['CUADRO DE DATOS SEGÚN EL GÉNERO', 'Nº', '%'],
-                  ['MASCULINO', value.n_Masculino, Math.round(value.porcent_Masculino) + '%'],
-                  ['FEMENINO', value.n_Femenino, Math.round(value.porcent_Femenino) + '%'],
-                  ['OTRO', value.n_Otro, Math.round(value.porcent_Otro) + '%'],
-                  ['TOTAL', value.total, '100%'],
-                ]
-              }
-            },
-            {text: '    '},
-            {text: '    '},
-            {
-              table: {
-                headerRows: 1,
-                widths: ['100%'],
-                body: [
-                  ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
-                  ['Firma:']
-                ]
+      this.tallerService.getClientesTaller(select.value.idTaller).subscribe( cliente => {
+        var alumnos: PersonaCliente[] = cliente.listaClientesTallerRequests.sort((a, b) => {
+          if (a.apellidos > b.apellidos) {
+            return 1;
+          }
+          if (a.apellidos < b.apellidos) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        })
+        this.tallerService.getReporteTaller(select.value.idTaller).subscribe(async value => {
+          const pdfDefinition: any = {
+            content: [
+              {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
+              {
+                text: '_________________________________________________________________________________________',
+                alignment: 'center'
               },
-            }
-          ]
-        }
-        this.cargar = false;
-        const pdf = pdfMake.createPdf(pdfDefinition);
-        pdf.open();
+              // @ts-ignore
+              {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
+              {text: 'REPORTE DE TALLERES', fontSize: 15, bold: true, alignment: 'center'},
+              {text: 'Taller de ' + select.value.nombre, fontSize: 15, margin: [0, 0, 20, 0]},
+              {text: '    '},
+              {text: 'Nombre del responsable: ' + select.value.responsable},
+              {text: '    '},
+              {text: 'Lugar donde se llevara a cabo: ' + select.value.lugar},
+              {text: '    '},
+              {text: 'REPORTE POR GENERO'},
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['34,4%', '33,4%', '33,4%'],
+                  body: [
+                    ['CUADRO DE DATOS SEGÚN EL GÉNERO', 'Nº', '%'],
+                    ['MASCULINO', value.n_Masculino, Math.round(value.porcent_Masculino) + '%'],
+                    ['FEMENINO', value.n_Femenino, Math.round(value.porcent_Femenino) + '%'],
+                    ['OTRO', value.n_Otro, Math.round(value.porcent_Otro) + '%'],
+                    ['TOTAL', value.total, '100%'],
+                  ]
+                }
+              },
+              {text: '    '},
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['10%', '20%', '25%', '25%','20%'],
+                  body: [
+                    ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'GENERO'],
+                    [alumnos.map(function (item, index) {
+                      return (index + 1)
+                    }),
+                      alumnos.map(function (item) {
+                        return item.cedula + ''
+                      }),
+                      alumnos.map(function (item) {
+                        return item.nombres
+                      }),
+                      alumnos.map(function (item) {
+                        return item.apellidos
+                      }),
+                      alumnos.map(function (item) {
+                        return item.genero
+                      })
+                    ],
+                  ]
+                }
+              },
+              {text: '    '},
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['100%'],
+                  body: [
+                    ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
+                    ['Firma:']
+                  ]
+                },
+              }
+            ]
+          }
+          this.cargar = false;
+          const pdf = pdfMake.createPdf(pdfDefinition);
+          pdf.open();
+        })
       })
     })
   }

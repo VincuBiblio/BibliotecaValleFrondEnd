@@ -70,6 +70,7 @@ export class AsistenciaTallerComponent implements OnInit {
   dataSource: MatTableDataSource<PersonaCliente>;
 
   cargauno: boolean;
+  habilitar:boolean;
 
   taller: Taller[] = [];
   myControl = new FormControl();
@@ -122,6 +123,7 @@ export class AsistenciaTallerComponent implements OnInit {
           fecha: addDaysToDate(value.fechaInicio, i)
         })
       }
+      this.habilitar=true;
       this.cargauno=false;
       this.diasListado = dia;
     })
@@ -181,16 +183,16 @@ export class AsistenciaTallerComponent implements OnInit {
                 body: [
                   ['ID', 'CEDULA', 'MOMBRES COMPLETOS', 'FIRMA'],
                   [alumnos.map(function (item, index) {
-                    return index + 1
+                    return '  \n'+(index + 1)
                   }),
                     alumnos.map(function (item) {
-                      return item.cedula + ''
+                      return '  \n'+item.cedula + ''
                     }),
                     alumnos.map(function (item) {
-                      return item.apellidos + ' ' + item.nombres
+                      return '  \n'+item.apellidos + ' ' + item.nombres
                     }),
                     alumnos.map(function (item) {
-                      return '_____________________'
+                      return '  \n'+'_____________________'
                     })
                   ],
                 ]
