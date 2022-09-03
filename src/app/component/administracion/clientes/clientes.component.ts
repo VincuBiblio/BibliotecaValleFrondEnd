@@ -13,6 +13,7 @@ import {PersonaUsuario} from "../../../models/personaUsuario";
 import {PersonaCliente} from "../../../models/personaCliente";
 import {DatePipe} from "@angular/common";
 import {UsuarioService} from "../../../services/usuario.service";
+import {Router} from "@angular/router";
 
 
 export interface UserData {
@@ -63,6 +64,7 @@ const NAMES: string[] = [
 export class ClientesComponent implements OnInit {
 
 
+  indexMat:number
   loaderActualizar:boolean;
 
   displayedColumns: string[] = ['id', 'cedula', 'nombres', 'apellidos','edad','genero','email','telefono','discapacidad','editar'];
@@ -73,7 +75,8 @@ export class ClientesComponent implements OnInit {
 
   constructor(private ubicacionService: UbicacionService,
               private clienteService: ClienteService,
-              private usuarioService:UsuarioService) {
+              private usuarioService:UsuarioService,
+              private router:Router) {
   }
 
   ngOnInit(): void {
@@ -91,6 +94,10 @@ export class ClientesComponent implements OnInit {
     })
   }
 
+  cambiar(i:number){
+    this.indexMat=i;
+    console.log(this.indexMat)
+  }
   ngAfterViewInit() {
 
   }

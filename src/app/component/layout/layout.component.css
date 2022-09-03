@@ -18,17 +18,20 @@
 }
 
 .example-sidenav {
-  width: 220px;
   text-align: center;
+  width: 200px;
   color: white;
   background-color: #a01b20;
-  padding: 2px;
+
 }
 .botones{
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-  width: 95%;
+  text-align: left;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
   margin-bottom: 10px;
 }
-
+mat-expansion-panel-header{
+  padding-left: 0;
+}
 

@@ -12,9 +12,8 @@
 <body>
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer class="example-sidenav" mode="side" opened>
-    <br>
-    <p>{{persona.rol}}</p>
-    <p>{{persona.nombres}} {{persona.apellidos}}</p>
+    <h3>{{persona.rol}}</h3>
+    <h3>{{persona.nombres}} {{persona.apellidos}}</h3>
     <div>
       <button class="botones" mat-raised-button [routerLink]="'/panel/biblioteca/bienvenida'">
         <mat-icon>home</mat-icon>

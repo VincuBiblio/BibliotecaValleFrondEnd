@@ -37,6 +37,7 @@ export class nuevoClienteComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.loaderCargar=true;
     this.ubicacionService.getAllProvincias().subscribe(value => {
       this.provicias = value;
