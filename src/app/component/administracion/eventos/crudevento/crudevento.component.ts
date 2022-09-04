@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
+
 @Component({
   selector: 'app-crudevento',
   templateUrl: './crudevento.component.html',
@@ -227,7 +228,7 @@ export class CrudeventoComponent implements OnInit {
   }
 
   async optenerPoste(evento:Evento) {
-    var pipe: DatePipe = new DatePipe('en-US')
+    var pipe: DatePipe = new DatePipe('es')
     const pdfDefinition: any = {
       pageSize: 'LETTER',
       background: [
@@ -250,7 +251,7 @@ export class CrudeventoComponent implements OnInit {
         {text:'  '},
         {text: evento.descripcion.toUpperCase(), fontSize: 50, bold: true,alignment: 'center' },
         {text:'  '},
-        {text: pipe.transform(evento.fecha,'MMMM d, y'), fontSize: 40, bold: true,alignment: 'center' },
+        {text: pipe.transform(evento.fecha,'d/MMMM/y').toUpperCase(), fontSize: 40, bold: true,alignment: 'center' },
         {text:'  '},
         {text:'  '},
         {

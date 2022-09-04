@@ -115,7 +115,7 @@ export class ClientesComponent implements OnInit {
 
   generatePDF() {
     this.loaderActualizar=true
-    var pipe: DatePipe = new DatePipe('en-US')
+    var pipe: DatePipe = new DatePipe('es')
     var dia: String = new Date().toISOString();
     this.clienteService.getAllClientes().subscribe( value => {
       this.usuarioService.getAllUsuarios().subscribe(async valueb => {

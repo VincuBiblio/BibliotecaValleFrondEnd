@@ -82,7 +82,7 @@ export class ReporteTallerComponent implements OnInit {
 
   generatePDF(select: MatSelect) {
     this.cargar=true;
-    var pipe: DatePipe = new DatePipe('en-US')
+    var pipe: DatePipe = new DatePipe('es')
     var dia: String = new Date().toISOString();
     this.usuarioService.getAllUsuarios().subscribe(valueb =>{
       this.tallerService.getClientesTaller(select.value.idTaller).subscribe( cliente => {
