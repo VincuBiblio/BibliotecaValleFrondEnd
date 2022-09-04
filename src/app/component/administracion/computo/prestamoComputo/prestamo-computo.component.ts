@@ -9,25 +9,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ComputoService } from 'src/app/services/computo.service';
 import { Computo } from 'src/app/models/computo';
+import Swal from "sweetalert2";
+import { ClienteComputador } from 'src/app/models/cliente-computador';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
-export interface PeriodicElementComputo {
-  codigo: string;
-  procesador: string;
-  ram: string;
-}
-
-
-
-const ELEMENT_DATA_COMPUTO: PeriodicElementComputo[] = [
-  { codigo: '1', procesador: 'Core™ i7-11700K', ram: '4RAM' },
-  { codigo: '2', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  { codigo: '3', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  { codigo: '4', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-  { codigo: '5', procesador: 'Core™ i7-11700K', ram: '8RAM' },
-
-
-];
 
 @Component({
   selector: 'app-nuevo-prestamo-computo',
@@ -42,18 +28,21 @@ const ELEMENT_DATA_COMPUTO: PeriodicElementComputo[] = [
 })
 export class PrestamoComputoComponent implements OnInit {
 
+  public clienteComputadorGuardar: ClienteComputador = new ClienteComputador();
   public clienteLista: PersonaCliente[] = [];
 
   public idCliente: any;
+  public idComputador: any;
   public cardClienteMensaje: Boolean = true;
   public cardCliente: Boolean = false;
+  public cardComputo: Boolean = false;
 
 
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
-  
+
   //ojo borraar el true
-  public controlbotonSiguiente: Boolean=true;
+  public controlbotonSiguiente: Boolean = true;
   public controlmensajeSiguiente: Boolean;
 
   public mensajeSinCupos: String = "SIN CUPOS"
@@ -65,13 +54,13 @@ export class PrestamoComputoComponent implements OnInit {
 
 
   //COMPUTO
-  public listaInicialCurso:Computo[]=[];
-  public ComputoLista:Computo[]=[];
+  public listaInicialComputo: Computo[] = [];
+  public ComputoLista: Computo[] = [];
 
 
   //OTROS
-public Hoy = new Date();
-
+  public Hoy = new Date();
+  public today = new Date();
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -89,6 +78,7 @@ public Hoy = new Date();
     private _formBuilder: FormBuilder,
     private clienteService: ClienteService,
     private computoService: ComputoService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -96,9 +86,8 @@ public Hoy = new Date();
     this.listarClientes();
   }
 
-  prueba(valor: any) {
-    alert(valor);
-  }
+
+
   openDialog() {
     this.dialogoCliente = true;
   }
@@ -117,15 +106,7 @@ public Hoy = new Date();
     this.divNuevo = true;
   }
 
-  //////////////////////////////////////////////////
-  //LISTAR CURSOS
-  displayedColumnsComputo: string[] = ['codigo'];
-  dataSourceComputo = new MatTableDataSource(ELEMENT_DATA_COMPUTO);
 
-  applyFilterComputo(event: Event) {
-    const filterValueComputo = (event.target as HTMLInputElement).value;
-    this.dataSourceComputo.filter = filterValueComputo.trim().toLowerCase();
-  }
 
 
 
@@ -164,6 +145,13 @@ public Hoy = new Date();
     representante: new FormControl<String>('', [Validators.required]),
   });
 
+  compuFormGroup = this._formBuilder.group({
+    numero: new FormControl<String>('', [Validators.required]),
+    ram: new FormControl<String>('', [Validators.required]),
+    discoDuro: new FormControl<String>('', [Validators.required]),
+    procesador: new FormControl<String>('', [Validators.required]),
+  })
+
   cargarDatosCliente(id: any) {
     this.idCliente = id;
     this.cardCliente = true;
@@ -189,71 +177,131 @@ public Hoy = new Date();
     }
   }
 
+  //////////////////////////////////////////////////
+  //LISTAR COMPUTO
+  displayedColumnsComputo: string[] = ['codigo'];
+  dataSourceComputo = new MatTableDataSource<Computo>;
+  //dataSourceComputo = new MatTableDataSource(ELEMENT_DATA_COMPUTO);
+
 
   //COMPUTO
   listarComputadoras() {
     this.computoService.getAllComputo().subscribe(value => {
-      this.listaInicialCurso = value;
+      this.listaInicialComputo = value;
+      console.log("Computadoras listado correctamente");
       console.log(value);
 
-
-      /*
-      var AnyoHoy = this.Hoy.getFullYear();
-      var MesHoy = this.Hoy.getMonth() + 1;
-      var DiaHoy = this.Hoy.getDate();
-      for (var i = 0; i < this.listaInicialTaller.length; i++) {
-
-        let cadena = this.listaInicialTaller[i].fechaMaxInscripcion;
-        let palabra = cadena.split('-')
-
-        var AnyoFecha = palabra[0];
-        var MesFecha = palabra[1];
-        var DiaFecha = palabra[2];
-
-
-        //console.log(DiaFecha);
-
-        if (AnyoFecha < AnyoHoy) {
-
-        }
-        else {
-          if (AnyoFecha == AnyoHoy && MesFecha < MesHoy) {
-
-          }
-          else {
-            if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy) {
-
-            }
-            else {
-              if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy) {
-
-                this.tallerLista.push(this.listaInicialTaller[i]);
-              }
-              else {
-
-                this.tallerLista.push(this.listaInicialTaller[i]);
-
-              }
-            }
-          }
-        }
-
-
-
-      }*/
-
-      /*
-      this.dataSourceTaller = new MatTableDataSource(this.ComputoLista);
-      this.dataSourceTaller.paginator = this.paginator;
-      this.dataSourceTaller.sort = this.sort;
+      this.dataSourceComputo = new MatTableDataSource(this.listaInicialComputo);
+      this.dataSourceComputo.paginator = this.paginator;
+      this.dataSourceComputo.sort = this.sort;
       console.log("Listado talleres generado exitosamente");
-      console.log(this.tallerLista)*/
+
     })
 
 
 
   }
-  
+
+  applyFilterComputo(event: Event) {
+    const filterValueComputo = (event.target as HTMLInputElement).value;
+    this.dataSourceComputo.filter = filterValueComputo.trim().toLowerCase();
+  }
+
+  cargarDatosCompudaror(id: any) {
+    this.idComputador = id;
+    this.cardComputo = true;
+    for (var i = 0; i < this.listaInicialComputo.length; i++) {
+
+      if (this.listaInicialComputo[i].id == this.idComputador) {
+        this.compuFormGroup.setValue({
+
+          numero: this.listaInicialComputo[i].numero,
+          ram: this.listaInicialComputo[i].ram,
+          discoDuro: this.listaInicialComputo[i].discoDuro,
+          procesador: this.listaInicialComputo[i].procesador,
+
+        })
+
+        console.log("Datos computo cargado correctamente");
+      }
+
+    }
+
+  }
+
+
+  //GUARDAR
+
+  guardarClienteComputo() {
+    Swal.fire({
+      title: "¿Quiere añadir una observación?",
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      background: '#f7f2dc',
+      confirmButtonColor: '#f47f16',
+      cancelButtonColor: '#d33',
+      backdrop: false
+    })
+      .then(resultado => {
+        if (resultado.value) {
+
+          Swal.fire({
+            title: "Ingrese una observación",
+            input: "text",
+
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+
+            showLoaderOnConfirm: true,
+
+            showCancelButton: true,
+            confirmButtonText: "Guardar",
+            cancelButtonText: "Cancelar",
+            background: '#f7f2dc',
+            confirmButtonColor: '#a01b20',
+            backdrop: false
+
+
+          })
+            .then(resultado => {
+              if (resultado.value) {
+                this.clienteComputadorGuardar.descripcion = resultado.value;
+                this.guardarDatosClienteComputo();
+              } else {
+                this._snackBar.open("ERROR Debe de ingresar una observación", 'ACEPTAR');
+              }
+            });
+
+        } else {
+          this.clienteComputadorGuardar.descripcion = "Sin observación";
+          this.guardarDatosClienteComputo();
+        }
+      });
+  }
+
+  guardarDatosClienteComputo() {
+    this.clienteComputadorGuardar.idCliente = this.idCliente;
+    this.clienteComputadorGuardar.idInventario = this.idComputador;
+    this.clienteComputadorGuardar.horaFin = "0";
+    this.clienteComputadorGuardar.horaInicio = this.today.toLocaleTimeString();
+
+    this.computoService.createClienteComputador(this.clienteComputadorGuardar).subscribe(value => {
+      this._snackBar.open('Se ha guardardo exitosamente', 'ACEPTAR');
+      this.mostrarLista();
+      this.cardComputo=false;
+      //this.vaciarFormulario();
+      //this.botonParaGuardar = true;
+      //this.botonParaEditar = false;
+      //this.listarEventoSinParticipantes()
+    }, error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      //this.loaderGuardar=false
+    })
+
+  }
+
 
 }
 

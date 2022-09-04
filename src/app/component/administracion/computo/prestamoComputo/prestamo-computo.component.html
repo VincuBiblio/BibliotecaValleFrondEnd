@@ -1,14 +1,14 @@
 <div class="opcionfd">
   <div class="opcion1fd">
     <button mat-flat-button class="botonmenu" (click)="mostrarNuevo()">NUEVO PRESTAMO</button>
-    <button mat-flat-button class="botonmenu" (click)="mostrarLista()">VER IMPRESIÓN-COPIA</button>
+    <button mat-flat-button class="botonmenu" (click)="mostrarLista()">VER PRESTAMO</button>
   </div>
 </div>
 
 <section *ngIf="divNuevo==true">
   <mat-stepper linear #stepper class="borde1">
-    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-      <form [formGroup]="firstFormGroup">
+    <mat-step [stepControl]="compuFormGroup" [editable]="isEditable">
+      <form [formGroup]="compuFormGroup">
         <ng-template matStepLabel>
           <div class="colorclaro">COMPUTADOR</div>
         </ng-template>
@@ -47,8 +47,8 @@
                         <table class="table2">
                           <tr style="text-align: center;">
                             <td style="text-align:left ; width: 85%;">
-                              <div class="divtipo1"><strong>CÓDIGO:
-                                </strong>{{element.codigo|uppercase}}<br></div>
+                              <div class="divtipo1"><strong>COMPUTADOR:
+                                </strong>{{element.numero}}<br></div>
                               <div class="divtipo1"><strong>PROCESADOR:
                                 </strong>{{element.procesador|uppercase}}<br></div>
                               <div class="divtipo1"><strong>RAM:
@@ -56,7 +56,7 @@
                             </td>
 
                             <td>
-                              <button mat-stroked-button class="boton1" (click)="prueba(element.codigo)">
+                              <button mat-stroked-button class="boton1" (click)="cargarDatosCompudaror(element.id)">
                                 <mat-icon>forward</mat-icon>
                               </button>
                             </td>
@@ -86,8 +86,8 @@
 
             </mat-card>
 
-            <mat-card class="cardTipoC3">
-
+            <mat-card class="cardTipoC3" *ngIf="cardComputo==true">
+              <br>
               <div style="width: 500px;">
                 <mat-card-title>
                   <div style="text-align: center;"> DATOS DE COMPUTADORA</div>
@@ -101,64 +101,44 @@
 
                 <table class="table2">
 
+                  <br>
+
                   <tr aria-colspan="6">
                     <td colspan="1">
-                      <strong>CÓDIGO: </strong>
+                      <strong>NÚMERO COMPUTADOR: </strong>
                     </td>
                     <td colspan="1" class="txt">
-                      <input matInput formControlName="firstCtrl" required>
+                      <strong> <input matInput formControlName="numero" required> </strong>
+
                     </td>
                   </tr>
-
+                  <br>
                   <tr aria-colspan="6">
                     <td colspan="1">
                       <strong>PROCESADOR: </strong>
                     </td>
                     <td colspan="1" class="txt">
-                      <input matInput formControlName="firstCtrl" required>
+                      <input matInput formControlName="procesador" required>
                     </td>
                   </tr>
-
+                  <br>
                   <tr aria-colspan="6">
                     <td colspan="1">
                       <strong>DISCO: </strong>
                     </td>
                     <td colspan="1" class="txt">
-                      <input matInput formControlName="firstCtrl" required>
+                      <input matInput formControlName="discoDuro" required>
                     </td>
                   </tr>
-
+                  <br>
                   <tr aria-colspan="6">
                     <td colspan="1">
-                      <strong>DATO EXTRA 1: </strong>
+                      <strong>RAM: </strong>
                     </td>
                     <td colspan="1" class="txt">
-                      <input matInput formControlName="firstCtrl" required>
+                      <input matInput formControlName="ram" required>
                     </td>
                   </tr>
-                  <tr aria-colspan="6">
-                    <td colspan="1">
-                      <strong>DATO EXTRA 2: </strong>
-                    </td>
-                    <td colspan="1" class="txt">
-                      <input matInput formControlName="firstCtrl" required>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <strong>DATO EXTRA 3: </strong>
-                    </td>
-                    <td>
-                      <textarea matInput formControlName="firstCtrl" required class="texArea"></textarea>
-
-                    </td>
-
-
-
-
-                  </tr>
-
 
                 </table>
 
@@ -429,76 +409,77 @@
 
       <mat-card class="example-card-two">
         <div>
-          <mat-card class="cardTipoB2">
-            <div style="width: 500px;">
-              <mat-card-title>
-
-                <div style="text-align: center;"> DATOS DE COMPUTADORA</div>
-
-              </mat-card-title>
-            </div>
-            <br>
-            <table class="table2">
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>CÓDIGO: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>PROCESADOR: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>DISCO: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>DATO EXTRA 1: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput>
-                </td>
-              </tr>
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>DATO EXTRA 2: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput>
-                </td>
-              </tr>
-
-              <tr aria-colspan="6">
-                <td colspan="1">
-                  <strong>DATO EXTRA 3: </strong>
-                </td>
-                <td colspan="1" class="txt">
-                  <input matInput>
-                </td>
-              </tr>
-
-
-
-            </table>
-
-
-          </mat-card>
+          
+          <form [formGroup]="compuFormGroup">
+            <mat-card class="cardTipoC3" *ngIf="cardComputo==true">
+              <br>
+              <div style="width: 500px;">
+                <mat-card-title>
+                  <div style="text-align: center;"> DATOS DE COMPUTADORA</div>
+  
+                </mat-card-title>
+              </div>
+  
+  
+              <br>
+              <mat-card-content>
+  
+                <table class="table2">
+  
+                  <br>
+  
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>NÚMERO COMPUTADOR: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <strong> <input matInput formControlName="numero" required> </strong>
+  
+                    </td>
+                  </tr>
+                  <br>
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>PROCESADOR: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input matInput formControlName="procesador" required>
+                    </td>
+                  </tr>
+                  <br>
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>DISCO: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input matInput formControlName="discoDuro" required>
+                    </td>
+                  </tr>
+                  <br>
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>RAM: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input matInput formControlName="ram" required>
+                    </td>
+                  </tr>
+  
+                </table>
+  
+  
+                <table>
+  
+                </table>
+  
+              
+  
+              </mat-card-content>
+  
+  
+            </mat-card>
+          </form>
+          
 
           <form [formGroup]="secondFormGroup">
             <mat-card class="cardCurso">
@@ -595,8 +576,8 @@
 
                 <td>
                   <div>
-                    <button mat-button class="botonnaranja">
-                      FINALIZAR E INSCRIBIR
+                    <button mat-button class="botonnaranja" (click)="guardarClienteComputo()">
+                      GUARDAR
                       <mat-icon>save</mat-icon>
                     </button>
                   </div>
