@@ -19,7 +19,7 @@ export class CrudtallerComponent implements OnInit {
 
   loaderGuardar:boolean;
   loaderActualizar:boolean;
-
+  selected = new FormControl(0);
 
   displayedColumns: string[] = ['id', 'nombre', 'fechaInicio', 'fechaFin', 'responsable', 'acciones'];
   dataSource: MatTableDataSource<Taller>;
@@ -53,7 +53,6 @@ export class CrudtallerComponent implements OnInit {
 
   listarTalleres(){
     this.tallerService.getAllTaller().subscribe(value => {
-
       this.dataSource=new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -77,8 +76,9 @@ export class CrudtallerComponent implements OnInit {
     console.log(this.formGrupos.getRawValue());
     this.tallerService.saveTaller(this.formGrupos.getRawValue()).subscribe(value => {
       this._snackBar.open('Taller registrado', 'ACEPTAR');
-      this.vaciarFormulario()
+      this.selected.setValue(2)
       this.listarTalleres()
+      this.vaciarFormulario()
       this.loaderGuardar=false
     },error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');

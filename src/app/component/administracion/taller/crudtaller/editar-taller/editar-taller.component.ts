@@ -30,12 +30,12 @@ export class EditarTallerComponent implements OnInit {
 
         var taller: Taller=value.filter(value1 => value1.id==params['id'])[0];
         this.formGrupos.setValue({
-          id:taller.idTaller,
-          idTaller:taller.id,
+          id:taller.id,
+          idTaller:taller.idTaller,
           descripcion: taller.descripcion,
-          fechaFin: taller.fechaFin,
-          fechaInicio: taller.fechaInicio,
-          fechaMaxInscripcion: taller.fechaMaxInscripcion,
+          fechaFin: addDaysToDate(taller.fechaFin,1),
+          fechaInicio: addDaysToDate(taller.fechaInicio,1),
+          fechaMaxInscripcion: addDaysToDate(taller.fechaMaxInscripcion,1),
           lugar: taller.lugar,
           nombre: taller.nombre,
           responsable: taller.responsable
@@ -91,4 +91,9 @@ export class EditarTallerComponent implements OnInit {
 
 
 
+}
+function addDaysToDate(date, days): any {
+  var res = new Date(date);
+  res.setDate(res.getDate() + days);
+  return res;
 }

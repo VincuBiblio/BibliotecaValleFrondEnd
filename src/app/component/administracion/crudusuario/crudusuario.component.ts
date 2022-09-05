@@ -60,6 +60,7 @@ export class CrudusuarioComponent implements OnInit {
 
   loaderGuardar:boolean;
   loaderActualizar:boolean;
+  selected = new FormControl(0);
 
   displayedColumns: string[] = ['id', 'cedula', 'nombres', 'apellidos','email','telefono','editar'];
   dataSource: MatTableDataSource<PersonaUsuario>;
@@ -77,6 +78,7 @@ export class CrudusuarioComponent implements OnInit {
   }
 
   listarUsuarios(){
+    this.loaderActualizar=true
     this.usuarioService.getAllUsuarios().subscribe(value => {
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
@@ -115,6 +117,8 @@ export class CrudusuarioComponent implements OnInit {
     this.usuarioService.saveUsuario(this.formGrupos.getRawValue()).subscribe(value => {
       this._snackBar.open('Usuario registrado', 'ACEPTAR');
       this.vaciarFormulario()
+      this.listarUsuarios()
+      this.selected.setValue(2);
       this.loaderGuardar=false
     },error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');

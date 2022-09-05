@@ -35,7 +35,6 @@ export class nuevoClienteComponent implements OnInit {
               private clienteService:ClienteService) {
   }
 
-
   ngOnInit(): void {
 
     this.loaderCargar=true;

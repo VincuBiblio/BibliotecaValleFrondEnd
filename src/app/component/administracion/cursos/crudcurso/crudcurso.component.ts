@@ -34,10 +34,10 @@ const FRUITS: string[] = [
 })
 export class CrudcursoComponent implements OnInit {
 
-  loaderGuardar:boolean;
-  loaderActualizar:boolean;
-  cursos: Curso[]=[]
-
+  loaderGuardar: boolean;
+  loaderActualizar: boolean;
+  cursos: Curso[] = []
+  selected = new FormControl(0);
 
   displayedColumns: string[] = ['id', 'nombre', 'lugar', 'responsable', 'fechaInicio', 'fechaFin', 'Editar'];
   dataSource: MatTableDataSource<Curso>;
@@ -50,18 +50,15 @@ export class CrudcursoComponent implements OnInit {
 
   constructor(private cursoService: CursoService,
               private _snackBar: MatSnackBar,
-              private router: Router,
-              ) {
-
-
-
+              private router: Router) {
   }
 
   ngOnInit(): void {
-  this.listarCursos();
+    this.listarCursos();
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -72,12 +69,12 @@ export class CrudcursoComponent implements OnInit {
     }
   }
 
-  listarCursos(){
+  listarCursos() {
     this.cursoService.getAllCurso().subscribe(value => {
-      this.dataSource=new MatTableDataSource(value);
+      this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.loaderActualizar=false
+      this.loaderActualizar = false
 
     })
   }
@@ -92,23 +89,23 @@ export class CrudcursoComponent implements OnInit {
     descripcion: new FormControl<String>('', [Validators.required, Validators.minLength(10)]),
     materiales: new FormControl<String>('', [Validators.required]),
     //observaciones: new FormControl<String>('', [Validators.required]),
-    fechaInicio: new FormControl<Date | null>(null,[Validators.required]),
-    fechaFin: new FormControl<Date | null>(null,[Validators.required]),
-    fechaMaxInscripcion: new FormControl<Date | null>(null,[Validators.required]),
+    fechaInicio: new FormControl<Date | null>(null, [Validators.required]),
+    fechaFin: new FormControl<Date | null>(null, [Validators.required]),
+    fechaMaxInscripcion: new FormControl<Date | null>(null, [Validators.required]),
   })
 
 
-  borrarCursos(){
+  borrarCursos() {
 
     console.log(document.getElementById("idCurso").innerText);
-    this.cursoService.deleteCurso(+document.getElementById("idCurso").innerText).subscribe(value =>{
+    this.cursoService.deleteCurso(+document.getElementById("idCurso").innerText).subscribe(value => {
       this._snackBar.open('Curso eliminado', 'ACEPTAR');
       this.vaciarFormulario()
 
-      this.loaderGuardar=false
-    },error => {
+      this.loaderGuardar = false
+    }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
-      this.loaderGuardar=false
+      this.loaderGuardar = false
     });
 
 
@@ -119,22 +116,20 @@ export class CrudcursoComponent implements OnInit {
     console.log(this.formGrupos.getRawValue())
     this.cursoService.createCurso(this.formGrupos.getRawValue()).subscribe(value => {
       this._snackBar.open('Curso registrado', 'ACEPTAR');
+      this.selected.setValue(2)
       this.listarCursos()
       this.vaciarFormulario()
-      this.loaderGuardar=false
-    },error => {
+
+      this.loaderGuardar = false
+    }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
-      this.loaderGuardar=false
+      this.loaderGuardar = false
     })
   }
 
 
-  irEditar() {
 
-  }
-
-
-  vaciarFormulario(){
+  vaciarFormulario() {
     this.formGrupos.setValue({
       actividades: "",
       descripcion: "",

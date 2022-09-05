@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center"  backgroundColor="primary" color="warn">
+<mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selected.setValue($event)"  [selectedIndex]="selected.value" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVO CURSO">
     <mat-card class="example-card" style="background: #f7f2dc">
       <form [formGroup]="formGrupos">

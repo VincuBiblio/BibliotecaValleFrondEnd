@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="warn">
+<mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selected.setValue($event)"  [selectedIndex]="selected.value" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVO TALLER">
     <mat-card class="example-card" style="background: #f7f2dc">
       <form [formGroup]="formGrupos">
@@ -95,7 +95,7 @@
             <!-- Progress Column -->
             <ng-container matColumnDef="nombre">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
-              <td mat-cell *matCellDef="let row"> {{row.nombre}}%</td>
+              <td mat-cell *matCellDef="let row"> {{row.nombre}}</td>
             </ng-container>
 
             <!-- Name Column -->

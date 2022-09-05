@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="warn">
+<mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selected.setValue($event)"  [selectedIndex]="selected.value" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVO USUARIO">
     <mat-card class="example-card" style="background: #f7f2dc">
       <form [formGroup]="formGrupos">
@@ -68,6 +68,7 @@
   </mat-tab>
   <mat-tab label="VER USUARIOS">
     <mat-card class="example-card-two">
+      <mat-progress-bar *ngIf="loaderActualizar"  mode="indeterminate"></mat-progress-bar>
       <mat-card-content>
         <mat-form-field appearance="standard">
           <mat-label>Filter</mat-label>
