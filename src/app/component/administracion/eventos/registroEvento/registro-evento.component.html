@@ -12,14 +12,18 @@
 
 
     <mat-card class="example-card">
-      <mat-form-field appearance="outline" class="seleccion">
-        <mat-label>Seleccione un Evento</mat-label>
-        <select matNativeControl (change)="cargarParticipantesCurso($event)">
-          <option value=""></option>
-          <option *ngFor="let option of eventoLista" [value]="option.id" [selected]="selectedIdEvento === option.id">{{
-            option.descripcion }}</option>
-        </select>
-      </mat-form-field>
+
+      <form [formGroup]="formList">
+        <mat-form-field appearance="outline" class="seleccion">
+          <mat-label>Seleccione un Evento</mat-label>
+          <mat-select formControlName="valorSelect" (selectionChange)="cargarParticipantesCurso()">
+            <mat-option *ngFor="let option of eventoLista" [value]="option.id">{{option.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+
     </mat-card>
 
 

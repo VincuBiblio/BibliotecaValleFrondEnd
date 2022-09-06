@@ -93,95 +93,119 @@
 
     </mat-card>
 
-    <div *ngIf="cardCliente == true">
-      <mat-card class="cardTipo2">
+    <form [formGroup]="prestamoLibroFormGroup">
 
-        <mat-card class="colorFondo">
-          <form [formGroup]="secondFormGroup">
+      <div *ngIf="cardCliente == true">
+        <mat-card class="cardTipo2">
+
+          <mat-card class="colorFondo">
+            <form [formGroup]="secondFormGroup">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Cédula</mat-label>
+                <input readonly="true" type="text" matInput formControlName="cedula">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input readonly="true" type="text" matInput formControlName="nombres" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input readonly="true" type="text" matInput formControlName="email" required>
+              </mat-form-field>
+
+            </form>
+          </mat-card>
+          <br>
+
+
+          <mat-card class="colorFondo">
 
             <mat-form-field appearance="outline">
-              <mat-label>Cédula</mat-label>
-              <input readonly="true" type="text" matInput formControlName="cedula">
+              <mat-label>Fecha Entrega </mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechaEntrega">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Nombre</mat-label>
-              <input readonly="true" type="text" matInput formControlName="nombres" required>
+              <mat-label>Fecha Devolución </mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="fechaDev">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
+
+            <table class="table2">
+              <tr style="text-align: center;">
+                <td style="text-align:left ; width: 85%;">
+                  <mat-form-field class="ubicacion" appearance="outline" style="width: 80%;left: 3px;">
+                    <mat-label>Libro</mat-label>
+                    <mat-select formControlName="libro">
+                      <mat-option *ngFor="let lista of libroDisponibleLista" [value]="lista.id">{{lista.codigoLibro}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <button style="left: 10px;" mat-flat-button color="primary" (click)="crearLibro()">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </td>
+
+              </tr>
+            </table>
 
             <mat-form-field appearance="outline">
-              <mat-label>E-mail</mat-label>
-              <input readonly="true" type="text" matInput formControlName="email" required>
+              <mat-label>Observación</mat-label>
+              <textarea matInput rows="1" formControlName="observacion"></textarea>
             </mat-form-field>
 
-          </form>
+          </mat-card>
+
+
         </mat-card>
-        <br>
-        <mat-card class="colorFondo">
-          <mat-form-field appearance="outline">
-            <mat-label>Fecha </mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Páginas a color</mat-label>
-            <input type="number" matInput>
-          </mat-form-field>
+        <table class="table2" style=" background-color: transparent;">
+          <tr style="text-align: center;">
+            <td style="text-align:left;">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Páginas a blanco y Negro</mat-label>
-            <input type="number" matInput>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Total Páginas</mat-label>
-            <input type="number" matInput>
-          </mat-form-field>
-
-        </mat-card>
-
-
-      </mat-card>
-
-      <table class="table2" style=" background-color: transparent;">
-        <tr style="text-align: center;">
-          <td style="text-align:left;">
-  
-          </td>
-          <td></td>
-          <td></td>
-          <td></td>
-  
-          <div class="td1">
-  
-            <td>
-              <div>
-                <button mat-button class="botonnaranja">
-                  GUARDAR
-                  <mat-icon>save</mat-icon>
-                </button>
-              </div>
-  
             </td>
-          </div>
-  
-        </tr>
-  
-  
-      </table>
+            <td></td>
+            <td></td>
+            <td></td>
 
-    </div>
+            <div class="td1">
+
+              <td>
+                <div>
+                  <button mat-button class="botonnaranja" [disabled]="prestamoLibroFormGroup.invalid"
+                    (click)="guardarPrestamoLibro()">
+                    GUARDAR
+                    <mat-icon>save</mat-icon>
+                  </button>
+                </div>
+
+              </td>
+            </div>
+
+          </tr>
 
 
-    
+        </table>
+
+      </div>
+
+    </form>
+
+
+
 
 
   </mat-card>
 
 
-  
+
 </section>
 
 

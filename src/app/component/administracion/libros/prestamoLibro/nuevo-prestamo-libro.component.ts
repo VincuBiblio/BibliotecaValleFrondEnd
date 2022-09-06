@@ -7,6 +7,10 @@ import { PersonaCliente } from 'src/app/models/personaCliente';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { libro, PrestamoLibro } from 'src/app/models/libro';
+import { LibroService } from 'src/app/services/libro.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -24,6 +28,9 @@ export class NuevaPrestamoLibroComponent implements OnInit {
 
 
   public clienteLista: PersonaCliente[] = [];
+  public libroDisponibleLista: libro[] = [];
+  public listaGuardarPrestamo: PrestamoLibro = new PrestamoLibro();
+  public listaDatoLibroNuevo: libro = new libro();
 
   public idCliente: any;
   public cardClienteMensaje: Boolean = true;
@@ -50,10 +57,13 @@ export class NuevaPrestamoLibroComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _formBuilder: FormBuilder,
-    private clienteService: ClienteService,) { }
+    private _snackBar: MatSnackBar,
+    private clienteService: ClienteService,
+    private libroService: LibroService,) { }
 
   ngOnInit(): void {
     this.listarClientes();
+    this.listarLibroDispo();
   }
 
   public mostrarLista() {
@@ -66,8 +76,8 @@ export class NuevaPrestamoLibroComponent implements OnInit {
     this.divNuevo = true;
   }
 
-  prueba(valor: any) {
-    alert(valor);
+  prueba() {
+    alert("aqui ta");
   }
   openDialog() {
     this.dialogoCliente = true;
@@ -140,6 +150,80 @@ export class NuevaPrestamoLibroComponent implements OnInit {
 
     }
   }
+
+
+  //LIBRO
+
+  prestamoLibroFormGroup = this._formBuilder.group({
+    fechaEntrega: new FormControl<String>('', [Validators.required]),
+    fechaDev: new FormControl<String>('', [Validators.required]),
+    libro: new FormControl<any>('', [Validators.required]),
+    observacion: new FormControl<String>('', [Validators.required]),
+  });
+
+  listarLibroDispo() {
+
+    this.libroService.getLibrosDisponibles().subscribe(value => {
+      console.log("Listado libro Disponible generado exitosamente");
+      this.libroDisponibleLista = value;
+      console.log(this.libroDisponibleLista);
+      /*
+  this.dataSourceCliente = new MatTableDataSource(value);
+  this.dataSourceCliente.paginator = this.paginator;
+  this.dataSourceCliente.sort = this.sort;*/
+
+    })
+  }
+
+  crearLibro() {
+    Swal.fire({
+      title: "Ingrese el nombre del Libro",
+      input: "text",
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      cancelButtonText: "Cancelar",
+      background: '#f7f2dc',
+      confirmButtonColor: '#a01b20',
+      backdrop: false
+    })
+      .then(resultado => {
+        if (resultado.value) {
+          this.listaDatoLibroNuevo.codigoLibro = resultado.value;
+          this.listaDatoLibroNuevo.estado = true;
+          console.log(this.listaDatoLibroNuevo);
+          this.libroService.createLibro(this.listaDatoLibroNuevo).subscribe(value => {
+            this._snackBar.open('Libro registrado', 'ACEPTAR');
+            //this.vaciarFormulario();
+            //this.listarEventoSinParticipantes();
+            //this.mostrarLista();
+          }, error => {
+            this._snackBar.open(error.error.message, 'ACEPTAR');
+            //this.loaderGuardar=false
+          })
+        }
+      });
+  }
+
+  guardarPrestamoLibro() {
+    this.listaGuardarPrestamo.idCliente = this.idCliente;
+    this.listaGuardarPrestamo.fechaEntrega = Object.values(this.prestamoLibroFormGroup.getRawValue())[0];
+    this.listaGuardarPrestamo.fechaDev = Object.values(this.prestamoLibroFormGroup.getRawValue())[1];
+    this.listaGuardarPrestamo.idLibro = Object.values(this.prestamoLibroFormGroup.getRawValue())[2];
+    this.listaGuardarPrestamo.observacion = Object.values(this.prestamoLibroFormGroup.getRawValue())[3];
+
+    this.libroService.createPrestamoLibro(this.listaGuardarPrestamo).subscribe(value => {
+      this._snackBar.open('registrado exitosamente', 'ACEPTAR');
+      //this.vaciarFormulario();
+      //this.listarEventoSinParticipantes();
+      //this.mostrarLista();
+    }, error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+      //this.loaderGuardar=false
+    })
+
+  }
+
+
 
 
 }

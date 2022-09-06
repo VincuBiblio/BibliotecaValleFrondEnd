@@ -36,7 +36,7 @@ export class PrestamoComputoComponent implements OnInit {
   public cardClienteMensaje: Boolean = true;
   public cardCliente: Boolean = false;
   public cardComputo: Boolean = false;
-
+  public estadoBAotonAfregar:Boolean;
 
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;

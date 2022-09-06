@@ -54,6 +54,7 @@
   text-align: center;
   width: 85%;
   left: 21px;
+  overflow: auto;
 }
 
 .table2 {

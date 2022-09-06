@@ -685,14 +685,18 @@
 <mat-card class="borde3" *ngIf="divListar==true">
 
   <mat-card class="borde2">
-    <mat-form-field appearance="outline" class="seleccion">
-      <mat-label>Seleccione un Curso</mat-label>
-      <select matNativeControl (change)="listarParticipantesCurso($event,1,$event)">
-        <option value=""></option>
-        <option *ngFor="let option of cursoLista" [value]="option.idCurso"
-          [selected]="selectedIdCurso === option.idCurso">{{ option.nombre|uppercase }}</option>
-      </select>
-    </mat-form-field>
+
+    <form [formGroup]="formList">
+      <mat-form-field appearance="outline" class="seleccion">
+        <mat-label>Seleccione un Curso</mat-label>
+        <mat-select formControlName="valorSelect" (selectionChange)="listarParticipantesCurso(1,$event)">
+          <mat-option *ngFor="let option of cursoLista" [value]="option.idCurso">{{option.nombre|uppercase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </form>
+
   </mat-card>
 
   <mat-card class="borde2" *ngIf="cardListarModulo==true">

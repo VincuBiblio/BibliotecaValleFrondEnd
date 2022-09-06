@@ -311,7 +311,7 @@ export class NuevaInscripcionComponent implements OnInit {
         if (this.totalCuposTotal <= 0) {
           location.reload();
         }
-      },error => {
+      }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       }
 
@@ -364,10 +364,15 @@ export class NuevaInscripcionComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  listarParticipantesCurso(event: Event, condicion: number, valor: any) {
+  formList = new FormGroup({
+    valorSelect: new FormControl<String>('', [Validators.required]),
+  })
+
+  listarParticipantesCurso(condicion: number, valor: any) {
+
 
     if (condicion == 1) {
-      this.selectedIdCurso = (event.target as HTMLSelectElement).value;
+      this.selectedIdCurso = Object.values(this.formList.getRawValue())[0];
     } else {
       if (condicion == 2) {
         this.selectedIdCurso = valor;
@@ -410,7 +415,7 @@ export class NuevaInscripcionComponent implements OnInit {
       .then(resultado => {
         if (resultado.value) {
           this.cursoService.deletePersonaCurso(idCliente, this.selectedIdCurso).subscribe(value => {
-            this.listarParticipantesCurso(this.selectedIdCurso, 2, this.selectedIdCurso);
+            this.listarParticipantesCurso(2, this.selectedIdCurso);
             this.contarClientesCurso(this.selectedIdCurso, this.numeroCondicion);
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
 

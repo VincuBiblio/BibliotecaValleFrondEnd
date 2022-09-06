@@ -77,6 +77,10 @@ export class registroEventoComponent implements OnInit {
     participantes: new FormControl<String>('', [Validators.required]),
   })
 
+  formList = new FormGroup({
+    valorSelect: new FormControl<String>('', [Validators.required]),
+  })
+
   listarEventoSinParticipantes() {
     this.eventoService.getEventoSinParticipantes().subscribe(value => {
       this.eventoLista = value;
@@ -86,8 +90,10 @@ export class registroEventoComponent implements OnInit {
   }
 
 
-  cargarParticipantesCurso(id) {
-    this.selectedIdEvento = (id.target as HTMLSelectElement).value;
+
+  cargarParticipantesCurso() {
+    //this.selectedIdEvento = (id.target as HTMLSelectElement).value;
+    this.selectedIdEvento = Object.values(this.formList.getRawValue())[0];
 
     for (var k = 0; k < this.eventoLista.length; k++) {
       if (this.eventoLista[k].id == this.selectedIdEvento) {
@@ -127,6 +133,7 @@ export class registroEventoComponent implements OnInit {
           this._snackBar.open('Evento Actualizado', 'ACEPTAR');
           this.listarEventoSinParticipantes();
           this.listarEventosParticipantes();
+          this.mostrarLista();
           this.divMostrar = false;
         }, error => {
           this._snackBar.open(error.error.message, 'ACEPTAR');
@@ -185,7 +192,7 @@ export class registroEventoComponent implements OnInit {
   }
 
   descargarDocumento(base64: any) {
-   
+
     try {
       if (base64 == null) {
         this._snackBar.open('No existe un documento', 'ACEPTAR');

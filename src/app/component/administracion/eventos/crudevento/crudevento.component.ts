@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {Evento} from 'src/app/models/evento';
-import {EventoService} from 'src/app/services/evento.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { Evento } from 'src/app/models/evento';
+import { EventoService } from 'src/app/services/evento.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import {DatePipe} from "@angular/common";
+import { DatePipe } from "@angular/common";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -91,7 +91,8 @@ export class CrudeventoComponent implements OnInit {
     this.eventoService.createEvento(this.eventoListaGuardar).subscribe(value => {
       this._snackBar.open('Evento registrado', 'ACEPTAR');
       this.vaciarFormulario();
-      this.listarEventoSinParticipantes()
+      this.listarEventoSinParticipantes();
+      this.mostrarLista();
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
       //this.loaderGuardar=false
@@ -188,7 +189,8 @@ export class CrudeventoComponent implements OnInit {
       this.vaciarFormulario();
       this.botonParaGuardar = true;
       this.botonParaEditar = false;
-      this.listarEventoSinParticipantes()
+      this.listarEventoSinParticipantes();
+      this.mostrarLista();
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
       //this.loaderGuardar=false
@@ -227,7 +229,7 @@ export class CrudeventoComponent implements OnInit {
       });
   }
 
-  async optenerPoste(evento:Evento) {
+  async optenerPoste(evento: Evento) {
     var pipe: DatePipe = new DatePipe('es')
     const pdfDefinition: any = {
       pageSize: 'LETTER',
@@ -239,28 +241,28 @@ export class CrudeventoComponent implements OnInit {
         }
       ],
       content: [
-        {text:'  '},
-        {text:'  '},
-        {text:'  '},
-        {text:'  '},
-        {text:'  '},
-        {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 200},
-        {text:'  '},
-        {text:'EVENTO', fontSize: 70, bold: true,alignment: 'center' },
-        {text:'  '},
-        {text:'  '},
-        {text: evento.descripcion.toUpperCase(), fontSize: 50, bold: true,alignment: 'center' },
-        {text:'  '},
-        {text: pipe.transform(evento.fecha,'d/MMMM/y').toUpperCase(), fontSize: 40, bold: true,alignment: 'center' },
-        {text:'  '},
-        {text:'  '},
+        { text: '  ' },
+        { text: '  ' },
+        { text: '  ' },
+        { text: '  ' },
+        { text: '  ' },
+        { image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 200 },
+        { text: '  ' },
+        { text: 'EVENTO', fontSize: 70, bold: true, alignment: 'center' },
+        { text: '  ' },
+        { text: '  ' },
+        { text: evento.descripcion.toUpperCase(), fontSize: 50, bold: true, alignment: 'center' },
+        { text: '  ' },
+        { text: pipe.transform(evento.fecha, 'd/MMMM/y').toUpperCase(), fontSize: 40, bold: true, alignment: 'center' },
+        { text: '  ' },
+        { text: '  ' },
         {
           table: {
             headerRows: 1,
             widths: ['50%', '50%'],
             body: [
-              ['ACTIVIDADES','OBSERVACIONES'],
-              [evento.actividades,evento.observaciones]
+              ['ACTIVIDADES', 'OBSERVACIONES'],
+              [evento.actividades, evento.observaciones]
             ]
           }
         }

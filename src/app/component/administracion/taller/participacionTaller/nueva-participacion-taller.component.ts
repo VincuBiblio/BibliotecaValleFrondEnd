@@ -351,11 +351,16 @@ export class NuevaParticipacionTallerComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  listarParticipantesTaller(event: Event, condicion: number, valor: any) {
+  formList = new FormGroup({
+    valorSelect: new FormControl<String>('', [Validators.required]),
+  })
+
+
+  listarParticipantesTaller(condicion: number, valor: any) {
 
 
     if (condicion == 1) {
-      this.selectedIdTaller = (event.target as HTMLSelectElement).value;
+      this.selectedIdTaller = Object.values(this.formList.getRawValue())[0];
     } else {
       if (condicion == 2) {
         this.selectedIdTaller = valor;
@@ -401,7 +406,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
 
         if (resultado.value) {
           this.tallerService.deletePersonaTalller(idCliente, this.selectedIdTaller).subscribe(value => {
-            this.listarParticipantesTaller(this.selectedIdTaller, 2, this.selectedIdTaller);
+            this.listarParticipantesTaller(2, this.selectedIdTaller);
             //this.contarClientesCurso(this.selectedIdCurso, this.numeroCondicion);
             this.contarTallerCurso(this.selectedIdTaller, this.numeroCondicion);
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
