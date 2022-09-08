@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
-import { libro, PrestamoLibro } from '../models/libro';
+import { libro, libroEstado, libroPrestamo, PrestamoLibro } from '../models/libro';
 
 @Injectable({
     providedIn: 'root'
@@ -24,12 +24,24 @@ export class LibroService {
         return this.http.get(environment.URL_APP + "/libros/all/estado", { headers: this.httpHeaders }).pipe(map(Response => Response as libro[]))
     }
 
+    getLibroCliente(): Observable<libroPrestamo[]> {
+        return this.http.get(environment.URL_APP + "/libro/cliente/lista/librosenprestamo", { headers: this.httpHeaders }).pipe(map(Response => Response as libroPrestamo[]))
+    }
+
     createLibro(datos: libro): Observable<libro> {
-        return this.http.post(environment.URL_APP + "/libros", datos, { headers: this.httpHeaders })
+        return this.http.post(environment.URL_APP + "/libros/create", datos, { headers: this.httpHeaders })
     }
 
     createPrestamoLibro(datos: PrestamoLibro): Observable<PrestamoLibro> {
-        return this.http.post(environment.URL_APP + "/libro/cliente", datos, { headers: this.httpHeaders })
+        return this.http.post(environment.URL_APP + "/libro/cliente/registroprestamos", datos, { headers: this.httpHeaders })
+    }
+
+    putLibro(evento: libroEstado): Observable<libroEstado> {
+        return this.http.put(environment.URL_APP + "/libros/estado/libro", evento, { headers: this.httpHeaders })
+    }
+
+    putLibroDevolucion(dato: PrestamoLibro): Observable<PrestamoLibro> {
+        return this.http.put(environment.URL_APP + "/libro/cliente/actualizarregistroprestamos", dato, { headers: this.httpHeaders })
     }
 
 }

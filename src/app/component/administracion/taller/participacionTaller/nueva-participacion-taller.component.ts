@@ -28,6 +28,7 @@ import Swal from "sweetalert2";
 })
 export class NuevaParticipacionTallerComponent implements OnInit {
 
+  public mensajeNoHayDatos:any="ACTUALMENTE NO HAY TALLERES DISPONIBLES";
 
   //CLIENTE
   public clienteLista: PersonaCliente[] = [];
@@ -62,6 +63,9 @@ export class NuevaParticipacionTallerComponent implements OnInit {
   public numeroCondicion: Number = 0;
   public cardTallerMensaje: Boolean = true;
   public cardTaller: Boolean = false;
+
+  public cardValorCero: Boolean;
+  public cardValorDifenteCero: Boolean;
 
   formCliente: FormGroup;
 
@@ -210,6 +214,15 @@ export class NuevaParticipacionTallerComponent implements OnInit {
       this.listaInicialTaller = value;
 
       console.log(value);
+
+      if (this.listaInicialTaller.length == 0) {
+        this.cardValorCero = true;
+        this.cardValorDifenteCero =false;
+
+      } else {
+        this.cardValorCero = false;
+        this.cardValorDifenteCero =true;
+      }
 
       var AnyoHoy = this.Hoy.getFullYear();
       var MesHoy = this.Hoy.getMonth() + 1;

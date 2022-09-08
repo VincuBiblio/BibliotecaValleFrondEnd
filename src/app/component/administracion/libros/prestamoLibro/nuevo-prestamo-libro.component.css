@@ -185,17 +185,8 @@ th {
 
 
 
-
-
-
-
-
-.td1 {
-  background-color: #f7f2dc;
-  width: 150px;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  padding: 2px;
+td, th {
+  width: 15%;
 }
 
 .colorclaro {
@@ -217,4 +208,34 @@ th {
   border: 1px solid #000000;
 }
 
+.tamanopeque{
+  width: 10%;
+ 
+}
 
+.bordeev {
+  background-color: transparent;
+  border: 2px solid #f7f2dc;
+  width: 800px;
+  margin: 0.5% auto;
+  margin-bottom: 10px;
+  overflow: hidden;
+  writing-mode: horizontal-tb;
+  padding: 1rem;
+  text-align: center;
+}
+
+.bordeFiltro {
+  width: 100%;
+  margin-bottom: 4%;
+}
+
+.tamanopequenio{
+  background-color: red; 
+  width: 7%
+ 
+}
+
+.textoInicio{
+  text-align: left;
+}

@@ -35,6 +35,7 @@ export class NuevaInscripcionComponent implements OnInit {
   public numeroCondicion: Number = 0;
   public totalCuposSobrantes: Number;
   public totalCuposTotal: any;
+  public mensajeNoHayDatos:any="ACTUALMENTE NO HAY CURSOS DISPONIBLES";
 
   //DECLARACIÓN DE VARIABLES
   public cursoLista: Curso[] = [];
@@ -57,6 +58,9 @@ export class NuevaInscripcionComponent implements OnInit {
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
   public cardListarModulo: Boolean;
+
+  public cardValorCero: Boolean;
+  public cardValorDifenteCero: Boolean;
 
   public controlbotonSiguiente: Boolean;
   public controlmensajeSiguiente: Boolean;
@@ -131,6 +135,15 @@ export class NuevaInscripcionComponent implements OnInit {
   listarCursos() {
     this.cursoService.getAllCurso().subscribe(value => {
       this.listaInicialCurso = value;
+
+      if (this.listaInicialCurso.length == 0) {
+        this.cardValorCero = true;
+        this.cardValorDifenteCero =false;
+
+      } else {
+        this.cardValorCero = false;
+        this.cardValorDifenteCero =true;
+      }
 
       var AnyoHoy = this.Hoy.getFullYear();
       var MesHoy = this.Hoy.getMonth() + 1;
