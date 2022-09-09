@@ -70,6 +70,7 @@ export class CrudcursoComponent implements OnInit {
   }
 
   listarCursos() {
+    this.loaderActualizar=true
     this.cursoService.getAllCurso().subscribe(value => {
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;

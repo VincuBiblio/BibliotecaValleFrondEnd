@@ -103,6 +103,7 @@
   </mat-tab>
   <mat-tab label="VER CURSOS">
     <mat-card class="example-card-two">
+      <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
       <mat-card-content>
         <mat-form-field appearance="standard">
           <mat-label>Filter</mat-label>

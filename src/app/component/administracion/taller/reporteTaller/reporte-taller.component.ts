@@ -11,6 +11,7 @@ import {TallerService} from "../../../../services/taller.service";
 import {DatePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
 import {PersonaCliente} from "../../../../models/personaCliente";
+import {MatSnackBar} from "@angular/material/snack-bar";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -30,7 +31,8 @@ export class ReporteTallerComponent implements OnInit {
   dataTaller?: Observable<Taller[]>;
 
   constructor(private tallerService:TallerService,
-              private usuarioService:UsuarioService) { }
+              private usuarioService:UsuarioService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.filterAnio('')
@@ -76,6 +78,9 @@ export class ReporteTallerComponent implements OnInit {
       this.reporteTaller.porcent_Otro=Math.round(value.porcent_Otro)
       this.cargar=false;
       this.habilitar=true;
+    },error => {
+      this.cargar=false;
+      this._snackBar.open(error.error.message, 'ACEPTAR');
     })
   }
 

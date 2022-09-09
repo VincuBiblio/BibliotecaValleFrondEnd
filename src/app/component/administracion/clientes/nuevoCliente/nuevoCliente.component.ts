@@ -66,8 +66,8 @@ export class nuevoClienteComponent implements OnInit {
     idCanton: new FormControl<Number>(null, [Validators.required]),
     idProvincia: new FormControl<Number>(null, [Validators.required]),
     idParroquia: new FormControl<Number>(null, [Validators.required]),
-    telefonoResponsbale: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
-    nombreResponsable: new FormControl<String>('', [Validators.required]),
+    telefonoResponsbale: new FormControl<String>('', [Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
+    nombreResponsable: new FormControl<String>('', ),
   })
 
 

@@ -52,6 +52,7 @@ export class CrudtallerComponent implements OnInit {
 
 
   listarTalleres(){
+    this.loaderActualizar=true
     this.tallerService.getAllTaller().subscribe(value => {
       this.dataSource=new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
