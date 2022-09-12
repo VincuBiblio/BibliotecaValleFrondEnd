@@ -10,26 +10,22 @@
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>COD. Computador</mat-label>
-                  <input matInput formControlName="nombrecurso">
+                  <input matInput formControlName="numero">
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile rowspan="2">
                 <label id="example-radio-group-label">Estado del computador</label>
-                <mat-radio-group
+                <mat-radio-group formControlName="estado"
                   aria-labelledby="example-radio-group-label"
                   class="example-radio-group">
-                  <mat-radio-button class="example-radio-button">
-                    Activo
-                  </mat-radio-button>
-                  <mat-radio-button class="example-radio-button">
-                    Inactivo
-                  </mat-radio-button>
+                  <mat-radio-button class="example-margin" [value]="true">Activo</mat-radio-button>
+                  <mat-radio-button class="example-margin" [value]="false">Inactivo</mat-radio-button>
                 </mat-radio-group>
               </mat-grid-tile>
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>Procesador</mat-label>
-                  <input matInput formControlName="nombreresponsable">
+                  <input matInput formControlName="procesador">
                 </mat-form-field>
               </mat-grid-tile>
 
@@ -39,14 +35,14 @@
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>Memoria RAM</mat-label>
-                  <input matInput formControlName="nombreresponsable">
+                  <input matInput formControlName="ram">
                 </mat-form-field>
               </mat-grid-tile>
 
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>Disco Duro</mat-label>
-                  <input matInput formControlName="nombreresponsable">
+                  <input matInput formControlName="discoDuro">
                 </mat-form-field>
               </mat-grid-tile>
 
@@ -55,7 +51,7 @@
 
           </mat-grid-list>
         </mat-card-content>
-        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">REGISTRAR
+        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()" >REGISTRAR
         </button>
       </form>
     </mat-card>
@@ -78,21 +74,26 @@
             </ng-container>
 
             <!-- Progress Column -->
-            <ng-container matColumnDef="progress">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress</th>
-              <td mat-cell *matCellDef="let row"> {{row.progress}}%</td>
+            <ng-container matColumnDef="Estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
+              <td mat-cell *matCellDef="let row"> {{row.estado}}
+              <strong *ngIf="row.estado==true">Activo</strong>
+              <strong *ngIf="row.estado==false">Inactivo</strong>
+              </td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
-              <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            <ng-container matColumnDef="numero">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero</th>
+              <td mat-cell *matCellDef="let row"> {{row.numero}} </td>
             </ng-container>
 
             <!-- Fruit Column -->
-            <ng-container matColumnDef="fruit">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit</th>
-              <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-flat-button color="primary" [routerLink]="['/panel/biblioteca/editarcomputo',row.id]">Editar</button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

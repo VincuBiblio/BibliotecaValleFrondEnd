@@ -4,6 +4,8 @@ import { map, Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { ClienteComputador } from '../models/cliente-computador';
 import { Computo } from '../models/computo';
+import {Curso} from "../models/curso";
+import {Evento} from "../models/evento";
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +28,14 @@ export class ComputoService {
 
     createClienteComputador(dato: ClienteComputador): Observable<ClienteComputador> {
         return this.http.post(environment.URL_APP + "/inventario/computo/registrocomputadorcliente", dato, { headers: this.httpHeaders })
+    }
+
+    createComputo(computoRequest:Computo):Observable<Curso>{
+      return this.http.post(environment.URL_APP+"/inventario/computo/registrocomputador", computoRequest,{headers:this.httpHeaders});
+    }
+
+    updateComputo(computoRequest:Computo):Observable<Curso>{
+        return this.http.put(environment.URL_APP + "/inventario/computo/actualizarcomputador", computoRequest, { headers: this.httpHeaders })
     }
 
 }
