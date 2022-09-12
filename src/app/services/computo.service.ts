@@ -38,4 +38,8 @@ export class ComputoService {
         return this.http.put(environment.URL_APP + "/inventario/computo/actualizarcomputador", computoRequest, { headers: this.httpHeaders })
     }
 
+    deletecomputo(id:number){
+
+    }
+
 }

@@ -17,7 +17,7 @@ export class CrudcomputoComponent implements OnInit {
   loaderGuardar: boolean;
   loaderActualizar: boolean;
   arrayestado:string[]=['Activo','Inactivo'];
-  displayedColumns: string[] = ['id', 'Estado', 'numero', 'acciones'];
+  displayedColumns: string[] = ['id','numero','disco','procesador', 'Estado', 'acciones'];
   dataSource: MatTableDataSource<Computo>;
   selected = new FormControl(0);
 
@@ -76,11 +76,11 @@ export class CrudcomputoComponent implements OnInit {
 
   vaciarFormulario() {
     this.formGrupos.setValue({
-      numero: undefined,
-      estado: false,
-      procesador: undefined,
-      ram: undefined,
-      discoDuro: undefined
+      numero: '',
+      estado: null,
+      procesador: '',
+      ram: '',
+      discoDuro: ''
     })
   }
 
