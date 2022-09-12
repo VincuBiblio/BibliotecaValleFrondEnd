@@ -8,3 +8,4 @@ export class Evento{
     usuarioid?:any;
     observaciones?:any;
 }
+

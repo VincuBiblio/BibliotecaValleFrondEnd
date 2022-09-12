@@ -37,3 +37,18 @@ export class libroPrestamo{
     diaPrestamo?: any;
     observacionEntrega?: any;
 }
+
+export class ReporteLibros{
+  anio: number;
+  mes: number
+  femenino: datos;
+  masculino:datos;
+  otros: datos;
+  total:number;
+
+}
+
+export class datos{
+  num: number
+  pct: number
+}

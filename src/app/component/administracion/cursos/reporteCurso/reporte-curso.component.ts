@@ -10,6 +10,7 @@ import {DatePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
 import {PersonaCliente} from "../../../../models/personaCliente";
 import {UsuarioService} from "../../../../services/usuario.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -30,7 +31,8 @@ export class ReporteCursoComponent implements OnInit {
   dataCursos?: Observable<Curso[]>;
 
   constructor(private cursoService: CursoService,
-              private usuarioService: UsuarioService) {
+              private usuarioService: UsuarioService,
+              private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -80,6 +82,9 @@ export class ReporteCursoComponent implements OnInit {
       this.reporteCurso.porcent_Otro = Math.round(value.porcent_Otro)
       this.cargar = false;
       this.habilitar = true
+    },error => {
+      this.cargar = false;
+      this._snackBar.open(error.error.message, 'ACEPTAR');
     })
   }
 
