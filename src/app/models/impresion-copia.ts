@@ -19,3 +19,21 @@ export class Cliente_Impresion{
     apellido?:any;
     nombre?:any;
 }
+
+
+export class ReporteImpresionyCopias{
+  anio: number;
+  mes: number
+  femenino: datos;
+  masculino:datos;
+  otros: datos;
+  total:number;
+
+}
+
+export class datos{
+  num: number
+  pct: number
+}
+
+

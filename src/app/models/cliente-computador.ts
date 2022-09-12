@@ -5,3 +5,6 @@ export class ClienteComputador {
     idCliente?: any;
     idInventario?: any;
 }
+
+
+

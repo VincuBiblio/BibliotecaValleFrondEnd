@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
-import { libro, libroEstado, libroPrestamo, PrestamoLibro } from '../models/libro';
+import {libro, libroEstado, libroPrestamo, PrestamoLibro, ReporteLibros} from '../models/libro';
+import {ReporteImpresionyCopias} from "../models/impresion-copia";
 
 @Injectable({
     providedIn: 'root'
@@ -43,5 +44,9 @@ export class LibroService {
     putLibroDevolucion(dato: PrestamoLibro): Observable<PrestamoLibro> {
         return this.http.put(environment.URL_APP + "/libro/cliente/actualizarregistroprestamos", dato, { headers: this.httpHeaders })
     }
+
+  getReporteLibros(mes: any, anio:any): Observable<ReporteLibros> {
+    return this.http.get(environment.URL_APP + "/estadisticas/filtrarByGeneroLibros/" + mes +"/"+ anio, {headers: this.httpHeaders}).pipe(map(Response => Response as ReporteLibros))
+  }
 
 }

@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="warn">
+<mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selected.setValue($event)"  [selectedIndex]="selected.value" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVA COMPUTADORA">
     <mat-card class="example-card" style="background: #f7f2dc">
       <form [formGroup]="formGrupos">
@@ -10,7 +10,7 @@
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>COD. Computador</mat-label>
-                  <input matInput formControlName="numero">
+                  <input matInput formControlName="numero" type="number">
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile rowspan="2">
