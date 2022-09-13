@@ -5,4 +5,5 @@ export class Computo{
     discoDuro?: any;
     procesador?: any;
     estado?: boolean;
+    estadoPrestamo?: any;
 }

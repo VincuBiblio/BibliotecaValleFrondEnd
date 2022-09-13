@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { ComputoService } from 'src/app/services/computo.service';
 import { Computo } from 'src/app/models/computo';
 import Swal from "sweetalert2";
-import { ClienteComputador } from 'src/app/models/cliente-computador';
+import { ActualizarEstado, ClienteComputador, ClienteTablaLista, HoraFin } from 'src/app/models/cliente-computador';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -29,6 +29,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PrestamoComputoComponent implements OnInit {
 
   public clienteComputadorGuardar: ClienteComputador = new ClienteComputador();
+  public actualizarEstadoComputador: ActualizarEstado = new ActualizarEstado();
+  public actualizarHoraComputo: HoraFin = new HoraFin();
   public clienteLista: PersonaCliente[] = [];
 
   public idCliente: any;
@@ -36,7 +38,7 @@ export class PrestamoComputoComponent implements OnInit {
   public cardClienteMensaje: Boolean = true;
   public cardCliente: Boolean = false;
   public cardComputo: Boolean = false;
-  public estadoBAotonAfregar:Boolean;
+  public estadoBAotonAfregar: Boolean;
 
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
@@ -82,8 +84,9 @@ export class PrestamoComputoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listarComputadoras();
+    this.listarComputadorasDisponibles();
     this.listarClientes();
+
   }
 
 
@@ -99,11 +102,13 @@ export class PrestamoComputoComponent implements OnInit {
   public mostrarLista() {
     this.divListar = true;
     this.divNuevo = false;
+    this.listarComputadoCliente();
   }
 
   public mostrarNuevo() {
     this.divListar = false;
     this.divNuevo = true;
+    this.listarComputadorasDisponibles();
   }
 
 
@@ -127,7 +132,7 @@ export class PrestamoComputoComponent implements OnInit {
     this.clienteService.getAllClientes().subscribe(value => {
       console.log("Listado clientes generado exitosamente");
       this.clienteLista = value;
-      console.log(this.clienteLista);
+
       this.dataSourceCliente = new MatTableDataSource(value);
       this.dataSourceCliente.paginator = this.paginator;
       this.dataSourceCliente.sort = this.sort;
@@ -185,22 +190,28 @@ export class PrestamoComputoComponent implements OnInit {
 
 
   //COMPUTO
-  listarComputadoras() {
-    this.computoService.getAllComputo().subscribe(value => {
-      this.listaInicialComputo = value;
-      console.log("Computadoras listado correctamente");
-      console.log(value);
 
-      this.dataSourceComputo = new MatTableDataSource(this.listaInicialComputo);
+  listarComputadorasDisponibles() {
+
+    this.ComputoLista = [];
+
+    this.computoService.getComputoDisponible(false).subscribe(value => {
+      this.listaInicialComputo = value;
+
+      for (var i = 0; i < this.listaInicialComputo.length; i++) {
+        if (this.listaInicialComputo[i].estadoPrestamo == false) {
+          this.ComputoLista.push(this.listaInicialComputo[i]);
+        }
+      }
+
+      console.log("Computadoras listado correctamente");
+      this.dataSourceComputo = new MatTableDataSource(this.ComputoLista);
       this.dataSourceComputo.paginator = this.paginator;
       this.dataSourceComputo.sort = this.sort;
-      console.log("Listado talleres generado exitosamente");
-
     })
-
-
-
   }
+
+
 
   applyFilterComputo(event: Event) {
     const filterValueComputo = (event.target as HTMLInputElement).value;
@@ -208,6 +219,7 @@ export class PrestamoComputoComponent implements OnInit {
   }
 
   cargarDatosCompudaror(id: any) {
+
     this.idComputador = id;
     this.cardComputo = true;
     for (var i = 0; i < this.listaInicialComputo.length; i++) {
@@ -282,26 +294,113 @@ export class PrestamoComputoComponent implements OnInit {
   }
 
   guardarDatosClienteComputo() {
+
     this.clienteComputadorGuardar.idCliente = this.idCliente;
     this.clienteComputadorGuardar.idInventario = this.idComputador;
     this.clienteComputadorGuardar.horaFin = "0";
     this.clienteComputadorGuardar.horaInicio = this.today.toLocaleTimeString();
+    this.clienteComputadorGuardar.fecha = this.Hoy;
 
     this.computoService.createClienteComputador(this.clienteComputadorGuardar).subscribe(value => {
       this._snackBar.open('Se ha guardardo exitosamente', 'ACEPTAR');
+
       this.mostrarLista();
-      this.cardComputo=false;
-      //this.vaciarFormulario();
-      //this.botonParaGuardar = true;
-      //this.botonParaEditar = false;
-      //this.listarEventoSinParticipantes()
+      this.cardComputo = false;
+
+      this.actualizarEstadoComputador.id = this.idComputador;
+      this.actualizarEstadoComputador.estadoPrestamo = true;
+
+      this.computoService.updateActualizarEstado(this.actualizarEstadoComputador).subscribe(value => {
+        console.log("Computador actualizado estado")
+
+      }, error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+
+      })
+
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
-      //this.loaderGuardar=false
+
     })
 
   }
 
+  //LISTAR EN TABLA
+
+  displayedColumns: string[] = ['id', 'computador', 'prestamo', 'cedula', 'cliente', 'telefono', 'observacionn', 'boton'];
+  dataSource: MatTableDataSource<ClienteTablaLista>;
+
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  listarComputadoCliente() {
+
+    this.computoService.getAllComputo().subscribe(value => {
+      this.listaInicialComputo = value;
+      console.log(value);
+
+      this.dataSource = new MatTableDataSource(value);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }), error => {
+      this._snackBar.open(error.error.message, 'ACEPTAR');
+    }
+  }
+
+  devolucionComputadora(idPrestamo: any, idComputador: any) {
+
+
+
+    Swal.fire({
+      title: "¿Estas seguro?",
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: "¡Sí, bórralo!",
+      cancelButtonText: "Cancelar",
+      background: '#f7f2dc',
+      confirmButtonColor: '#f47f16',
+      cancelButtonColor: '#d33',
+      backdrop: false
+    })
+      .then(resultado => {
+        if (resultado.value) {
+
+          this.actualizarHoraComputo.id = idPrestamo;
+          this.actualizarHoraComputo.horaFin = this.today.toLocaleTimeString();
+
+          console.log(this.actualizarHoraComputo);
+          this.computoService.updateAgregarHoraFin(this.actualizarHoraComputo).subscribe(value => {
+
+            this._snackBar.open('Uso Finalizado', 'ACEPTAR');
+            this.listarComputadoCliente();
+
+            this.actualizarEstadoComputador.id = this.idComputador;
+            this.actualizarEstadoComputador.estadoPrestamo = false;
+
+            this.computoService.updateActualizarEstado(this.actualizarEstadoComputador).subscribe(value => {
+              console.log("Computador actualizado estado")
+              
+            }, error => {
+              this._snackBar.open(error.error.message, 'ACEPTAR');
+
+            })
+
+          }, error => {
+            this._snackBar.open(error.error.message, 'ACEPTAR');
+          })
+        }
+      });
+
+  }
 
 }
 
