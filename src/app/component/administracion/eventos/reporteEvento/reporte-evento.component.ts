@@ -55,7 +55,7 @@ export class ReporteEventoComponent implements OnInit {
             {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
             {text: 'REPORTE DE EVENTO', fontSize: 15, bold: true, alignment: 'center'},
             {text: '      '},
-            {text: 'MES: '},
+            {text: 'MES: '+mes.value},
             {text: '    '},
             {text: 'REPORTE POR GENERO'},
             {
@@ -64,7 +64,7 @@ export class ReporteEventoComponent implements OnInit {
                 widths: ['50%', '50%'],
                 body: [
                   ['CUADRO DE DATOS', ''],
-                  ['MASCULINO', value.length],
+                  ['NÚMERO DE PERSONAS', value.length],
                 ]
               }
             },
