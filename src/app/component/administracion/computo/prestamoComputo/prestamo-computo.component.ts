@@ -28,6 +28,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class PrestamoComputoComponent implements OnInit {
 
+  public mensajeNoHayDatos: any = "ACTUALMENTE NO HAY PRÉSTAMOS DE CÓMPUTO";
+
   public clienteComputadorGuardar: ClienteComputador = new ClienteComputador();
   public actualizarEstadoComputador: ActualizarEstado = new ActualizarEstado();
   public actualizarDevolucionComputador: ActualizarEstado = new ActualizarEstado();
@@ -43,6 +45,8 @@ export class PrestamoComputoComponent implements OnInit {
 
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
+  public divListarDatos: Boolean = true;
+  public divListarSinDatos: Boolean = true;
 
   //ojo borraar el true
   public controlbotonSiguiente: Boolean = true;
@@ -347,6 +351,15 @@ export class PrestamoComputoComponent implements OnInit {
   listarComputadoCliente() {
 
     this.computoService.getAllComputo().subscribe(value => {
+
+      if (value.length > 0) {
+        this.divListarDatos = true;
+        this.divListarSinDatos = false;
+      } else if (value.length == 0) {
+        this.divListarDatos = false;
+        this.divListarSinDatos = true;
+      }
+
       this.listaInicialComputo = value;
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
@@ -365,7 +378,7 @@ export class PrestamoComputoComponent implements OnInit {
       text: "¡No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "¡Sí, bórralo!",
+      confirmButtonText: "¡Sí",
       cancelButtonText: "Cancelar",
       background: '#f7f2dc',
       confirmButtonColor: '#f47f16',

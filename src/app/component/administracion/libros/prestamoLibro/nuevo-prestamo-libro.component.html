@@ -214,6 +214,7 @@
 
 <section *ngIf="divListar==true">
   <mat-card class="bordeev" style="width: 90%;">
+    
     <mat-card style="background-color: #f7f2dc;">
       <mat-card-content>
 
@@ -245,32 +246,33 @@
 
             <!-- Progress Column -->
             <ng-container matColumnDef="prestamo">
-              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;" > FECHA PRÉSTAMO</th>
+              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;"> FECHA PRÉSTAMO</th>
               <td mat-cell *matCellDef="let row" style=" width: 8%;">
                 {{row.anioPrestamo}}-{{row.mesPrestamo}}-{{row.diaPrestamo}}</td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="cedula">
-              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;" > CÉDULA</th>
+              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;"> CÉDULA</th>
               <td mat-cell *matCellDef="let row" style=" width: 8%;"> {{row.cedula}} </td>
             </ng-container>
 
-             <!-- Name Column -->
-             <ng-container matColumnDef="cliente">
+            <!-- Name Column -->
+            <ng-container matColumnDef="cliente">
               <th mat-header-cell *matHeaderCellDef style=" width: 28%;text-align: center;"> CLIENTE</th>
-              <td mat-cell *matCellDef="let row" style=" width: 28%;"> {{row.nombres|uppercase}} {{row.apellidos|uppercase}} </td>
+              <td mat-cell *matCellDef="let row" style=" width: 28%;"> {{row.nombres|uppercase}}
+                {{row.apellidos|uppercase}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="telefono">
-              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;" > TELÉFONO </th>
+              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;"> TELÉFONO </th>
               <td mat-cell *matCellDef="let row" style=" width: 8%;"> {{row.telefono|uppercase}}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="devolucion">
-              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;" > FECHA DEVOLUCIÓN </th>
+              <th mat-header-cell *matHeaderCellDef style=" width: 8%;text-align: center;"> FECHA DEVOLUCIÓN </th>
               <td mat-cell *matCellDef="let row" style=" width: 8%;">
                 {{row.anioDev}}-{{row.mesDev}}-{{row.diaDev}} </td>
             </ng-container>
@@ -280,12 +282,12 @@
               <td mat-cell *matCellDef="let row" style="text-align: center;"> {{row.observacionEntrega|uppercase}} </td>
             </ng-container>
 
-           
+
 
             <ng-container matColumnDef="boton">
               <th mat-header-cell *matHeaderCellDef style=" width: 6%;text-align: center;"> DEVOLVER</th>
-              <td mat-cell *matCellDef="let row" style=" width: 6%;"> <button mat-flat-button
-                  color="primary" (click)="devolucionLibro(row.idPrestamo)">DEVOLVER</button> </td>
+              <td mat-cell *matCellDef="let row" style=" width: 6%;"> <button mat-flat-button color="primary"
+                  (click)="devolucionLibro(row.idPrestamo)">DEVOLVER</button> </td>
             </ng-container>
 
 
