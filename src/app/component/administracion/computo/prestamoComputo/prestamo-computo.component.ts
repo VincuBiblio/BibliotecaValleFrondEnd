@@ -30,6 +30,7 @@ export class PrestamoComputoComponent implements OnInit {
 
   public clienteComputadorGuardar: ClienteComputador = new ClienteComputador();
   public actualizarEstadoComputador: ActualizarEstado = new ActualizarEstado();
+  public actualizarDevolucionComputador: ActualizarEstado = new ActualizarEstado();
   public actualizarHoraComputo: HoraFin = new HoraFin();
   public clienteLista: PersonaCliente[] = [];
 
@@ -295,10 +296,12 @@ export class PrestamoComputoComponent implements OnInit {
 
   guardarDatosClienteComputo() {
 
+    var hoy = new Date();
+    var hora = hoy.toLocaleTimeString();
     this.clienteComputadorGuardar.idCliente = this.idCliente;
     this.clienteComputadorGuardar.idInventario = this.idComputador;
     this.clienteComputadorGuardar.horaFin = "0";
-    this.clienteComputadorGuardar.horaInicio = this.today.toLocaleTimeString();
+    this.clienteComputadorGuardar.horaInicio = hora;
     this.clienteComputadorGuardar.fecha = this.Hoy;
 
     this.computoService.createClienteComputador(this.clienteComputadorGuardar).subscribe(value => {
@@ -345,8 +348,6 @@ export class PrestamoComputoComponent implements OnInit {
 
     this.computoService.getAllComputo().subscribe(value => {
       this.listaInicialComputo = value;
-      console.log(value);
-
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -355,7 +356,7 @@ export class PrestamoComputoComponent implements OnInit {
     }
   }
 
-  devolucionComputadora(idPrestamo: any, idComputador: any) {
+  devolucionComputadora(idPrestamo: any, idComputadoraEstado: any) {
 
 
 
@@ -373,22 +374,23 @@ export class PrestamoComputoComponent implements OnInit {
     })
       .then(resultado => {
         if (resultado.value) {
+          var hoyh = new Date();
+          var horafinal = hoyh.toLocaleTimeString();
 
           this.actualizarHoraComputo.id = idPrestamo;
-          this.actualizarHoraComputo.horaFin = this.today.toLocaleTimeString();
+          this.actualizarHoraComputo.horaFin = horafinal;
 
-          console.log(this.actualizarHoraComputo);
+          this.actualizarDevolucionComputador.id = idComputadoraEstado;
+          this.actualizarDevolucionComputador.estadoPrestamo = false;
+
           this.computoService.updateAgregarHoraFin(this.actualizarHoraComputo).subscribe(value => {
 
             this._snackBar.open('Uso Finalizado', 'ACEPTAR');
             this.listarComputadoCliente();
 
-            this.actualizarEstadoComputador.id = this.idComputador;
-            this.actualizarEstadoComputador.estadoPrestamo = false;
-
-            this.computoService.updateActualizarEstado(this.actualizarEstadoComputador).subscribe(value => {
+            this.computoService.updateActualizarEstado(this.actualizarDevolucionComputador).subscribe(value => {
               console.log("Computador actualizado estado")
-              
+
             }, error => {
               this._snackBar.open(error.error.message, 'ACEPTAR');
 
