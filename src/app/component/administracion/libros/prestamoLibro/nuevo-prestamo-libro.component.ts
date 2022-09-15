@@ -27,6 +27,7 @@ import Swal from "sweetalert2";
 })
 export class NuevaPrestamoLibroComponent implements OnInit {
 
+  public mensajeSinParticiantes:any = "NO HAY PRÉSTAMO DE LIBROS"
 
   public clienteLista: PersonaCliente[] = [];
   public libroDisponibleLista: libro[] = [];
@@ -39,6 +40,8 @@ export class NuevaPrestamoLibroComponent implements OnInit {
   public idCliente: any;
   public cardClienteMensaje: Boolean = true;
   public cardCliente: Boolean = false;
+  public cardListarModulo: Boolean;
+  public cardListarVacio: Boolean;
 
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
@@ -188,11 +191,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
     this.libroService.getLibrosDisponibles().subscribe(value => {
       console.log("Listado libro Disponible generado exitosamente");
       this.libroDisponibleLista = value;
-      //console.log(this.libroDisponibleLista);
-      /*
-  this.dataSourceCliente = new MatTableDataSource(value);
-  this.dataSourceCliente.paginator = this.paginator;
-  this.dataSourceCliente.sort = this.sort;*/
+
 
     })
   }
@@ -241,7 +240,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.vaciarFormulario();
       this.listarClientesLibro();
       this.mostrarLista();
-
+      this.cardCliente=false;
       this.libroDatoActualizar.estado = true;
       this.libroDatoActualizar.id = this.listaGuardarPrestamo.idLibro;
 
@@ -283,23 +282,14 @@ export class NuevaPrestamoLibroComponent implements OnInit {
 
       this.libroClienteLista = value;
 
-      /*
-      for(var i = 0; i < this.libroClienteLista.length; i++){ 
-        if(Number( this.libroClienteLista[i].diaDev)<10){
-          this.libroClienteLista[i].diaDev = "0"+String(this.libroClienteLista[i].diaDev)
-        }
-        if(Number( this.libroClienteLista[i].mesDev)<10){
-          this.libroClienteLista[i].mesDev = "0"+String(this.libroClienteLista[i].mesDev)
-        }
-        if(Number( this.libroClienteLista[i].diaPrestamo)<10){
-          this.libroClienteLista[i].diaPrestamo = "0"+String(this.libroClienteLista[i].diaPrestamo)
-        }
-        if(Number( this.libroClienteLista[i].mesPrestamo)<10){
-          this.libroClienteLista[i].mesPrestamo = "0"+String(this.libroClienteLista[i].mesPrestamo)
-        }
-      }*/
 
-      console.log(this.libroClienteLista);
+      if (this.libroClienteLista.length > 0) {
+        this.cardListarModulo = true;
+        this.cardListarVacio = false;
+      }else if (this.libroClienteLista.length == 0){
+        this.cardListarModulo = false;
+        this.cardListarVacio = true;
+      }
 
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;

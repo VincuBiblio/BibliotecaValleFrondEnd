@@ -1,6 +1,7 @@
-<mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selected.setValue($event)"  [selectedIndex]="selected.value" backgroundColor="primary" color="warn">
+<mat-tab-group mat-align-tabs="center" (selectedIndexChange)="selected.setValue($event)"
+  [selectedIndex]="selected.value" backgroundColor="primary" color="warn">
   <mat-tab label="NUEVO CURSO">
-    
+
     <br>
 
     <mat-card class="example-card" style="background: #f7f2dc">
@@ -42,7 +43,7 @@
                   <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-date-range-picker #picker></mat-date-range-picker>
-                  </mat-form-field>
+                </mat-form-field>
               </mat-grid-tile>
 
               <mat-grid-tile>
@@ -56,7 +57,8 @@
               <mat-grid-tile>
                 <mat-form-field color="accent" appearance="outline">
                   <mat-label>Fecha máxima de inscripción</mat-label>
-                  <input matInput [matDatepicker]="picker1" formControlName="fechaMaxInscripcion" [max]="formGrupos.getRawValue().fechaFin">
+                  <input matInput [matDatepicker]="picker1" formControlName="fechaMaxInscripcion"
+                    [max]="formGrupos.getRawValue().fechaFin">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -82,12 +84,12 @@
                   <input matInput formControlName="lugar">
                 </mat-form-field>
               </mat-grid-tile>
-<!--              <mat-grid-tile rowspan="2">-->
-<!--                <mat-form-field appearance="outline">-->
-<!--                  <mat-label>Observación</mat-label>-->
-<!--                  <textarea matInput formControlName="observaciones"></textarea>-->
-<!--                </mat-form-field>-->
-<!--              </mat-grid-tile>-->
+              <!--              <mat-grid-tile rowspan="2">-->
+              <!--                <mat-form-field appearance="outline">-->
+              <!--                  <mat-label>Observación</mat-label>-->
+              <!--                  <textarea matInput formControlName="observaciones"></textarea>-->
+              <!--                </mat-form-field>-->
+              <!--              </mat-grid-tile>-->
               <mat-grid-tile rowspan="2">
                 <mat-form-field appearance="outline">
                   <mat-label>Descripción</mat-label>
@@ -103,7 +105,7 @@
         </button>
       </form>
     </mat-card>
-    
+
   </mat-tab>
   <mat-tab label="VER CURSOS">
     <br>
@@ -112,71 +114,72 @@
         <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
         <mat-card-content>
 
-          <mat-form-field appearance="outline" class="bordeFiltro">
+          <mat-form-field appearance="outline">
             <mat-label>Buscar Curso</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Curso Pintura" #input>
             <mat-icon matSuffix>find_in_page</mat-icon>
           </mat-form-field>
 
-          <div class="mat-elevation-z8" >
+          <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort class="colorCrema">
-  
+
               <!-- ID Column -->
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row" id="idCurso"> {{row.id}} </td>
               </ng-container>
-  
+
               <!-- Progress Column -->
               <ng-container matColumnDef="nombre">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
                 <td class="textoInicio" mat-cell *matCellDef="let row"> {{row.nombre|uppercase}}</td>
               </ng-container>
-  
+
               <!-- Name Column -->
               <ng-container matColumnDef="lugar">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> LUGAR</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row"> {{row.lugar|uppercase}} </td>
               </ng-container>
-  
+
               <ng-container matColumnDef="responsable">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> RESPONSABLE</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row"> {{row.responsable|uppercase}} </td>
               </ng-container>
-  
+
               <!-- Fruit Column -->
               <ng-container matColumnDef="fechaInicio">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA INICIO</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row"> {{row.fechaInicio}} </td>
               </ng-container>
-  
+
               <ng-container matColumnDef="fechaFin">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA FIN</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row"> {{row.fechaFin}} </td>
               </ng-container>
-  
+
               <ng-container matColumnDef="Editar">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ACCIÓN</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row">
-                  <button mat-flat-button color="primary" [routerLink]="['/panel/biblioteca/editarcursos',row.id]">EDITAR</button>
+                  <button mat-flat-button color="primary"
+                    [routerLink]="['/panel/biblioteca/editarcursos',row.id]">EDITAR</button>
                 </td>
               </ng-container>
-  
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
+
               <!-- Row shown when there is no matching data. -->
               <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
               </tr>
             </table>
-  
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" class="colorCrema"></mat-paginator>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" class="colorCrema">
+            </mat-paginator>
           </div>
         </mat-card-content>
       </mat-card>
     </mat-card>
-   
+
   </mat-tab>
 </mat-tab-group>
-

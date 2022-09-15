@@ -239,3 +239,9 @@ td, th {
 .textoInicio{
   text-align: left;
 }
+
+.borde2 {
+  background-color: #f7f2dc;
+  margin: 0.5% auto;
+  width: 95%;
+}

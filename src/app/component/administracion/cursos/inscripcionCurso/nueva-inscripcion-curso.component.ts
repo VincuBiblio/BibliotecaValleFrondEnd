@@ -147,14 +147,7 @@ export class NuevaInscripcionComponent implements OnInit {
     this.cursoService.getAllCurso().subscribe(value => {
       this.listaInicialCurso = value;
 
-      if (this.listaInicialCurso.length == 0) {
-        this.cardValorCero = true;
-        this.cardValorDifenteCero = false;
-
-      } else {
-        this.cardValorCero = false;
-        this.cardValorDifenteCero = true;
-      }
+     
 
       var AnyoHoy = this.Hoy.getFullYear();
       var MesHoy = this.Hoy.getMonth() + 1;
@@ -205,6 +198,15 @@ export class NuevaInscripcionComponent implements OnInit {
 
       }
 
+
+      if (this.cursoLista.length == 0) {
+        this.cardValorCero = true;
+        this.cardValorDifenteCero = false;
+
+      } else {
+        this.cardValorCero = false;
+        this.cardValorDifenteCero = true;
+      }
 
 
       this.dataSourceCurso = new MatTableDataSource(this.cursoLista);

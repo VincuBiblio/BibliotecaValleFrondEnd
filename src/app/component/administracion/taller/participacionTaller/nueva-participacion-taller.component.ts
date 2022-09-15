@@ -28,7 +28,8 @@ import Swal from "sweetalert2";
 })
 export class NuevaParticipacionTallerComponent implements OnInit {
 
-  public mensajeNoHayDatos:any="ACTUALMENTE NO HAY TALLERES DISPONIBLES";
+  public mensajeNoHayDatos: any = "NO HAY TALLERES PARA AGREGAR PARTICIPANTES.";
+  public mensajeSinParticiantes: any = "NO HAY PARTICIPANTES EN ESTE TALLER"
 
   //CLIENTE
   public clienteLista: PersonaCliente[] = [];
@@ -55,6 +56,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
   public cardListarModulo: Boolean;
+  public cardListarVacio: Boolean;
   public listaClientesInscritos: ListaClientesRequests[];
 
   public selectedIdTaller: any;
@@ -118,6 +120,12 @@ export class NuevaParticipacionTallerComponent implements OnInit {
     } else {
       this.numeroCondicion = 1;
     }
+
+    this.formList.setValue({
+      valorSelect: '',
+
+    })
+
   }
 
   public mostrarNuevo() {
@@ -215,14 +223,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
 
       console.log(value);
 
-      if (this.listaInicialTaller.length == 0) {
-        this.cardValorCero = true;
-        this.cardValorDifenteCero =false;
 
-      } else {
-        this.cardValorCero = false;
-        this.cardValorDifenteCero =true;
-      }
 
       var AnyoHoy = this.Hoy.getFullYear();
       var MesHoy = this.Hoy.getMonth() + 1;
@@ -268,6 +269,15 @@ export class NuevaParticipacionTallerComponent implements OnInit {
 
 
 
+      }
+
+      if (this.tallerLista.length == 0) {
+        this.cardValorCero = true;
+        this.cardValorDifenteCero = false;
+
+      } else {
+        this.cardValorCero = false;
+        this.cardValorDifenteCero = true;
       }
 
 
@@ -391,6 +401,15 @@ export class NuevaParticipacionTallerComponent implements OnInit {
       var quesirva = JSON.stringify(Object.values(values)[9])
       var coche = JSON.parse(quesirva);
       this.listaClientesInscritos = coche;
+
+      if (this.listaClientesInscritos.length > 0) {
+        this.cardListarModulo = true;
+        this.cardListarVacio = false;
+      } else if (this.listaClientesInscritos.length == 0) {
+        this.cardListarModulo = false;
+        this.cardListarVacio = true;
+      }
+
 
       this.dataSource = new MatTableDataSource(this.listaClientesInscritos);
       this.dataSource.paginator = this.paginator;

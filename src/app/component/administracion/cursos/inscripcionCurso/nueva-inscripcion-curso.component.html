@@ -6,7 +6,7 @@
       <button mat-flat-button class="botonmenu" (click)="mostrarLista()">VER INSCRIPCIONES</button>
     </div>
   </div>
-  <br><br>
+  <br>
   <mat-card class="borde3">
 
     <mat-card class="borde2">
@@ -750,13 +750,13 @@
           <!-- Name Column -->
           <ng-container matColumnDef="nombres">
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Nombres </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.nombres|uppercase}} </td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="apellidos">
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Apellidos </th>
-            <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.apellidos|uppercase}} </td>
           </ng-container>
 
 

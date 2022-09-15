@@ -215,7 +215,7 @@
 <section *ngIf="divListar==true">
   <mat-card class="bordeev" style="width: 90%;">
     
-    <mat-card style="background-color: #f7f2dc;">
+    <mat-card style="background-color: #f7f2dc;" *ngIf="cardListarModulo==true">
       <mat-card-content>
 
         <mat-form-field appearance="outline" class="bordeFiltro">
@@ -307,6 +307,11 @@
       </mat-card-content>
     </mat-card>
 
+    <mat-card class="borde2" *ngIf="cardListarVacio==true">
+
+      <h1>{{mensajeSinParticiantes}}</h1>
+    </mat-card>
+    
   </mat-card>
 </section>
 
