@@ -22,6 +22,10 @@ export class ComputoService {
         private http: HttpClient) {
     }
 
+  getAllComputoInventario(): Observable<Computo[]> {
+    return this.http.get(environment.URL_APP + "/inventario/computo/all", { headers: this.httpHeaders }).pipe(map(Response => Response as Computo[]))
+  }
+
     getAllComputo(): Observable<Computo[]> {
         return this.http.get(environment.URL_APP + "/inventario/computo/allClienteComputo/horaNull", { headers: this.httpHeaders }).pipe(map(Response => Response as Computo[]))
     }

@@ -34,7 +34,8 @@ export class EditarcomputoComponent implements OnInit {
           estado: computo.estado,
           procesador: computo.procesador,
           ram: computo.ram,
-          discoDuro: computo.discoDuro
+          discoDuro: computo.discoDuro,
+          estadoPrestamo: computo.estadoPrestamo
         })
 
       })
@@ -49,6 +50,7 @@ export class EditarcomputoComponent implements OnInit {
     procesador: new FormControl<String>('', [Validators.required]),
     ram: new FormControl<String>('', [Validators.required]),
     discoDuro: new FormControl<String>('', [Validators.required]),
+    estadoPrestamo:new FormControl<boolean>(false)
   })
 
 
@@ -73,7 +75,8 @@ export class EditarcomputoComponent implements OnInit {
       estado: false,
       procesador: undefined,
       ram: undefined,
-      discoDuro: undefined
+      discoDuro: undefined,
+      estadoPrestamo: false
     })
   }
 

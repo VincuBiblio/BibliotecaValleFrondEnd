@@ -54,6 +54,7 @@ export class CrudcomputoComponent implements OnInit {
     procesador: new FormControl<String>('', [Validators.required]),
     ram: new FormControl<String>('', [Validators.required]),
     discoDuro: new FormControl<String>('', [Validators.required]),
+    estadoPrestamo:new FormControl<boolean>(false)
   })
 
 
@@ -79,13 +80,14 @@ export class CrudcomputoComponent implements OnInit {
       estado: null,
       procesador: '',
       ram: '',
-      discoDuro: ''
+      discoDuro: '',
+      estadoPrestamo: false,
     })
   }
 
   listarCursos() {
     this.loaderActualizar=true
-    this.computoService.getAllComputo().subscribe(value => {
+    this.computoService.getAllComputoInventario().subscribe(value => {
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
