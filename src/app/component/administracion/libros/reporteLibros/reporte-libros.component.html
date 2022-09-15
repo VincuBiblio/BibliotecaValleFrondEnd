@@ -2,6 +2,7 @@
   <div class="header">
     <h1>REPORTE DE LIBROS</h1>
     <h2>USUARIOS POR GÉNERO</h2>
+    <mat-progress-bar *ngIf="cargar" mode="indeterminate"></mat-progress-bar>
   </div>
   <div class="left">
     <div>
@@ -36,7 +37,7 @@
     </div>
   </div>
   <div class="right">
-    <mat-grid-list cols="3" rowHeight="59.7px">
+    <mat-grid-list cols="3" rowHeight="59.7px" *ngIf=habilitar>
       <mat-grid-tile colspan="2">
         <strong>
           CUADRO DE DATOS SEGÚN EL GÉNERO

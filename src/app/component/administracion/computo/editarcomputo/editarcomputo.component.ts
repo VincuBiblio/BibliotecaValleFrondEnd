@@ -25,8 +25,8 @@ export class EditarcomputoComponent implements OnInit {
     this.loaderCargar=true;
     this.activatedRoute.params.subscribe(params =>{
 
-      this.computoService.getAllComputo().subscribe(value => {
-
+      this.computoService.getAllComputoInventario().subscribe(value => {
+        console.log(value)
         var computo:Computo=value.filter(value1 => value1.id==params['id'])[0];
         this.formGrupos.setValue({
           id: computo.id,
@@ -70,13 +70,13 @@ export class EditarcomputoComponent implements OnInit {
 
   vaciarFormulario() {
     this.formGrupos.setValue({
-      id: undefined,
-      numero: undefined,
-      estado: false,
-      procesador: undefined,
-      ram: undefined,
-      discoDuro: undefined,
-      estadoPrestamo: false
+      id: null,
+      numero: null,
+      estado: null,
+      procesador: null,
+      ram: null,
+      discoDuro: null,
+      estadoPrestamo: null
     })
   }
 

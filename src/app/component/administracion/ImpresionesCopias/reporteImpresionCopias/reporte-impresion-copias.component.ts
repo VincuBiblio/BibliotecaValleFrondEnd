@@ -16,6 +16,9 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ReporteImpresionCopiasComponent implements OnInit {
 
+  cargar:boolean;
+  habilitar:boolean;
+
   reporteImpresionyCopias:ReporteImpresionyCopias= new ReporteImpresionyCopias();
 
   constructor(private impresion_CopiaService:Impresion_CopiaService,
@@ -27,20 +30,26 @@ export class ReporteImpresionCopiasComponent implements OnInit {
 
 
   consultarDatos(mes: HTMLInputElement){
+    this.cargar=true;
     var n:String[]=[]
     n=mes.value.split('-');
     this.impresion_CopiaService.getReporteCopias(n[1],n[0]).subscribe(value => {
       if(value.total!=0){
         this.reporteImpresionyCopias=value;
+        this.cargar=false;
+        this.habilitar=true;
       }else {
         this._snackBar.open('Mes sin datos','ACEPTAR')
+        this.cargar=false;
       }
     },error => {
       this._snackBar.open(error.error.message,'ACEPTAR')
+      this.cargar=false;
     })
   }
 
   generatePDF(mes: HTMLInputElement) {
+    this.cargar=true;
     var n:String[]=[]
     n=mes.value.split('-');
     var pipe: DatePipe = new DatePipe('es')
@@ -89,6 +98,7 @@ export class ReporteImpresionCopiasComponent implements OnInit {
               }
             ]
           }
+          this.cargar=false;
           const pdf = pdfMake.createPdf(pdfDefinition);
           pdf.open();
         }else {

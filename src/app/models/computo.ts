@@ -7,3 +7,18 @@ export class Computo{
     estado?: boolean;
     estadoPrestamo?: any;
 }
+
+export class ReporteComputo{
+  anio: number;
+  mes: number
+  femenino: datos;
+  masculino:datos;
+  otros: datos;
+  total:number;
+
+}
+
+export class datos{
+  num: number
+  pct: number
+}
