@@ -1,4 +1,11 @@
 <section *ngIf="cardValorCero==true">
+
+  <div class="opcionfd">
+    <div class="opcion1fd">
+      <button mat-flat-button class="botonmenu" (click)="mostrarNuevo()">NUEVA INSCRIPCIÓN</button>
+      <button mat-flat-button class="botonmenu" (click)="mostrarLista()">VER INSCRIPCIONES</button>
+    </div>
+  </div>
   <br><br>
   <mat-card class="borde3">
 
@@ -12,10 +19,7 @@
   </mat-card>
 </section>
 
-
 <section *ngIf="cardValorDifenteCero==true">
-
-
 
   <div class="opcionfd">
     <div class="opcion1fd">
@@ -777,6 +781,10 @@
       </div>
     </mat-card>
 
+    <mat-card class="borde2" *ngIf="cardListarVacio==true">
+
+      <h1>{{mensajeSinParticiantes}}</h1>
+    </mat-card>
 
   </mat-card>
 

@@ -23,9 +23,7 @@
   background-color: #f7f2dc;
 }
 
-mat-grid-tile {
 
-}
 .filter{
   margin: 0 auto;
   width: 95%;
@@ -38,3 +36,5 @@ button{
   margin: 1vh auto;
   width: 95%;
 }
+
+

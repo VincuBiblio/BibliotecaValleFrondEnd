@@ -35,7 +35,8 @@ export class NuevaInscripcionComponent implements OnInit {
   public numeroCondicion: Number = 0;
   public totalCuposSobrantes: Number;
   public totalCuposTotal: any;
-  public mensajeNoHayDatos:any="ACTUALMENTE NO HAY CURSOS DISPONIBLES";
+  public mensajeNoHayDatos: any = "NO HAY CURSOS PARA INSCRIBIR PARTICIPANTES. ";
+  public mensajeSinParticiantes:any = "NO HAY PARTICIPANTES EN ESTE CURSO"
 
   //DECLARACIÓN DE VARIABLES
   public cursoLista: Curso[] = [];
@@ -58,6 +59,7 @@ export class NuevaInscripcionComponent implements OnInit {
   public divNuevo: Boolean = true;
   public divListar: Boolean = false;
   public cardListarModulo: Boolean;
+  public cardListarVacio: Boolean;
 
   public cardValorCero: Boolean;
   public cardValorDifenteCero: Boolean;
@@ -99,6 +101,15 @@ export class NuevaInscripcionComponent implements OnInit {
     } else {
       this.numeroCondicion = 1;
     }
+
+    this.formList.setValue({
+      valorSelect: '',
+      
+    })
+    
+
+    
+
   }
 
   public mostrarNuevo() {
@@ -138,11 +149,11 @@ export class NuevaInscripcionComponent implements OnInit {
 
       if (this.listaInicialCurso.length == 0) {
         this.cardValorCero = true;
-        this.cardValorDifenteCero =false;
+        this.cardValorDifenteCero = false;
 
       } else {
         this.cardValorCero = false;
-        this.cardValorDifenteCero =true;
+        this.cardValorDifenteCero = true;
       }
 
       var AnyoHoy = this.Hoy.getFullYear();
@@ -392,13 +403,23 @@ export class NuevaInscripcionComponent implements OnInit {
       }
     }
 
-    this.cardListarModulo = true;
+
 
     this.cursoService.getClientesCurso(this.selectedIdCurso).subscribe(values => {
+
 
       var quesirva = JSON.stringify(Object.values(values)[12])
       var coche = JSON.parse(quesirva);
       this.listaClientesInscritos = coche;
+
+
+      if (this.listaClientesInscritos.length > 0) {
+        this.cardListarModulo = true;
+        this.cardListarVacio = false;
+      }else if (this.listaClientesInscritos.length == 0){
+        this.cardListarModulo = false;
+        this.cardListarVacio = true;
+      }
 
       this.dataSource = new MatTableDataSource(this.listaClientesInscritos);
       this.dataSource.paginator = this.paginator;
