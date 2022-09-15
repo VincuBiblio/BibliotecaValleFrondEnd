@@ -333,25 +333,27 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Fecha</mat-label>
-          <input class="textoCentro" readonly="true" type="text" matInput formControlName="fecha" required >
+          <input class="textoCentro" readonly="true" type="text" matInput formControlName="fecha" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Páginas a color</mat-label>
-          <input class="textoCentro" type="number" matInput formControlName="color" required >
+          <input class="textoCentro" type="number" matInput formControlName="color" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Páginas a blanco y Negro</mat-label>
-          <input class="textoCentro" type="number" matInput formControlName="blanconegro" required >
+          <input class="textoCentro" type="number" matInput formControlName="blanconegro" required>
         </mat-form-field>
 
         <br>
         <br>
-        <mat-grid-list cols="2" rowHeight="4:1" >
-          <mat-grid-tile style="background-color: transparent;"> <button mat-button class="botonnaranja" [disabled]="formGroupImpresion.invalid" (click)=" guardarEditar()">GUARDAR</button></mat-grid-tile>
-          <mat-grid-tile style="background-color: transparent;"><button mat-raised-button color="accent" (click)="dialogoEditarImpresion=false">CANCELAR</button></mat-grid-tile>
-          
+        <mat-grid-list cols="2" rowHeight="4:1">
+          <mat-grid-tile style="background-color: transparent;"> <button mat-button class="botonnaranja"
+              [disabled]="formGroupImpresion.invalid" (click)=" guardarEditar()">GUARDAR</button></mat-grid-tile>
+          <mat-grid-tile style="background-color: transparent;"><button mat-raised-button color="accent"
+              (click)="dialogoEditarImpresion=false">CANCELAR</button></mat-grid-tile>
+
         </mat-grid-list>
 
 

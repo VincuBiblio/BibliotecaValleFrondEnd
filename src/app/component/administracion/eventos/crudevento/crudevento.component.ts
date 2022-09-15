@@ -22,6 +22,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class CrudeventoComponent implements OnInit {
 
+  public mensajeSinParticiantes: any = "ACTUALMENTE NO HAY EVENTOS"
+
   public eventoListaGuardar: Evento = new Evento();
   public idEvento: any;
 
@@ -32,6 +34,7 @@ export class CrudeventoComponent implements OnInit {
   public cardListarModulo: Boolean;
   public botonParaGuardar: Boolean = true;
   public botonParaEditar: Boolean = false;
+  public cardListarVacio: Boolean;
 
 
   range = new FormGroup({
@@ -111,7 +114,7 @@ export class CrudeventoComponent implements OnInit {
   }
 
 
-  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'observaciones', 'editar', 'eliminar', 'poster'];
+  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'observaciones', 'actividades', 'editar', 'eliminar', 'poster'];
   dataSourceEvento: MatTableDataSource<Evento>;
 
 
@@ -128,6 +131,14 @@ export class CrudeventoComponent implements OnInit {
     this.eventoService.getEventoSinParticipantes().subscribe(value => {
 
       this.eventoLista = value;
+
+      if (this.eventoLista.length > 0) {
+        this.cardListarModulo = true;
+        this.cardListarVacio = false;
+      } else if (this.eventoLista.length == 0) {
+        this.cardListarModulo = false;
+        this.cardListarVacio = true;
+      }
 
 
       this.dataSourceEvento = new MatTableDataSource(this.eventoLista);

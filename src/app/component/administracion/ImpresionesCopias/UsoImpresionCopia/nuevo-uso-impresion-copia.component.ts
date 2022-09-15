@@ -206,7 +206,7 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
 
   }
 
-  cargaDatosParaService(){
+  cargaDatosParaService() {
     this.impresionListaGuardar.idCliente = this.idCliente;
     this.impresionListaGuardar.fecha = Object.values(this.formGroupImpresion.getRawValue())[0];
     this.impresionListaGuardar.pagColor = Object.values(this.formGroupImpresion.getRawValue())[1];
@@ -262,10 +262,13 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
     var AnyoHoy = this.Hoy.getFullYear();
     var MesHoy = this.Hoy.getMonth() + 1;
 
+   
     this.impresion_copiaService.getClienteImpresion(MesHoy, AnyoHoy).subscribe(value => {
       console.log("Listado clientes generado exitosamente");
       this.clienteImpresionLista = value;
 
+      
+    
       for (var i = 0; i < this.clienteImpresionLista.length; i++) {
         let cadena = this.clienteImpresionLista[i].fechaEntrega;
         let palabra = cadena.split('T')
@@ -275,6 +278,7 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
 
       console.log("Lista Clientes Impresión Copia generado exitosamente ");
       console.log(this.clienteImpresionLista);
+      console.log(this.clienteImpresionLista.length);
 
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
@@ -307,13 +311,13 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
 
   guardarEditar() {
     this.cargaDatosParaService();
-    this.impresionListaGuardar.idCopia=this.idPrestamoCI;
-    this.impresionListaGuardar.id=this.idPrestamoCI;
-    
+    this.impresionListaGuardar.idCopia = this.idPrestamoCI;
+    this.impresionListaGuardar.id = this.idPrestamoCI;
+
     this.impresion_copiaService.putImpresionCopia(this.impresionListaGuardar).subscribe(value => {
       this._snackBar.open('Impresión Copia Actualizado', 'ACEPTAR');
       this.vaciarFormulario();
-      this.dialogoEditarImpresion=false;
+      this.dialogoEditarImpresion = false;
       //this.cardCliente = false;
       this.listarClientesImpresion();
       //this.mostrarLista();
