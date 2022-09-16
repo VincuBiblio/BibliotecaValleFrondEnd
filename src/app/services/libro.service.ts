@@ -21,6 +21,10 @@ export class LibroService {
   }
 
 
+  getLibrosAll(): Observable<libro[]> {
+    return this.http.get(environment.URL_APP + "/libros/all", {headers: this.httpHeaders}).pipe(map(Response => Response as libro[]))
+  }
+
   getLibrosDisponibles(): Observable<libro[]> {
     return this.http.get(environment.URL_APP + "/libros/all/estado", {headers: this.httpHeaders}).pipe(map(Response => Response as libro[]))
   }
@@ -35,6 +39,10 @@ export class LibroService {
 
   createPrestamoLibro(datos: PrestamoLibro): Observable<PrestamoLibro> {
     return this.http.post(environment.URL_APP + "/libro/cliente/registroprestamos", datos, {headers: this.httpHeaders})
+  }
+
+  putLibroTodo(datos: libro): Observable<libro> {
+    return this.http.put(environment.URL_APP + "/libros/libro", datos, {headers: this.httpHeaders})
   }
 
   putLibro(evento: libroEstado): Observable<libroEstado> {

@@ -33,6 +33,7 @@ import { EditarTallerComponent } from './taller/crudtaller/editar-taller/editar-
 import localeEs from '@angular/common/locales/es';
 import {registerLocaleData} from "@angular/common";
 import { EditarcomputoComponent } from './computo/editarcomputo/editarcomputo.component';
+import { CrudLibroComponent } from './libros/crudLibro/crudlibro.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -132,6 +133,12 @@ const routes: Routes = [
     path: 'crudcomputo',
     component: CrudcomputoComponent
   },
+
+  {
+    path: 'crudlibro',
+    component: CrudLibroComponent
+  },
+
   {
     path: 'editarcliente/:id',
     component: EditarClientesComponent
@@ -165,6 +172,7 @@ const routes: Routes = [
     AsistenciacursoComponent,
     ReporteCursoComponent,
     CrudcursoComponent,
+    CrudLibroComponent,
     NuevaInscripcionComponent,
     NuevaParticipacionTallerComponent,
     PrestamoComputoComponent,
