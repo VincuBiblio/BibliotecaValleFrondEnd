@@ -7,6 +7,7 @@ import {Computo, ReporteComputo} from '../models/computo';
 import {Curso} from "../models/curso";
 import {Evento} from "../models/evento";
 import {ReporteLibros} from "../models/libro";
+import {PersonaCliente} from "../models/personaCliente";
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,10 @@ export class ComputoService {
 
   getReporteComputo(mes: any, anio: any): Observable<ReporteComputo> {
     return this.http.get(environment.URL_APP + "/estadisticas/filtrarByGeneroComputo/" + mes + "/" + anio, {headers: this.httpHeaders}).pipe(map(Response => Response as ReporteComputo))
+  }
+
+  getReporteComputoClientes(mes: any, anio: any): Observable<PersonaCliente[]> {
+    return this.http.get(environment.URL_APP + "/estadisticas/datosEstadisticosComputo/" + mes + "/" + anio, {headers: this.httpHeaders}).pipe(map(Response => Response as PersonaCliente[]))
   }
 
   deletecomputo(id: number) {

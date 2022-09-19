@@ -73,12 +73,12 @@ export class ReporteEventoComponent implements OnInit {
                 widths: ['50%', '50%'],
                 body: [
                   ['CUADRO DE DATOS', ''],
-                  ['NÚMERO DE PERSONAS', value.length],
+                  ['NÚMERO DE EVENTOS', value.length],
                 ]
               }
             },
             {text: '    '},
-            {text: 'LISTA DE PARTICIPANTES'},
+            {text: 'LISTA DE EVENTOS'},
             {
               table: {
                 headerRows: 1,

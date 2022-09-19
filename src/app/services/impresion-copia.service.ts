@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {environment} from 'src/environments/environment';
 import {Cliente_Impresion, Impresion_Copia, ReporteImpresionyCopias} from '../models/impresion-copia';
 import {ReporteCurso} from "../models/curso";
+import {PersonaCliente} from "../models/personaCliente";
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +40,7 @@ export class Impresion_CopiaService {
     return this.http.get(environment.URL_APP + "/estadisticas/filtrarByGeneroCopias/" + mes +"/"+ anio, {headers: this.httpHeaders}).pipe(map(Response => Response as ReporteImpresionyCopias))
   }
 
+  getReporteCopiasClientes(mes: any, anio: any): Observable<PersonaCliente[]> {
+    return this.http.get(environment.URL_APP + "/estadisticas/datosEstadisticosCopias/" + mes + "/" + anio, {headers: this.httpHeaders}).pipe(map(Response => Response as PersonaCliente[]))
+  }
 }
