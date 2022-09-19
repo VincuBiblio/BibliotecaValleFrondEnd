@@ -245,3 +245,13 @@ td, th {
   margin: 0.5% auto;
   width: 95%;
 }
+
+.style2{
+  width: 515px;
+ 
+  left: 8px;
+}
+
+.transparente{
+  background-color: transparent;
+}

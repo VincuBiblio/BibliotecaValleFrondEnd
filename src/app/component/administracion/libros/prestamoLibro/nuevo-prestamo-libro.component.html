@@ -123,19 +123,35 @@
 
           <mat-card class="colorFondo">
 
-            <mat-form-field appearance="outline">
-              <mat-label>Fecha Entrega </mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="fechaEntrega">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+            <mat-grid-list cols="2" rowHeight="4:1"  >
+              <mat-grid-tile class="transparente">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha Préstamo </mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fechaEntrega">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </mat-grid-tile>
+
+              <mat-grid-tile class="transparente">
+                <mat-form-field appearance="outline">
+                  <mat-label>Fecha Devolución </mat-label>
+                  <input matInput [matDatepicker]="picker2" formControlName="fechaDev"
+                    [min]="prestamoLibroFormGroup.getRawValue().fechaEntrega">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+
+
+
 
             <mat-form-field appearance="outline">
-              <mat-label>Fecha Devolución </mat-label>
-              <input matInput [matDatepicker]="picker2" formControlName="fechaDev"
-                [min]="prestamoLibroFormGroup.getRawValue().fechaEntrega">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
+              <mat-label>Buscar Libro</mat-label>
+              <input matInput (keyup)="applyFilterEvento($event)" placeholder="Ex. LIB1" #input>
+              <mat-icon matSuffix>find_in_page</mat-icon>
             </mat-form-field>
 
             <table class="table2">
@@ -145,7 +161,7 @@
                     <mat-label>Libro</mat-label>
                     <mat-select formControlName="libro">
                       <mat-option *ngFor="let lista of libroDisponibleLista" [value]="lista.id">
-                        {{lista.codigoLibro|uppercase}}
+                        {{lista.codigoLibro|uppercase}} - {{lista.nombre|uppercase}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -214,7 +230,7 @@
 
 <section *ngIf="divListar==true">
   <mat-card class="bordeev" style="width: 90%;">
-    
+
     <mat-card style="background-color: #f7f2dc;" *ngIf="cardListarModulo==true">
       <mat-card-content>
 
@@ -311,7 +327,7 @@
 
       <h1>{{mensajeSinParticiantes}}</h1>
     </mat-card>
-    
+
   </mat-card>
 </section>
 

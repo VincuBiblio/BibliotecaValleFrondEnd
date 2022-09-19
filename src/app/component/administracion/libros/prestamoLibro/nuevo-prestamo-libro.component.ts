@@ -27,10 +27,11 @@ import Swal from "sweetalert2";
 })
 export class NuevaPrestamoLibroComponent implements OnInit {
 
-  public mensajeSinParticiantes:any = "NO HAY PRÉSTAMO DE LIBROS"
+  public mensajeSinParticiantes: any = "NO HAY PRÉSTAMO DE LIBROS"
 
   public clienteLista: PersonaCliente[] = [];
   public libroDisponibleLista: libro[] = [];
+  public libroDisponibleListaRespaldo: libro[] = [];
   public libroClienteLista: libroPrestamo[] = [];
   public listaGuardarPrestamo: PrestamoLibro = new PrestamoLibro();
   public listaDevolverLibro: PrestamoLibro = new PrestamoLibro();
@@ -50,6 +51,8 @@ export class NuevaPrestamoLibroComponent implements OnInit {
   formCliente: FormGroup;
   public Hoy = new Date();
   public FechaHoy = new Date();
+
+
 
 
 
@@ -112,6 +115,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
   applyFilterCliente(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSourceCliente.filter = filterValue.trim().toLowerCase();
+
   }
 
   listarClientes() {
@@ -184,14 +188,27 @@ export class NuevaPrestamoLibroComponent implements OnInit {
   });
 
 
+  applyFilterEvento(event: Event) {
+
+  }
+
+
+  filter(value: any) {
+    // var pipe: DatePipe = new DatePipe('en-US')
+    const filterValue = value.toLowerCase();
+    return this.libroDisponibleLista.filter(option => option.nombre?.toLowerCase().includes(filterValue)
+    );
+  }
+
 
 
   listarLibroDispo() {
 
+
     this.libroService.getLibrosDisponibles().subscribe(value => {
       console.log("Listado libro Disponible generado exitosamente");
       this.libroDisponibleLista = value;
-
+      console.log(this.libroDisponibleLista)
 
     })
   }
@@ -240,7 +257,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.vaciarFormulario();
       this.listarClientesLibro();
       this.mostrarLista();
-      this.cardCliente=false;
+      this.cardCliente = false;
       this.libroDatoActualizar.estado = true;
       this.libroDatoActualizar.id = this.listaGuardarPrestamo.idLibro;
 
@@ -286,7 +303,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       if (this.libroClienteLista.length > 0) {
         this.cardListarModulo = true;
         this.cardListarVacio = false;
-      }else if (this.libroClienteLista.length == 0){
+      } else if (this.libroClienteLista.length == 0) {
         this.cardListarModulo = false;
         this.cardListarVacio = true;
       }
