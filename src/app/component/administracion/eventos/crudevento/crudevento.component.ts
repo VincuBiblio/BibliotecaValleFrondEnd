@@ -37,6 +37,9 @@ export class CrudeventoComponent implements OnInit {
   public cardListarVacio: Boolean;
 
 
+  public numeroControl: number = 1;
+
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -61,13 +64,24 @@ export class CrudeventoComponent implements OnInit {
 
   public mostrarLista() {
     this.listarEventoSinParticipantes();
+    this.numeroControl = 1;
     this.divListar = true;
     this.divNuevo = false;
   }
 
   public mostrarNuevo() {
+
+    if (this.numeroControl == 3) {
+      this.vaciarFormulario();
+      this.botonParaGuardar = true;
+      this.botonParaEditar = false;
+      this.numeroControl = 1;
+    }
+
     this.divListar = false;
     this.divNuevo = true;
+
+
   }
 
 
@@ -114,7 +128,7 @@ export class CrudeventoComponent implements OnInit {
   }
 
 
-  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'observaciones', 'actividades', 'editar', 'eliminar', 'poster'];
+  displayedColumnsTaller: string[] = ['id', 'fecha', 'descripcion', 'actividades', 'observaciones', 'editar', 'eliminar', 'poster'];
   dataSourceEvento: MatTableDataSource<Evento>;
 
 
@@ -175,6 +189,7 @@ export class CrudeventoComponent implements OnInit {
 
         })
         this.mostrarNuevo();
+        this.numeroControl = 3;
       }
 
     }

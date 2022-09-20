@@ -43,6 +43,8 @@ export class CrudLibroComponent implements OnInit {
   public botonParaEditar: Boolean = false;
   public cardListarVacio: Boolean;
 
+  public numeroControl: number = 1;
+
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -69,11 +71,20 @@ export class CrudLibroComponent implements OnInit {
 
   public mostrarLista() {
     this.listarLibros();
+    this.numeroControl = 1;
     this.divListar = true;
     this.divNuevo = false;
   }
 
   public mostrarNuevo() {
+
+    if (this.numeroControl == 3) {
+      this.vaciarFormulario();
+      this.botonParaGuardar = true;
+      this.botonParaEditar = false;
+      this.numeroControl = 1;
+    }
+
     this.divListar = false;
     this.divNuevo = true;
   }
@@ -190,6 +201,7 @@ export class CrudLibroComponent implements OnInit {
 
         })
         this.mostrarNuevo();
+        this.numeroControl = 3;
       }
 
     }
