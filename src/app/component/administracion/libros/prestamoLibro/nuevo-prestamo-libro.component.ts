@@ -38,7 +38,10 @@ export class NuevaPrestamoLibroComponent implements OnInit {
   public listaDatoLibroNuevo: libro = new libro();
   public libroDatoActualizar: libroEstado = new libroEstado();
 
+  public idLibro: any;
+
   public idCliente: any;
+  public cardLibro: any;
   public cardClienteMensaje: Boolean = true;
   public cardCliente: Boolean = false;
   public cardListarModulo: Boolean;
@@ -171,7 +174,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
     this.prestamoLibroFormGroup.setValue({
       fechaEntrega: this.Hoy,
       fechaDev: "",
-      libro: "",
+
       observacion: "",
     })
 
@@ -180,24 +183,23 @@ export class NuevaPrestamoLibroComponent implements OnInit {
 
   //LIBRO
 
+
+
+
   prestamoLibroFormGroup = this._formBuilder.group({
     fechaEntrega: new FormControl<any>('', [Validators.required]),
     fechaDev: new FormControl<any>('', [Validators.required]),
-    libro: new FormControl<any>('', [Validators.required]),
+
     observacion: new FormControl<String>('', []),
   });
 
 
-  applyFilterEvento(event: Event) {
+  displayedColumnsLibroDis: string[] = ['codigo'];
+  dataSourceLibro = new MatTableDataSource<libro>;
 
-  }
-
-
-  filter(value: any) {
-    // var pipe: DatePipe = new DatePipe('en-US')
-    const filterValue = value.toLowerCase();
-    return this.libroDisponibleLista.filter(option => option.nombre?.toLowerCase().includes(filterValue)
-    );
+  applyFilterLibroDisponible(event: Event) {
+    const filterValueLibroDis = (event.target as HTMLInputElement).value;
+    this.dataSourceLibro.filter = filterValueLibroDis.trim().toLowerCase();
   }
 
 
@@ -210,44 +212,55 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.libroDisponibleLista = value;
       console.log(this.libroDisponibleLista)
 
+
+      this.dataSourceLibro = new MatTableDataSource(this.libroDisponibleLista);
+      this.dataSourceLibro.paginator = this.paginator;
+      this.dataSourceLibro.sort = this.sort;
+
     })
   }
 
-  crearLibro() {
-    Swal.fire({
-      title: "Ingrese el nombre del Libro",
-      input: "text",
-      showCancelButton: true,
-      confirmButtonText: "Guardar",
-      cancelButtonText: "Cancelar",
-      background: '#f7f2dc',
-      confirmButtonColor: '#a01b20',
-      backdrop: false
-    })
-      .then(resultado => {
-        if (resultado.value) {
-          this.listaDatoLibroNuevo.codigoLibro = resultado.value;
-          this.listaDatoLibroNuevo.estado = false;
-          console.log(this.listaDatoLibroNuevo);
-          this.libroService.createLibro(this.listaDatoLibroNuevo).subscribe(value => {
-            this._snackBar.open('Libro registrado', 'ACEPTAR');
-            this.listarLibroDispo();
-          }, error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
-            //this.loaderGuardar=false
-          })
-        }
-      });
+  libroDispFormGroup = this._formBuilder.group({
+    idLibroA: new FormControl<String>('', [Validators.required]),
+    autor: new FormControl<String>('', [Validators.required]),
+    nombreL: new FormControl<String>('', [Validators.required]),
+    codigoLibro: new FormControl<String>('', [Validators.required]),
+  })
+
+  cargarDatosLibro(id: any) {
+    this.idLibro = id;
+    this.cardLibro = true;
+    for (var i = 0; i < this.libroDisponibleLista.length; i++) {
+
+      if (this.libroDisponibleLista[i].id == this.idLibro) {
+        this.libroDispFormGroup.setValue({
+
+          idLibroA: this.libroDisponibleLista[i].id,
+          codigoLibro: this.libroDisponibleLista[i].codigoLibro.toUpperCase(),
+
+          autor: this.libroDisponibleLista[i].autor.toUpperCase(),
+          nombreL: this.libroDisponibleLista[i].nombre.toUpperCase(),
+
+
+
+        })
+
+        console.log("Datos computo cargado correctamente");
+      }
+
+    }
   }
+
+
 
   guardarPrestamoLibro() {
     this.listaGuardarPrestamo.idCliente = this.idCliente;
     this.listaGuardarPrestamo.fechaEntrega = Object.values(this.prestamoLibroFormGroup.getRawValue())[0];
     this.listaGuardarPrestamo.fechaDev = Object.values(this.prestamoLibroFormGroup.getRawValue())[1];
-    this.listaGuardarPrestamo.idLibro = Object.values(this.prestamoLibroFormGroup.getRawValue())[2];
-    this.listaGuardarPrestamo.observacionesEntrega = Object.values(this.prestamoLibroFormGroup.getRawValue())[3];
+    this.listaGuardarPrestamo.idLibro = this.idLibro;
+    this.listaGuardarPrestamo.observacionesEntrega = Object.values(this.prestamoLibroFormGroup.getRawValue())[2];
 
-    if (Object.values(this.prestamoLibroFormGroup.getRawValue())[3].length == 0) {
+    if (Object.values(this.prestamoLibroFormGroup.getRawValue())[2].length == 0) {
       this.listaGuardarPrestamo.observacionesEntrega = "Sin observación";
     }
 
@@ -258,6 +271,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.listarClientesLibro();
       this.mostrarLista();
       this.cardCliente = false;
+      this.cardLibro = false;
       this.libroDatoActualizar.estado = true;
       this.libroDatoActualizar.id = this.listaGuardarPrestamo.idLibro;
 

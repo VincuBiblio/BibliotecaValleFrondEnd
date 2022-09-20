@@ -11,129 +11,329 @@
 
 <section *ngIf="divNuevo==true">
 
-  <mat-card class="example-card-two">
 
-    <mat-card class="cardCurso">
-
-      <table class="table2">
-        <tr style="text-align: center;">
-          <td style="text-align:left ; width: 85%;">
-            <mat-form-field appearance="outline" class="bordeFiltro">
-              <mat-label>Buscar Cliente</mat-label>
-              <input matInput (keyup)="applyFilterCliente($event)" placeholder="Ex. Franklin Dominguez" #input>
-              <mat-icon matSuffix>find_in_page</mat-icon>
-            </mat-form-field>
-          </td>
-
-          <td>
-
-            <button mat-stroked-button class="boton2" (click)="openDialog()">
-              <mat-icon>person_add</mat-icon>
-            </button>
-
-          </td>
-        </tr>
-      </table>
+  <mat-stepper linear #stepper class="borde1">
+    <mat-step [stepControl]="libroDispFormGroup" [editable]="isEditable">
+      <form [formGroup]="libroDispFormGroup">
+        <ng-template matStepLabel>
+          <div class="colorclaro">LIBRO</div>
+        </ng-template>
 
 
-      <mat-card-content>
+        <mat-card class="example-card-two">
 
-        <section class="barra-deslizadora" tabindex="0">
-
-
-          <table mat-table [dataSource]="dataSourceCliente" style="background-color: #f7f2dc ;">
+          <div>
 
 
-            <ng-container matColumnDef="cedula">
-              <th mat-header-cell *matHeaderCellDef>
-                <div style="text-align: center;">
-                  <h3>MIS CLIENTES</h3>
-                </div>
-              </th>
-              <td mat-cell *matCellDef="let element">
+            <mat-card class="cardTipoA1">
+
+
+              <mat-form-field appearance="outline" class="bordeFiltro">
+                <mat-label>Buscar Libro</mat-label>
+                <input matInput (keyup)=" applyFilterLibroDisponible($event)" placeholder="Ex. Lib1" #input>
+                <mat-icon matSuffix>find_in_page</mat-icon>
+              </mat-form-field>
+
+
+              <mat-card-content>
+
+                <section class="barra-deslizadora" tabindex="0">
+                  <table mat-table [dataSource]="dataSourceLibro" style=" background-color: #f7f2dc ;">
+
+                    <ng-container matColumnDef="codigo">
+                      <th mat-header-cell *matHeaderCellDef>
+                        <div style="text-align: center;">
+                          <h3>MIS LIBROS</h3>
+                        </div>
+                      </th>
+
+                      <td mat-cell *matCellDef="let element">
+
+
+                        <table class="table2">
+                          <tr style="text-align: center;">
+                            <td style="text-align:left ; width: 85%;">
+                              <div class="divtipo1"><strong>CÓDIGO:
+                                </strong>{{element.codigoLibro|uppercase}}<br></div>
+                              <div class="divtipo1"><strong>NOMBRE:
+                                </strong>{{element.nombre|uppercase}}<br></div>
+                              <div class="divtipo1"><strong>AUTOR:
+                                </strong>{{element.autor|uppercase}} <br></div>
+                            </td>
+
+                            <td>
+
+
+                              <div>
+                                <button mat-stroked-button class="boton1" (click)="cargarDatosLibro(element.id)">
+                                  <mat-icon>forward</mat-icon>
+                                </button>
+                              </div>
+
+                            </td>
+                          </tr>
+                        </table>
+
+                      </td>
+
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsLibroDis"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsLibroDis;"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="4">No hay datos que coincidan con el
+                        filtro
+                        "{{input.value}}"
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+
+
+              </mat-card-content>
+
+
+            </mat-card>
+
+            <mat-card class="cardTipoC3" *ngIf="cardLibro==true">
+              <br>
+              <div style="width: 500px;">
+                <mat-card-title>
+                  <div style="text-align: center;"> DATOS DE LIBRO</div>
+
+                </mat-card-title>
+              </div>
+
+
+              <br>
+              <mat-card-content>
+
+                <table class="table2" style="text-align: center;">
+
+                  <br>
+
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>ID: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input readonly="true" matInput formControlName="idLibroA" required> 
+
+                    </td>
+                  </tr>
+                  <br>
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>CÓDIGO: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input readonly="true" matInput formControlName="codigoLibro" required>
+                    </td>
+                  </tr>
+                  <br>
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>NOMBRE: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input readonly="true" matInput formControlName="nombreL" required>
+                    </td>
+                  </tr>
+                  <br>
+                  <tr aria-colspan="6">
+                    <td colspan="1">
+                      <strong>AUTOR: </strong>
+                    </td>
+                    <td colspan="1" class="txt">
+                      <input readonly="true" matInput formControlName="autor" required>
+                    </td>
+                  </tr>
+
+                </table>
+
+
+                <table>
+
+                </table>
+
+                <br>
+
                 <table class="table2">
                   <tr style="text-align: center;">
-                    <td style="text-align:left ; width: 85%;">
-                      <div class="divtipo1"><strong>CÉDULA:
-                        </strong>{{element.cedula|uppercase}}<br></div>
-                      <div class="divtipo1"><strong>NOMBRE:
-                        </strong>{{element.nombres|uppercase}} {{element.apellidos|uppercase}}<br></div>
-                      <div class="divtipo1"><strong>EDAD:
-                        </strong>{{element.edad}} <br></div>
+                    <td style="text-align:left ; width: 70%;">
+
                     </td>
 
                     <td>
-                      <button mat-stroked-button class="boton1" (click)="cargarDatosCliente(element.idCliente)">
-                        <mat-icon>forward</mat-icon>
+
+                      <button mat-button matStepperNext mat-flat-button class="botonnaranja">SIGUIENTE
+                        <mat-icon>forward
+                        </mat-icon>
                       </button>
+                    </td>
+
+
+                  </tr>
+
+                </table>
+
+              </mat-card-content>
+
+
+            </mat-card>
+
+
+          </div>
+
+
+        </mat-card>
+
+      </form>
+    </mat-step>
+
+
+
+
+    <!--PARTE DE ELECCION DE CLIENTES-->
+
+    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+
+      <form [formGroup]="prestamoLibroFormGroup">
+        <ng-template matStepLabel>
+          <div class="colorclaro">CLIENTE</div>
+        </ng-template>
+        <mat-card class="example-card-two">
+
+          <mat-card class="cardCurso">
+
+            <table class="table2">
+              <tr style="text-align: center;">
+                <td style="text-align:left ; width: 85%;">
+                  <mat-form-field appearance="outline" class="bordeFiltro">
+                    <mat-label>Buscar Cliente</mat-label>
+                    <input matInput (keyup)="applyFilterCliente($event)" placeholder="Ex. Franklin Dominguez" #input>
+                    <mat-icon matSuffix>find_in_page</mat-icon>
+                  </mat-form-field>
+                </td>
+
+                <td>
+
+                  <button mat-stroked-button class="boton2" (click)="openDialog()">
+                    <mat-icon>person_add</mat-icon>
+                  </button>
+
+                </td>
+              </tr>
+            </table>
+
+
+            <mat-card-content>
+
+              <section class="barra-deslizadora" tabindex="0">
+
+
+                <table mat-table [dataSource]="dataSourceCliente" style="background-color: #f7f2dc ;">
+
+
+                  <ng-container matColumnDef="cedula">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <div style="text-align: center;">
+                        <h3>MIS CLIENTES</h3>
+                      </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <table class="table2">
+                        <tr style="text-align: center;">
+                          <td style="text-align:left ; width: 85%;">
+                            <div class="divtipo1"><strong>CÉDULA:
+                              </strong>{{element.cedula|uppercase}}<br></div>
+                            <div class="divtipo1"><strong>NOMBRE:
+                              </strong>{{element.nombres|uppercase}} {{element.apellidos|uppercase}}<br></div>
+                            <div class="divtipo1"><strong>EDAD:
+                              </strong>{{element.edad}} <br></div>
+                          </td>
+
+                          <td>
+                            <button mat-stroked-button class="boton1" (click)="cargarDatosCliente(element.idCliente)">
+                              <mat-icon>forward</mat-icon>
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </ng-container>
+
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsCliente"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsCliente;"></tr>
+
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No hay datos que coincidan con el
+                      filtro
+                      "{{input.value}}"
                     </td>
                   </tr>
                 </table>
-              </td>
-            </ng-container>
+
+              </section>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumnsCliente"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumnsCliente;"></tr>
-
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">No hay datos que coincidan con el
-                filtro
-                "{{input.value}}"
-              </td>
-            </tr>
-          </table>
-
-        </section>
+            </mat-card-content>
 
 
-      </mat-card-content>
-
-
-    </mat-card>
-
-    <form [formGroup]="prestamoLibroFormGroup">
-
-      <div *ngIf="cardCliente == true">
-        <mat-card class="cardTipo2">
-
-          <mat-card class="colorFondo">
-            <form [formGroup]="secondFormGroup">
-
-              <mat-form-field appearance="outline">
-                <mat-label>Cédula</mat-label>
-                <input readonly="true" type="text" matInput formControlName="cedula">
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>Nombre</mat-label>
-                <input readonly="true" type="text" matInput formControlName="nombres" required>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>E-mail</mat-label>
-                <input readonly="true" type="text" matInput formControlName="email" required>
-              </mat-form-field>
-
-            </form>
           </mat-card>
-          <br>
 
 
-          <mat-card class="colorFondo">
 
-            <mat-grid-list cols="2" rowHeight="4:1"  >
-              <mat-grid-tile class="transparente">
+
+
+          <div *ngIf="cardCliente == true">
+            <mat-card class="cardTipo2">
+
+              <mat-card class="colorFondo">
+                <form [formGroup]="secondFormGroup">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Cédula</mat-label>
+                    <input readonly="true" type="text" matInput formControlName="cedula">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input readonly="true" type="text" matInput formControlName="nombres" required>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>E-mail</mat-label>
+                    <input readonly="true" type="text" matInput formControlName="email" required>
+                  </mat-form-field>
+
+                </form>
+              </mat-card>
+              <br>
+
+
+              <mat-card class="colorFondo">
+
+                <form [formGroup]="libroDispFormGroup">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Libro</mat-label>
+                    <input readonly="true" type="text" matInput formControlName="codigoLibro" required>
+                  </mat-form-field>
+                </form>
+
                 <mat-form-field appearance="outline">
                   <mat-label>Fecha Préstamo </mat-label>
                   <input matInput [matDatepicker]="picker" formControlName="fechaEntrega">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-              </mat-grid-tile>
 
-              <mat-grid-tile class="transparente">
+
+
                 <mat-form-field appearance="outline">
                   <mat-label>Fecha Devolución </mat-label>
                   <input matInput [matDatepicker]="picker2" formControlName="fechaDev"
@@ -141,88 +341,73 @@
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
-              </mat-grid-tile>
-            </mat-grid-list>
 
 
 
 
+                <mat-form-field appearance="outline">
+                  <mat-label>Observación</mat-label>
+                  <textarea matInput rows="1" formControlName="observacion"></textarea>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Buscar Libro</mat-label>
-              <input matInput (keyup)="applyFilterEvento($event)" placeholder="Ex. LIB1" #input>
-              <mat-icon matSuffix>find_in_page</mat-icon>
-            </mat-form-field>
+              </mat-card>
 
-            <table class="table2">
+
+            </mat-card>
+
+            <table class="table2" style=" background-color: transparent;">
               <tr style="text-align: center;">
-                <td style="text-align:left ; width: 85%;">
-                  <mat-form-field class="ubicacion" appearance="outline" style="width: 80%;left: 3px;">
-                    <mat-label>Libro</mat-label>
-                    <mat-select formControlName="libro">
-                      <mat-option *ngFor="let lista of libroDisponibleLista" [value]="lista.id">
-                        {{lista.codigoLibro|uppercase}} - {{lista.nombre|uppercase}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <td style="text-align:left;">
 
-                  <button style="left: 10px;" mat-flat-button color="primary" (click)="crearLibro()">
-                    <mat-icon>add</mat-icon>
-                  </button>
                 </td>
+                <td></td>
+                <td></td>
+                <td> </td>
+
+                <div class="td1">
+
+                  <td>
+                    <button mat-button matStepperPrevious class="botonrojo">
+                      <mat-icon>reply</mat-icon>
+                      REGRESAR
+                    </button>
+                  </td>
+
+                  <td>
+                    <div>
+
+
+                      <button mat-button class="botonnaranja" [disabled]="prestamoLibroFormGroup.invalid"
+                        (click)="guardarPrestamoLibro()">
+                        GUARDAR
+                        <mat-icon>save</mat-icon>
+                      </button>
+                    </div>
+
+                  </td>
+                </div>
 
               </tr>
+
+
             </table>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Observación</mat-label>
-              <textarea matInput rows="1" formControlName="observacion"></textarea>
-            </mat-form-field>
+          </div>
 
-          </mat-card>
+
 
 
         </mat-card>
 
-        <table class="table2" style=" background-color: transparent;">
-          <tr style="text-align: center;">
-            <td style="text-align:left;">
-
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <div class="td1">
-
-              <td>
-                <div>
-                  <button mat-button class="botonnaranja" [disabled]="prestamoLibroFormGroup.invalid"
-                    (click)="guardarPrestamoLibro()">
-                    GUARDAR
-                    <mat-icon>save</mat-icon>
-                  </button>
-                </div>
-
-              </td>
-            </div>
-
-          </tr>
+      </form>
 
 
-        </table>
-
-      </div>
-
-    </form>
+    </mat-step>
 
 
 
 
-
-  </mat-card>
-
-
+  </mat-stepper>
 
 </section>
 
