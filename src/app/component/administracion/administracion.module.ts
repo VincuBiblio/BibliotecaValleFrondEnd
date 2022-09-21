@@ -34,6 +34,7 @@ import localeEs from '@angular/common/locales/es';
 import {registerLocaleData} from "@angular/common";
 import { EditarcomputoComponent } from './computo/editarcomputo/editarcomputo.component';
 import { CrudLibroComponent } from './libros/crudLibro/crudlibro.component';
+import { ExelmensualComponent } from './informes/exelmensual/exelmensual.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -162,6 +163,10 @@ const routes: Routes = [
   {
     path: 'editarcomputo/:id',
     component: EditarcomputoComponent
+  },
+  {
+    path: 'informeMensualExel',
+    component: ExelmensualComponent
   }
 ]
 
@@ -196,6 +201,7 @@ const routes: Routes = [
     EditarCursoComponent,
     EditarTallerComponent,
     EditarcomputoComponent,
+    ExelmensualComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,28 @@
+export class Reporte {
+  idcliente:Number;
+  codigo:String;
+  no:Number;
+  fecha:Date;
+  apellidos:String;
+  nombres:String;
+  cedula:String
+  fechaNacimiento:String
+  edad:Number;
+  genero:String;
+  estadoCivil:String;
+  provincia:String;
+  canton:String;
+  parroquia:String;
+  barrio:String;
+  discapacidad:Boolean;
+  email:String;
+  telefono:String;
+  repositorio:String;
+  biblioteca:Number;
+  copias:Number;
+  computo:Number;
+  talleres:String;
+  idtaller:String;
+  nombretaller:String;
+  verificables:String;
+}

@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {FormControl, ɵFormGroupRawValue, ɵTypedOrUntyped} from "@angular/forms";
 import {environment} from 'src/environments/environment';
+import {Reporte} from "../models/reporte";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class ClienteService {
 
   getAllClientes(): Observable<PersonaCliente[]> {
     return this.http.get(this.urlEndPoint + "/persona/allClientes", {headers: this.httpHeaders}).pipe(map(Response => Response as PersonaCliente[]))
+  }
+
+  getReporteMensual(mes: any, anio: any): Observable<Reporte[]> {
+    return this.http.get(environment.URL_APP + "/reporte/all/" + mes + "/" + anio, {headers: this.httpHeaders}).pipe(map(Response => Response as Reporte[]))
   }
 
 }
