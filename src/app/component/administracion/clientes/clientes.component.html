@@ -78,14 +78,14 @@
             <mat-grid-tile colspan="2">Ubicación:
               <mat-form-field class="ubicacion" appearance="outline">
                 <mat-label>Provincia</mat-label>
-                <mat-select formControlName="idProvincia" (selectionChange)="selectProvincia($event)">
+                <mat-select formControlName="idProvincia" (selectionChange)="selectProvincia($event.value)">
                   <mat-option *ngFor="let provincia of provicias"
                               [value]="provincia.id">{{provincia.provincia}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field class="ubicacion" appearance="outline">
                 <mat-label>Cantón</mat-label>
-                <mat-select formControlName="idCanton" (selectionChange)="selectCanton($event)">
+                <mat-select formControlName="idCanton" (selectionChange)="selectCanton($event.value)">
                   <mat-option *ngFor="let cantones of cantonFiltrado"
                               [value]="cantones.id">{{cantones.canton}}</mat-option>
                 </mat-select>
@@ -124,7 +124,7 @@
           </mat-grid-list>
 
         </mat-card-content>
-        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">REGISTRAR</button>
+        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">GUARDAR</button>
       </form>
 
       <div *ngIf="loaderCargar">
@@ -219,7 +219,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR</th>
               <td mat-cell *matCellDef="let row">
                 <button mat-flat-button color="accent"
-                        [routerLink]="['/panel/biblioteca/editarcliente',row.id]">EDITAR
+                        (click)="actualizarCliente(row.id)">EDITAR
                 </button>
               </td>
             </ng-container>

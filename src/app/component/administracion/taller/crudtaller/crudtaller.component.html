@@ -3,6 +3,7 @@
   <mat-tab label="NUEVO TALLER">
     <br>
     <mat-card class="example-card" style="background: #f7f2dc">
+      <mat-progress-bar *ngIf="loaderGuardar" mode="indeterminate"></mat-progress-bar>
       <form [formGroup]="formGrupos">
         <mat-card-content style="background: #f7f2dc">
           <mat-grid-list cols="2" rowHeight="5:0.9">
@@ -47,7 +48,7 @@
               <mat-grid-tile>
                 <mat-form-field color="accent" appearance="outline">
                   <mat-label>Fecha máxima de inscripción</mat-label>
-                  <input matInput [matDatepicker]="picker1" formControlName="fechaMaxInscripcion">
+                  <input matInput [matDatepicker]="picker1" formControlName="fechaMaxInscripcion" [max]="formGrupos.getRawValue().fechaFin">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -72,7 +73,7 @@
 
           </mat-grid-list>
         </mat-card-content>
-        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarTaller()">REGISTRAR
+        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarTaller()">GUARDAR
         </button>
       </form>
     </mat-card>
@@ -129,7 +130,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
                 <td mat-cell *matCellDef="let row">
                   <button mat-flat-button color="primary"
-                    [routerLink]="['/panel/biblioteca/editartalleres',row.id]">Editar</button>
+                    (click)="actualizarTaller(row.id)">Editar</button>
                 </td>
               </ng-container>
 

@@ -113,6 +113,7 @@ export class ClientesComponent implements OnInit {
   }
 
   formGrupos = new FormGroup({
+    id: new FormControl<Number>(null),
     cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
     apellidos: new FormControl<String>('', [Validators.required]),
     nombres: new FormControl<String>('', [Validators.required]),
@@ -131,15 +132,15 @@ export class ClientesComponent implements OnInit {
   })
 
 
-  selectProvincia(id?: MatSelectChange) {
+  selectProvincia(id?: Number) {
     this.cantonFiltrado.length = 0;
     this.parroquiaFiltrado.length = 0;
-    this.cantonFiltrado = this.cantones.filter(value => value.idProvincia == id.value);
+    this.cantonFiltrado = this.cantones.filter(value => value.idProvincia == id);
   }
 
-  selectCanton(id?: MatSelectChange) {
+  selectCanton(id?: Number) {
     this.parroquiaFiltrado.length = 0;
-    this.parroquiaFiltrado = this.parroquias.filter(value => value.idCanton == id.value);
+    this.parroquiaFiltrado = this.parroquias.filter(value => value.idCanton == id);
   }
 
   listarBarrios(){
@@ -177,22 +178,66 @@ export class ClientesComponent implements OnInit {
 
   guardarCliente() {
     this.loaderGuardar=true
-    console.log(this.formGrupos.getRawValue())
-    this.clienteService.saveCliente(this.formGrupos.getRawValue()).subscribe(value => {
-      this._snackBar.open('Cliente registrado', 'ACEPTAR');
-      this.vaciarFormulario()
-      this.selected.setValue(2)
-      this.loaderGuardar=false
-    },error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+    if(this.formGrupos.getRawValue().id==null){
+      this.clienteService.saveCliente(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Cliente registrado', 'ACEPTAR');
+        this.vaciarFormulario()
+        this.listarClientes()
+        this.selected.setValue(2)
+        this.loaderGuardar=false
+      },error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar=false
+      })
+    }else {
+      this.clienteService.updateCliente(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Cliente actualizado', 'ACEPTAR');
+        this.vaciarFormulario()
+        this.listarClientes()
+        this.selected.setValue(2)
+        this.loaderGuardar=false
+      }, error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar = false
+      })
+    }
+
+  }
+
+
+  actualizarCliente(id:Number){
+    this.vaciarFormulario()
+    this.loaderGuardar=true
+    this.selected.setValue(0)
+    this.clienteService.getAllClientes().subscribe(value => {
+      var cliente: PersonaCliente = value.filter(value1 => value1.id == id)[0]
+      this.selectProvincia(cliente.idProvincia);
+      this.selectCanton(cliente.idCanton);
+      this.formGrupos.setValue({
+        id: cliente.id,
+        nombreResponsable: cliente.nombreResponsable,
+        telefonoResponsbale: cliente.telefonoResponsbale,
+        apellidos: cliente.apellidos,
+        cedula: cliente.cedula,
+        discapacidad: cliente.discapacidad,
+        email: cliente.email,
+        estadoCivil: cliente.estadoCivil,
+        fechaNacimiento: cliente.fechaNacimiento,
+        genero: cliente.genero,
+        idBarrio: cliente.idBarrio,
+        idCanton: cliente.idCanton,
+        idParroquia: cliente.idParroquia,
+        idProvincia: cliente.idProvincia,
+        nombres: cliente.nombres,
+        telefono: cliente.telefono
+      })
       this.loaderGuardar=false
     })
   }
 
-
-
   vaciarFormulario(){
     this.formGrupos.setValue({
+      id: null,
       apellidos: "",
       cedula: "",
       discapacidad: false,

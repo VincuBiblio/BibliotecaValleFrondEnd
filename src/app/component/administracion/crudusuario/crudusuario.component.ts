@@ -102,6 +102,7 @@ export class CrudusuarioComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
+    id: new FormControl<Number>(null),
     cedula: new FormControl<String>('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern("[0-9]+")]),
     apellidos: new FormControl<String>('', [Validators.required]),
     nombres: new FormControl<String>('', [Validators.required]),
@@ -114,21 +115,54 @@ export class CrudusuarioComponent implements OnInit {
 
   guardarUsuarios() {
     console.log(this.formGrupos.getRawValue())
-    this.usuarioService.saveUsuario(this.formGrupos.getRawValue()).subscribe(value => {
-      this._snackBar.open('Usuario registrado', 'ACEPTAR');
-      this.vaciarFormulario()
-      this.listarUsuarios()
-      this.selected.setValue(2);
-      this.loaderGuardar=false
-    },error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
-      this.loaderGuardar=false
+    if (this.formGrupos.getRawValue().id==null){
+      this.usuarioService.saveUsuario(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Usuario registrado', 'ACEPTAR');
+        this.vaciarFormulario()
+        this.listarUsuarios()
+        this.selected.setValue(2);
+        this.loaderGuardar=false
+      },error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar=false
+      })
+    }else {
+      this.usuarioService.updateUsuario(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Usuario actualizado', 'ACEPTAR');
+        this.vaciarFormulario()
+        this.listarUsuarios()
+        this.selected.setValue(2);
+        this.loaderGuardar=false
+      },error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar=false
+      })
+    }
+  }
+
+  actualizarDatos(id:Number){
+    this.vaciarFormulario()
+    this.selected.setValue(0);
+    this.loaderGuardar=true;
+    this.usuarioService.getAllUsuarios().subscribe(value => {
+      var usuario: PersonaUsuario = value.filter(value1 => value1.id == id)[0]
+      this.formGrupos.setValue({
+        id: usuario.id,
+        apellidos: usuario.apellidos,
+        cedula: usuario.cedula,
+        clave: usuario.clave,
+        email: usuario.email,
+        idRol: usuario.idRol,
+        nombres: usuario.nombres,
+        telefono: usuario.telefono
+      })
+      this.loaderGuardar=false;
     })
   }
 
-
   vaciarFormulario(){
     this.formGrupos.setValue({
+      id: null,
       apellidos: "",
       cedula: "",
       clave: "", email: "",
