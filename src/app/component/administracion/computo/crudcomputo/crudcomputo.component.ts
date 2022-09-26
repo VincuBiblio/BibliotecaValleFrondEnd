@@ -49,6 +49,7 @@ export class CrudcomputoComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
+    id: new FormControl<Number>(0),
     numero: new FormControl<String>('', [Validators.required]),
     estado: new FormControl<boolean>(null, [Validators.required]),
     procesador: new FormControl<String>('', [Validators.required]),
@@ -59,29 +60,64 @@ export class CrudcomputoComponent implements OnInit {
 
 
   guardarCliente() {
-    console.log(this.formGrupos.getRawValue())
-    this.computoService.createComputo(this.formGrupos.getRawValue()).subscribe(value => {
-      this._snackBar.open('Computo registrado', 'ACEPTAR');
-      this.selected.setValue(2)
-      this.listarCursos()
-      this.vaciarFormulario()
+    this.loaderGuardar=true;
+    if (this.formGrupos.getRawValue().id==null){
+      this.computoService.createComputo(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Computo registrado', 'ACEPTAR');
+        this.selected.setValue(2)
+        this.listarCursos()
+        this.vaciarFormulario()
+        this.loaderGuardar = false
+      }, error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar = false
+      })
+    }else {
+      this.computoService.updateComputo(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Computo Editado', 'ACEPTAR');
+        this.selected.setValue(2)
+        this.selected.setValue(2)
+        this.listarCursos()
+        this.vaciarFormulario()
+        this.loaderGuardar = false
+      }, error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar = false
+      })
+    }
 
-      this.loaderGuardar = false
-    }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
-      this.loaderGuardar = false
+  }
+
+  actualizarComputo(id:Number){
+    this.vaciarFormulario()
+    this.selected.setValue(0)
+    this.loaderGuardar=true;
+    this.computoService.getAllComputoInventario().subscribe(value => {
+      console.log(value)
+      var computo:Computo=value.filter(value1 => value1.id==id)[0];
+      this.formGrupos.setValue({
+        id: computo.id,
+        numero: computo.numero,
+        estado: computo.estado,
+        procesador: computo.procesador,
+        ram: computo.ram,
+        discoDuro: computo.discoDuro,
+        estadoPrestamo: computo.estadoPrestamo
+      })
+      this.loaderGuardar=false;
     })
   }
 
 
   vaciarFormulario() {
     this.formGrupos.setValue({
+      id: null,
       numero: '',
       estado: null,
       procesador: '',
       ram: '',
       discoDuro: '',
-      estadoPrestamo: false,
+      estadoPrestamo: false
     })
   }
 

@@ -5,6 +5,7 @@
     <br>
 
     <mat-card class="example-card" style="background: #f7f2dc">
+      <mat-progress-bar *ngIf="loaderGuardar" mode="indeterminate"></mat-progress-bar>
       <form [formGroup]="formGrupos">
         <mat-card-content style="background: #f7f2dc">
           <mat-grid-list cols="2" rowHeight="5:0.9">
@@ -101,7 +102,7 @@
 
           </mat-grid-list>
         </mat-card-content>
-        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">REGISTRAR
+        <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()">GUARDAR
         </button>
       </form>
     </mat-card>
@@ -161,7 +162,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ACCIÓN</th>
                 <td class="textoInicio" mat-cell *matCellDef="let row">
                   <button mat-flat-button color="primary"
-                    [routerLink]="['/panel/biblioteca/editarcursos',row.id]">EDITAR</button>
+                          (click)="actualizarCursos(row.id)">EDITAR</button>
                 </td>
               </ng-container>
 

@@ -81,6 +81,8 @@ export class CrudcursoComponent implements OnInit {
   }
 
   formGrupos = new FormGroup({
+    id: new FormControl<Number>(null),
+    idCurso: new FormControl<Number>(0),
     nombre: new FormControl<String>('', [Validators.required, Validators.maxLength(20)]),
     responsable: new FormControl<String>('', [Validators.required]),
     actividades: new FormControl<String>('', [Validators.required]),
@@ -114,29 +116,69 @@ export class CrudcursoComponent implements OnInit {
 
 
   guardarCliente() {
-    console.log(this.formGrupos.getRawValue())
-    this.cursoService.createCurso(this.formGrupos.getRawValue()).subscribe(value => {
-      this._snackBar.open('Curso registrado', 'ACEPTAR');
-      this.selected.setValue(2)
-      this.listarCursos()
-      this.vaciarFormulario()
+    this.loaderGuardar=true;
+    if (this.formGrupos.getRawValue().id==null){
+      this.cursoService.createCurso(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Curso registrado', 'ACEPTAR');
+        this.selected.setValue(2)
+        this.listarCursos()
+        this.vaciarFormulario()
+        this.loaderGuardar = false
+      }, error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar = false
+      })
+    }else {
+      this.cursoService.updateCurso(this.formGrupos.getRawValue()).subscribe(value => {
+        this._snackBar.open('Curso actualizado', 'ACEPTAR');
+        this.selected.setValue(2)
+        this.listarCursos()
+        this.vaciarFormulario()
+        this.loaderGuardar = false
+      },error => {
+        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this.loaderGuardar=false
 
-      this.loaderGuardar = false
-    }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
-      this.loaderGuardar = false
+      })
+    }
+
+  }
+
+  actualizarCursos(id:Number){
+    this.vaciarFormulario()
+    this.selected.setValue(0)
+    this.loaderGuardar=true;
+    this.cursoService.getAllCurso().subscribe(value =>{
+      var curso: Curso=value.filter(value1 => value1.id==id)[0];
+      this.formGrupos.setValue({
+        id: curso.id,
+        idCurso: curso.idCurso,
+        nombre: curso.nombre,
+        responsable: curso.responsable,
+        actividades: curso.actividades,
+        numParticipantes: curso.numParticipantes,
+        lugar: curso.lugar,
+        descripcion: curso.descripcion,
+        materiales: curso.materiales,
+        //observaciones: curso.observaciones,
+        fechaInicio: addDaysToDate(curso.fechaInicio,1),
+        fechaFin:  addDaysToDate(curso.fechaFin,1),
+        fechaMaxInscripcion: addDaysToDate(curso.fechaMaxInscripcion,1),
+
+      })
+      this.loaderGuardar=false;
     })
   }
 
 
-
   vaciarFormulario() {
     this.formGrupos.setValue({
+      id: null, idCurso: null,
       actividades: "",
       descripcion: "",
-      fechaFin: undefined,
-      fechaInicio: undefined,
-      fechaMaxInscripcion: undefined,
+      fechaFin: null,
+      fechaInicio: null,
+      fechaMaxInscripcion: null,
       lugar: "",
       materiales: "",
       nombre: "",
@@ -150,3 +192,8 @@ export class CrudcursoComponent implements OnInit {
 
 }
 
+function addDaysToDate(date, days): any {
+  var res = new Date(date);
+  res.setDate(res.getDate() + days);
+  return res;
+}
