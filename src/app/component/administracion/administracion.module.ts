@@ -35,6 +35,7 @@ import {registerLocaleData} from "@angular/common";
 import { EditarcomputoComponent } from './computo/editarcomputo/editarcomputo.component';
 import { CrudLibroComponent } from './libros/crudLibro/crudlibro.component';
 import { ExelmensualComponent } from './informes/exelmensual/exelmensual.component';
+import { crudServicioVariosComponent } from './serviciosVarios/crudServicioVarios/crudservicio.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -167,7 +168,13 @@ const routes: Routes = [
   {
     path: 'informeMensualExel',
     component: ExelmensualComponent
+  },
+
+  {
+    path: 'crudServiciosVarios',
+    component: crudServicioVariosComponent
   }
+
 ]
 
 @NgModule({
@@ -202,6 +209,7 @@ const routes: Routes = [
     EditarTallerComponent,
     EditarcomputoComponent,
     ExelmensualComponent,
+    crudServicioVariosComponent
   ],
   imports: [
     CommonModule,
