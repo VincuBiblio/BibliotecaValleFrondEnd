@@ -62,9 +62,9 @@
             </ng-container>
 
             <!-- Fruit Column -->
-            <ng-container matColumnDef="fechaNacimiento">
+            <ng-container matColumnDef="fecha_nacimiento">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA DE NACIMIENTO</th>
-              <td mat-cell *matCellDef="let row"> {{row.fechaNacimiento}} </td>
+              <td mat-cell *matCellDef="let row"> {{row.fecha_nacimiento}} </td>
             </ng-container>
 
             <!-- Fruit Column -->
@@ -76,13 +76,17 @@
             <!-- Fruit Column -->
             <ng-container matColumnDef="genero">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> GENERO</th>
-              <td mat-cell *matCellDef="let row">{{row.genero}}</td>
+              <td mat-cell *matCellDef="let row">
+                <strong *ngIf="row.genero=='MASCULINO'">M</strong>
+                <strong *ngIf="row.genero=='FEMENINO'">F</strong>
+                <strong *ngIf="row.genero=='OTROS'">OTRO</strong>
+              </td>
             </ng-container>
 
             <!-- Fruit Column -->
-            <ng-container matColumnDef="estadoCivil">
+            <ng-container matColumnDef="estado_civil">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO CIVIL</th>
-              <td mat-cell *matCellDef="let row">{{row.estadoCivil}}</td>
+              <td mat-cell *matCellDef="let row">{{row.estado_civil}}</td>
             </ng-container>
 
             <!-- Fruit Column -->

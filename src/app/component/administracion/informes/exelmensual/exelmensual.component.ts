@@ -20,7 +20,7 @@ export class ExelmensualComponent implements OnInit {
   carga:Boolean;
 
   displayedColumns: string[] = ['codigo', 'no', 'fecha', 'apellidos', 'nombres', 'cedula',
-    'fechaNacimiento', 'edad', 'genero', 'estadoCivil', 'provincia', 'canton', 'parroquia',
+    'fecha_nacimiento', 'edad', 'genero', 'estado_civil', 'provincia', 'canton', 'parroquia',
     'barrio', 'discapacidad', 'email', 'telefono', 'repositorio', 'biblioteca',
     'computo', 'copias', 'talleres', 'nombretaller', 'verificables'];
   dataSource: MatTableDataSource<Reporte>;
@@ -57,7 +57,6 @@ export class ExelmensualComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

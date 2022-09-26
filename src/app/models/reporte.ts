@@ -6,10 +6,10 @@ export class Reporte {
   apellidos:String;
   nombres:String;
   cedula:String
-  fechaNacimiento:String
+  fecha_nacimiento:String
   edad:Number;
   genero:String;
-  estadoCivil:String;
+  estado_civil:String;
   provincia:String;
   canton:String;
   parroquia:String;
