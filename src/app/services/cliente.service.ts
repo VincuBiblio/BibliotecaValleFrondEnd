@@ -36,7 +36,7 @@ export class ClienteService {
   }
 
   getReporteMensual(mes: any, anio: any): Observable<Reporte[]> {
-    return this.http.get(environment.URL_APP + "/reporte/datos/" + mes + "/" + anio, {headers: this.httpHeaders}).pipe(map(Response => Response as Reporte[]))
+    return this.http.get(environment.URL_APP + "/reporte/todoslosdatos/" + mes + "/" + anio, {headers: this.httpHeaders}).pipe(map(Response => Response as Reporte[]))
   }
 
 }
