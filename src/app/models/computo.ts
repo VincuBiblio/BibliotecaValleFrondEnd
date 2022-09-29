@@ -6,6 +6,7 @@ export class Computo{
     procesador?: any;
     estado?: boolean;
     estadoPrestamo?: any;
+    observacionesComputador?: any;
 }
 
 export class ReporteComputo{

@@ -17,7 +17,7 @@ export class CrudcomputoComponent implements OnInit {
   loaderGuardar: boolean;
   loaderActualizar: boolean;
   arrayestado:string[]=['Activo','Inactivo'];
-  displayedColumns: string[] = ['id','numero','disco','procesador', 'Estado', 'acciones'];
+  displayedColumns: string[] = ['id','numero','disco','procesador', 'Estado','observaciones', 'acciones'];
   dataSource: MatTableDataSource<Computo>;
   selected = new FormControl(0);
 
@@ -49,13 +49,14 @@ export class CrudcomputoComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
-    id: new FormControl<Number>(0),
+    id: new FormControl<Number>(null),
     numero: new FormControl<String>('', [Validators.required]),
     estado: new FormControl<boolean>(null, [Validators.required]),
     procesador: new FormControl<String>('', [Validators.required]),
     ram: new FormControl<String>('', [Validators.required]),
     discoDuro: new FormControl<String>('', [Validators.required]),
-    estadoPrestamo:new FormControl<boolean>(false)
+    estadoPrestamo:new FormControl<boolean>(false),
+    observacionesComputador: new FormControl<String>('', [Validators.required]),
   })
 
 
@@ -102,7 +103,8 @@ export class CrudcomputoComponent implements OnInit {
         procesador: computo.procesador,
         ram: computo.ram,
         discoDuro: computo.discoDuro,
-        estadoPrestamo: computo.estadoPrestamo
+        estadoPrestamo: computo.estadoPrestamo,
+        observacionesComputador: computo.observacionesComputador,
       })
       this.loaderGuardar=false;
     })
@@ -117,7 +119,8 @@ export class CrudcomputoComponent implements OnInit {
       procesador: '',
       ram: '',
       discoDuro: '',
-      estadoPrestamo: false
+      estadoPrestamo: false,
+      observacionesComputador: '',
     })
   }
 

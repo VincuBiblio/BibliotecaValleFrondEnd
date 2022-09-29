@@ -49,6 +49,18 @@
 
         </div>
 
+        <div>
+
+          <mat-grid-tile colspan="2">
+            <mat-form-field appearance="outline">
+              <mat-label>Observaciones</mat-label>
+              <input matInput formControlName="discoDuro">
+            </mat-form-field>
+          </mat-grid-tile>
+
+        </div>
+
+
       </mat-grid-list>
     </mat-card-content>
     <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()" >REGISTRAR

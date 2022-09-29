@@ -50,6 +50,17 @@
 
             </div>
 
+            <div>
+
+              <mat-grid-tile colspan="2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Observaciones</mat-label>
+                  <input matInput formControlName="observacionesComputador">
+                </mat-form-field>
+              </mat-grid-tile>
+
+            </div>
+
           </mat-grid-list>
         </mat-card-content>
         <button mat-flat-button color="warn" [disabled]="formGrupos.invalid" (click)="guardarCliente()" >GUARDAR
@@ -95,6 +106,11 @@
               <td mat-cell *matCellDef="let row"> {{row.procesador}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="observaciones">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
+              <td mat-cell *matCellDef="let row"> {{row.observacionesComputador}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="Estado">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
               <td mat-cell *matCellDef="let row">
@@ -103,7 +119,8 @@
               </td>
             </ng-container>
 
-            <!-- Fruit Column -->
+
+
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
               <td mat-cell *matCellDef="let row">
