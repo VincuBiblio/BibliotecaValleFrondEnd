@@ -174,7 +174,7 @@ export class AsistenciacursoComponent implements OnInit {
             {text: '    '},
             {text: 'Lugar donde se llevara a cabo: ' + value.lugar},
             {text: '    '},
-            {text: 'Dia de actividad: ' + pipe.transform(select.value.fecha, 'MMMM d, y')},
+            {text: 'Dia de actividad: ' + pipe.transform(select.value.fecha, 'd, MMMM, y')},
             {text: '    '},
             {text: 'Participantes'},
             {

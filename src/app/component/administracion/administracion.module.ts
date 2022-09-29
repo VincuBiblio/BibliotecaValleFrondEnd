@@ -37,6 +37,7 @@ import { CrudLibroComponent } from './libros/crudLibro/crudlibro.component';
 import { ExelmensualComponent } from './informes/exelmensual/exelmensual.component';
 import { crudServicioVariosComponent } from './serviciosVarios/crudServicioVarios/crudservicio.component';
 import { usoServicioVariosComponent } from './serviciosVarios/UsoServicioVarios/usoServicioVarios.component';
+import { ReportevariosComponent } from './serviciosVarios/reportevarios/reportevarios.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -175,10 +176,13 @@ const routes: Routes = [
     path: 'crudServiciosVarios',
     component: crudServicioVariosComponent
   },
-
   {
     path: 'usoserviciosvarios',
     component: usoServicioVariosComponent
+  },
+  {
+    path: 'reportevarios',
+    component: ReportevariosComponent
   }
 
 ]
@@ -217,6 +221,7 @@ const routes: Routes = [
     ExelmensualComponent,
     crudServicioVariosComponent,
     usoServicioVariosComponent,
+    ReportevariosComponent,
   ],
   imports: [
     CommonModule,
