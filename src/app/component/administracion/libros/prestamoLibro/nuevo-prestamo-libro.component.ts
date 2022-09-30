@@ -272,6 +272,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.mostrarLista();
       this.cardCliente = false;
       this.cardLibro = false;
+      /*
       this.libroDatoActualizar.estado = true;
       this.libroDatoActualizar.id = this.listaGuardarPrestamo.idLibro;
 
@@ -280,7 +281,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
         console.log("Libro cambiado a estado true");
       }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
-      })
+      })*/
 
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
@@ -407,6 +408,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
 
     this.libroService.putLibroDevolucion(this.listaDevolverLibro).subscribe(value => {
       this._snackBar.open('Se ha devuelto el libro exitosamente', 'ACEPTAR');
+      /*
       this.libroDatoActualizar.estado = false;
       this.libroDatoActualizar.id = this.listaDevolverLibro.idLibro
 
@@ -416,7 +418,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
         console.log("Libro cambiado a estado false");
       }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
-      })
+      })*/
 
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
