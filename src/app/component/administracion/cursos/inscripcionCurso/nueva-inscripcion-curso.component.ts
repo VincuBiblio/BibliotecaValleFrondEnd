@@ -104,11 +104,11 @@ export class NuevaInscripcionComponent implements OnInit {
 
     this.formList.setValue({
       valorSelect: '',
-      
-    })
-    
 
-    
+    })
+
+
+
 
   }
 
@@ -147,12 +147,13 @@ export class NuevaInscripcionComponent implements OnInit {
     this.cursoService.getAllCurso().subscribe(value => {
       this.listaInicialCurso = value;
 
-     
+
 
       var AnyoHoy = this.Hoy.getFullYear();
       var MesHoy = this.Hoy.getMonth() + 1;
       var DiaHoy = this.Hoy.getDate();
 
+      console.log(MesHoy)
 
       for (var i = 0; i < this.listaInicialCurso.length; i++) {
         //alert(this.listaInicialCurso[i].fechaMaxInscripcion);

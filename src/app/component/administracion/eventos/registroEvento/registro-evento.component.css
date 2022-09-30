@@ -123,3 +123,24 @@ th {
   width: 100%;
   margin-bottom: 4%;
 }
+
+input[type="file"] {
+  width: 100%;
+  font-size: 13px;
+}
+#files{
+  width: 100%;
+  border-radius: 5px;
+  border: 0.1px solid #262020;
+  height: 40px;
+}
+input[type="file"]::-webkit-file-upload-button{
+  cursor: pointer;
+  background-color: #f47f16;
+  color: #262020;
+  font-size: 14px;
+  border-radius: 5px;
+  width: 40%;
+  height: 40px;
+}
+

@@ -297,7 +297,7 @@ export class ClientesComponent implements OnInit {
             // @ts-ignore
             {text: pipe.transform(dia, 'MMMM d, y'), alignment: 'right'},
             {text: 'CLIENTES REGISTRADOS', fontSize: 15, bold: true, alignment: 'center'},
-            {text: 'Clientes que han usado la biblioteca', fontSize: 15, margin: [0, 0, 20, 0]},
+            {text: 'Clientes registrados en la Biblioteca  ', fontSize: 15, margin: [0, 0, 20, 0]},
             {text: '    '},
             {
               table: {

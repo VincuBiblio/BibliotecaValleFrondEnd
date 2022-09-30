@@ -36,7 +36,7 @@
             <div>
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
-                  <mat-label>Fecha de duración</mat-label>
+                  <mat-label>Inicio y fin de curso</mat-label>
                   <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate formControlName="fechaInicio" placeholder="Start date">
                     <input matEndDate formControlName="fechaFin" placeholder="End date">
@@ -69,7 +69,7 @@
               <mat-grid-tile>
                 <mat-form-field appearance="outline">
                   <mat-label>Numero máximo de participantes</mat-label>
-                  <input matInput formControlName="numParticipantes">
+                  <input type="number" matInput formControlName="numParticipantes">
                 </mat-form-field>
               </mat-grid-tile>
 

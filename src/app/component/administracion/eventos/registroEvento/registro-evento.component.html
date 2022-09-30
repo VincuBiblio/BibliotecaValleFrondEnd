@@ -94,9 +94,7 @@
               <div>
 
                 <mat-grid-tile>
-                  <button type="button" mat-raised-button (click)="fileInput.click()" accept=".pdf">Elija el
-                    archivo</button>
-                  <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                  <input (change)="onFileSelected($event)"  type="file" id="file"  accept="application/pdf">
                 </mat-grid-tile>
               </div>
 
