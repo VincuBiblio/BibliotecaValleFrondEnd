@@ -153,7 +153,7 @@
           M-EVENTO
         </button>
         <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/registroevento'"
-                [disabled]="persona.idRol!=1 && persona.idRol!=2">
+        [disabled]="persona.idRol!=1 && persona.idRol!=3">
           REGISTRO
         </button>
         <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reporteeventos'"
@@ -175,7 +175,7 @@
           M-VARIOS
         </button>
         <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/usoserviciosvarios'"
-                [disabled]="persona.idRol!=1 && persona.idRol!=2">
+        [disabled]="persona.idRol!=1 && persona.idRol!=3">
           USO
         </button>
         <button class="botones" mat-flat-button [routerLink]="'/panel/biblioteca/reportevarios'"

@@ -63,8 +63,8 @@ export class CrudtallerComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
-    id: new FormControl<Number>(0),
-    idTaller: new FormControl<Number>(0),
+    id: new FormControl<Number>(null),
+    idTaller: new FormControl<Number>(null),
     nombre: new FormControl<String>('', [Validators.required]),
     responsable: new FormControl<String>('', [Validators.required]),
     lugar: new FormControl<String>('', [Validators.required]),

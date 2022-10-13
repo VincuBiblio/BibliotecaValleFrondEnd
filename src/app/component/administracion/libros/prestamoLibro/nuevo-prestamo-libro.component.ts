@@ -419,6 +419,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       }, error => {
         this._snackBar.open(error.error.message, 'ACEPTAR');
       })*/
+      this.listarClientesLibro();
 
     }, error => {
       this._snackBar.open(error.error.message, 'ACEPTAR');
