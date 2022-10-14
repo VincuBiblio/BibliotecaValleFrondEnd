@@ -302,7 +302,7 @@ export class ClientesComponent implements OnInit {
             {
               table: {
                 headerRows: 1,
-                widths: ['2%', '11,1%', '11,1%', '11,1%', '11,1%', '11,1%', '17,2%', '11,1%', '15,2%'],
+                widths: ['2%', '11,1%', '22,1%', '22,1%', '5,1%', '5,1%', '17,2%', '11,1%', '15,2%'],
                 body: [
                   ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'FECHA DE NACIMIENTO', 'GENERO', 'CORREO', 'TELEFONO', 'DISCAPACIDAD'],
                   [value.map(function (item) {
