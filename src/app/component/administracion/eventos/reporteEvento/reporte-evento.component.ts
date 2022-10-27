@@ -66,7 +66,6 @@ export class ReporteEventoComponent implements OnInit {
             {text: '      '},
             {text: 'MES: '+mes.value},
             {text: '    '},
-            {text: 'REPORTE POR GENERO'},
             {
               table: {
                 headerRows: 1,

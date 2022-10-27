@@ -187,7 +187,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
           edad: this.clienteLista[i].edad,
           email: this.clienteLista[i].email,
           direccion: this.clienteLista[i].barrio.toUpperCase() + " - " + this.clienteLista[i].parroquia.toUpperCase(),
-          representante: this.clienteLista[i].nombreResponsable.toUpperCase(),
+          representante: (this.clienteLista[i].nombreResponsable!="")?this.clienteLista[i].nombreResponsable.toUpperCase():'Ninguno',
 
 
         })

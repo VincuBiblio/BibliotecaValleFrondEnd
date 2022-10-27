@@ -18,6 +18,7 @@ import {Barrio, Canton, Parroquia, Provincia} from "../../../models/ubicacion";
 import {MatSelectChange} from "@angular/material/select";
 import Swal from "sweetalert2";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {CursoService} from "../../../services/curso.service";
 
 
 export interface UserData {
@@ -69,6 +70,7 @@ export class ClientesComponent implements OnInit {
 
   loaderCargar:boolean;
   loaderGuardar:boolean;
+  fecha:Date;
 
   provicias: Provincia[] = [];
   cantones: Canton[] = [];
@@ -92,7 +94,8 @@ export class ClientesComponent implements OnInit {
               private clienteService: ClienteService,
               private usuarioService:UsuarioService,
               private router:Router,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private cursoService:CursoService) {
   }
 
   ngOnInit(): void {
@@ -103,7 +106,7 @@ export class ClientesComponent implements OnInit {
       this.ubicacionService.getAllCantones().subscribe(value => {
         this.cantones = value;
         this.ubicacionService.getAllParroquias().subscribe(value => {
-          console.log(value)
+          this.fecha=new Date();
           this.parroquias = value;
           this.listarBarrios();
           this.loaderCargar=false;
@@ -222,7 +225,7 @@ export class ClientesComponent implements OnInit {
         discapacidad: cliente.discapacidad,
         email: cliente.email,
         estadoCivil: cliente.estadoCivil,
-        fechaNacimiento: cliente.fechaNacimiento,
+        fechaNacimiento: sumarDias(new Date(cliente.fechaNacimiento),1),
         genero: cliente.genero,
         idBarrio: cliente.idBarrio,
         idCanton: cliente.idCanton,
@@ -302,9 +305,9 @@ export class ClientesComponent implements OnInit {
             {
               table: {
                 headerRows: 1,
-                widths: ['2%', '11,1%', '22,1%', '22,1%', '5,1%', '5,1%', '17,2%', '11,1%', '15,2%'],
+                widths: ['2%', '11,1%', '20,1%', '20,1%', '10,1%', '10,1%', '17,2%', '10,1%', '5,2%'],
                 body: [
-                  ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'FECHA DE NACIMIENTO', 'GENERO', 'CORREO', 'TELEFONO', 'DISCAPACIDAD'],
+                  ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'F.NACIMIENTO', 'GENERO', 'CORREO', 'TELEFONO', 'DISC'],
                   [value.map(function (item) {
                     return item.id + ''
                   }),
@@ -413,4 +416,9 @@ function createNewUser(id: number): UserData {
     progress: Math.round(Math.random() * 100).toString(),
     fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
   };
+}
+
+function sumarDias(fecha, dias){
+  fecha.setDate(fecha.getDate() + dias);
+  return fecha;
 }

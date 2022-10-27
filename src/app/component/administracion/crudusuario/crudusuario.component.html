@@ -118,7 +118,7 @@
             <ng-container matColumnDef="editar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> EDITAR </th>
               <td mat-cell *matCellDef="let row">
-                <button mat-flat-button color="accent" (click)="actualizarDatos(row.id)"
+                <button mat-flat-button color="accent" *ngIf="row.idRol!=1" (click)="actualizarDatos(row.id)"
                 >EDITAR</button>
               </td>
             </ng-container>
