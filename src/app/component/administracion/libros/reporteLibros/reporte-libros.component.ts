@@ -57,7 +57,7 @@ export class ReporteLibrosComponent implements OnInit {
           this.libroService.getReporteLibrosClientes(n[1],n[0]).subscribe(async cliente => {
             const pdfDefinition: any = {
               content: [
-                {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
+                {image: await this.getBase64ImageFromURL('assets/images/logovallenegro.png'), width: 100},
                 {
                   text: '_________________________________________________________________________________________',
                   alignment: 'center'

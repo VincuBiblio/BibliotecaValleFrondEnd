@@ -292,7 +292,7 @@ export class ClientesComponent implements OnInit {
       this.usuarioService.getAllUsuarios().subscribe(async valueb => {
         const pdfDefinition: any = {
           content: [
-            {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
+            {image: await this.getBase64ImageFromURL('assets/images/logovallenegro.png'), width: 100},
             {
               text: '_________________________________________________________________________________________',
               alignment: 'center'

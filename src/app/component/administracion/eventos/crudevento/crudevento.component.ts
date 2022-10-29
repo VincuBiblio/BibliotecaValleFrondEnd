@@ -272,7 +272,7 @@ export class CrudeventoComponent implements OnInit {
         { text: '  ' },
         { text: '  ' },
         { text: '  ' },
-        { image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 200 },
+        { image: await this.getBase64ImageFromURL('assets/images/logovallenegro.png'), width: 200 },
         { text: '  ' },
         { text: 'EVENTO', fontSize: 70, bold: true, alignment: 'center' },
         { text: '  ' },

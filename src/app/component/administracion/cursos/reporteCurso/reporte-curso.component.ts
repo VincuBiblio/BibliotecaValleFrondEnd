@@ -107,7 +107,7 @@ export class ReporteCursoComponent implements OnInit {
         this.cursoService.getReporteCurso(select.value.idCurso).subscribe(async value => {
           const pdfDefinition: any = {
             content: [
-              {image: await this.getBase64ImageFromURL('assets/images/LogoValleNegro.png'), width: 100},
+              {image: await this.getBase64ImageFromURL('assets/images/logovallenegro.png'), width: 100},
               {
                 text: '_________________________________________________________________________________________',
                 alignment: 'center'
