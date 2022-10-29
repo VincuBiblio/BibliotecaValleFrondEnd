@@ -25,7 +25,7 @@ export class IniciosesionComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(()=>{
       this.issloading=false;
-    },60000)
+    },20000)
   }
 
   formGroup = new FormGroup({
