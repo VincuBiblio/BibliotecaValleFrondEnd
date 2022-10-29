@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import {Impresion_CopiaService} from "../../../../services/impresion-copia.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UsuarioService} from "../../../../services/usuario.service";
-import {LibroService} from "../../../../services/libro.service";
-import {ReporteImpresionyCopias} from "../../../../models/impresion-copia";
-import {ReporteLibros} from "../../../../models/libro";
+import {UsuarioService} from "src/app/services/usuario.service";
+import {LibroService} from "src/app/services/libro.service";
+import {ReporteLibros} from "src/app/models/libro";
 import {DatePipe} from "@angular/common";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

@@ -5,10 +5,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PersonaCliente } from 'src/app/models/personaCliente';
-import { ServicioClienteVarios, ServiciosVarios, ServicioVariosClienteTabla } from 'src/app/models/ServiciosVarios';
+
 import { ClienteService } from 'src/app/services/cliente.service';
 import { serviciosVariosService } from 'src/app/services/servicios-varios.service';
 import Swal from "sweetalert2";
+import {ServicioClienteVarios, ServiciosVarios, ServicioVariosClienteTabla} from "src/app/models/serviciosVarios";
 
 @Component({
   selector: 'app-usoServicioVarios',
@@ -274,7 +275,7 @@ export class usoServicioVariosComponent implements OnInit {
             this._snackBar.open(error.error.message, 'ACEPTAR');
           })
 
-         
+
         }
       });
 

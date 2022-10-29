@@ -4,8 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ServiciosVarios } from 'src/app/models/ServiciosVarios';
 import { serviciosVariosService } from 'src/app/services/servicios-varios.service';
+import {ServiciosVarios} from "src/app/models/serviciosVarios";
+
+
 
 
 @Component({
@@ -100,7 +102,7 @@ export class crudServicioVariosComponent implements OnInit {
   listarServiciosVarios() {
 
     this.servicioVariosService.getServicioVarios().subscribe(value => {
-     
+
       this.servicioLista = value;
 
       if (this.servicioLista.length > 0) {
@@ -164,7 +166,7 @@ export class crudServicioVariosComponent implements OnInit {
       if (this.servicioLista[k].id == id) {
 
         this.formGrupos.setValue({
-          descripcion: this.servicioLista[k].descripcion,  
+          descripcion: this.servicioLista[k].descripcion,
         })
 
         this.mostrarNuevo();
@@ -177,10 +179,10 @@ export class crudServicioVariosComponent implements OnInit {
 
   guardarEditarServicio() {
     this.servicioListaGuardar.descripcion = Object.values(this.formGrupos.getRawValue())[0];
-   
+
     this.servicioListaGuardar.id = this.idServicio;
     console.log("Datos Actualizar");
-  
+
 this.servicioVariosService.putServicioVarios(this.servicioListaGuardar).subscribe(value => {
       this._snackBar.open('Servicio Actualizado', 'ACEPTAR');
       this.vaciarFormulario();
