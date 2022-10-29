@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {InicioSesionService} from "../../../services/inicioSesion.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -9,16 +9,23 @@ import {Router} from "@angular/router";
   templateUrl: './iniciosesion.component.html',
   styleUrls: ['./iniciosesion.component.css']
 })
-export class IniciosesionComponent implements OnInit {
+export class IniciosesionComponent implements OnInit,AfterViewInit {
 
   hide = true;
   iniciobar:boolean;
+  issloading=true;
 
   constructor(private inicioSesionService:InicioSesionService,
               private _snackBar: MatSnackBar,
               private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(()=>{
+      this.issloading=false;
+    },60000)
   }
 
   formGroup = new FormGroup({
