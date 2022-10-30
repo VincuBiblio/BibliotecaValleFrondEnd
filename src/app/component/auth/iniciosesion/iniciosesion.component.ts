@@ -45,7 +45,7 @@ export class IniciosesionComponent implements OnInit,AfterViewInit {
       this.iniciobar=false
 
     },error => {
-      this._snackBar.open(error.error+' USUARIO O CLAVE INVALIDAD', 'ACEPTAR');
+      this._snackBar.open(error.error.message+' USUARIO O CLAVE INVALIDAD', 'ACEPTAR');
       this.iniciobar=false
     })
 
