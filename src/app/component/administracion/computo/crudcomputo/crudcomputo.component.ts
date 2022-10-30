@@ -70,7 +70,7 @@ export class CrudcomputoComponent implements OnInit {
         this.vaciarFormulario()
         this.loaderGuardar = false
       }, error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
         this.loaderGuardar = false
       })
     }else {

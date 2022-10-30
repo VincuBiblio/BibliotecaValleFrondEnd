@@ -134,7 +134,7 @@ export class CrudusuarioComponent implements OnInit {
         this.selected.setValue(2);
         this.loaderGuardar=false
       },error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
         this.loaderGuardar=false
       })
     }

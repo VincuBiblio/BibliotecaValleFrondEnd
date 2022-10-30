@@ -339,7 +339,7 @@ export class NuevaInscripcionComponent implements OnInit {
           location.reload();
         }
       }, error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR O EL CLIENTE YA FUE ASIGNADO', 'ACEPTAR');
       }
 
     )
@@ -457,7 +457,7 @@ export class NuevaInscripcionComponent implements OnInit {
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
 
           }, error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
+            this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           })
         }
       });

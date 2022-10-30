@@ -40,7 +40,7 @@ export class ReporteEventoComponent implements OnInit {
       this.cargar=false;
       this.habilitar=true;
     },error => {
-      this._snackBar.open(error.error.message,'ACEPTAR')
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR','ACEPTAR')
       this.cargar=false;
     })
   }
@@ -106,6 +106,7 @@ export class ReporteEventoComponent implements OnInit {
               table: {
                 headerRows: 1,
                 widths: ['100%'],
+                heights: 40,
                 body: [
                   ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:']

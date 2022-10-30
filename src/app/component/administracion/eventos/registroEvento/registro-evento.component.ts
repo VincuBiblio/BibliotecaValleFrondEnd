@@ -136,7 +136,7 @@ export class registroEventoComponent implements OnInit {
           this.mostrarLista();
           this.divMostrar = false;
         }, error => {
-          this._snackBar.open(error.error.message, 'ACEPTAR');
+          this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           //this.loaderGuardar=false
         })
       }

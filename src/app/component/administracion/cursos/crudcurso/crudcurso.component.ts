@@ -83,7 +83,7 @@ export class CrudcursoComponent implements OnInit {
   formGrupos = new FormGroup({
     id: new FormControl<Number>(null),
     idCurso: new FormControl<Number>(0),
-    nombre: new FormControl<String>('', [Validators.required, Validators.maxLength(20)]),
+    nombre: new FormControl<String>('', [Validators.required]),
     responsable: new FormControl<String>('', [Validators.required]),
     actividades: new FormControl<String>('', [Validators.required]),
 
@@ -107,7 +107,7 @@ export class CrudcursoComponent implements OnInit {
 
       this.loaderGuardar = false
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       this.loaderGuardar = false
     });
 
@@ -125,7 +125,7 @@ export class CrudcursoComponent implements OnInit {
         this.vaciarFormulario()
         this.loaderGuardar = false
       }, error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
         this.loaderGuardar = false
       })
     }else {
@@ -136,7 +136,7 @@ export class CrudcursoComponent implements OnInit {
         this.vaciarFormulario()
         this.loaderGuardar = false
       },error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
         this.loaderGuardar=false
 
       })

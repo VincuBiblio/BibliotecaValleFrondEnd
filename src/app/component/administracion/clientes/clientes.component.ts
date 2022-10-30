@@ -172,7 +172,7 @@ export class ClientesComponent implements OnInit {
             this.listarBarrios();
             this._snackBar.open('Barrio registrado', 'ACEPTAR');
           },error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
+            this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           })
         }
       });
@@ -189,7 +189,7 @@ export class ClientesComponent implements OnInit {
         this.selected.setValue(2)
         this.loaderGuardar=false
       },error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
         this.loaderGuardar=false
       })
     }else {
@@ -200,7 +200,7 @@ export class ClientesComponent implements OnInit {
         this.selected.setValue(2)
         this.loaderGuardar=false
       }, error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
         this.loaderGuardar = false
       })
     }
@@ -347,6 +347,7 @@ export class ClientesComponent implements OnInit {
               table: {
                 headerRows: 1,
                 widths: ['100%'],
+                heights: 40,
                 body: [
                   ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:']

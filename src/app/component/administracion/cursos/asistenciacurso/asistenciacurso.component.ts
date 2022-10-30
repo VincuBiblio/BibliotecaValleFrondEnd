@@ -180,7 +180,7 @@ export class AsistenciacursoComponent implements OnInit {
             {
               table: {
                 headerRows: 1,
-                widths: ['10%', '25%', '40%', '25%'],
+                widths: ['3%', '15%', '57%', '25%'],
                 body: [
                   ['ID', 'CEDULA', 'MOMBRES COMPLETOS', 'FIRMA'],
                   [alumnos.map(function (item, index) {
@@ -205,6 +205,7 @@ export class AsistenciacursoComponent implements OnInit {
               table: {
                 headerRows: 1,
                 widths: ['50%', '50%'],
+                heights: 40,
                 body: [
                   ['RESPONSABLE: ' + value.responsable, 'BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:', 'Firma:']

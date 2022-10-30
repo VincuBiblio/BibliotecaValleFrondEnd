@@ -111,7 +111,7 @@ export class CrudeventoComponent implements OnInit {
       this.listarEventoSinParticipantes();
       this.mostrarLista();
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       //this.loaderGuardar=false
     })
 
@@ -218,7 +218,7 @@ export class CrudeventoComponent implements OnInit {
       this.listarEventoSinParticipantes();
       this.mostrarLista();
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       //this.loaderGuardar=false
     })
 
@@ -249,7 +249,7 @@ export class CrudeventoComponent implements OnInit {
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
 
           }, error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
+            this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           })
         }
       });

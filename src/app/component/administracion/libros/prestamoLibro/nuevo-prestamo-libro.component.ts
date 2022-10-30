@@ -284,7 +284,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       })*/
 
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
 
     })
 
@@ -328,7 +328,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.dataSource.sort = this.sort;
 
     }), error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
     }
 
   }
@@ -395,7 +395,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
         this.listaDevolverLibro.idLibro = this.libroClienteLista[i].idLIbro;
         this.listaDevolverLibro.fechaEntrega = new Date(String(this.libroClienteLista[i].anioPrestamo) + "-" + String(this.libroClienteLista[i].mesPrestamo) + "-" + String(this.libroClienteLista[i].diaPrestamo));
         this.listaDevolverLibro.fechaDev = new Date(String(this.libroClienteLista[i].anioDev) + "-" + String(this.libroClienteLista[i].mesDev) + "-" + String(this.libroClienteLista[i].diaDev));
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         this.listaDevolverLibro.idCliente = 2;
 
 
@@ -422,7 +422,7 @@ export class NuevaPrestamoLibroComponent implements OnInit {
       this.listarClientesLibro();
 
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
 
     })
 

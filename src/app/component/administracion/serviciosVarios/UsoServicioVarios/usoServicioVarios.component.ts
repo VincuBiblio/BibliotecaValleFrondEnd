@@ -185,7 +185,7 @@ export class usoServicioVariosComponent implements OnInit {
       this.mostrarLista();
 
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       //this.loaderGuardar=false
     })
   }
@@ -243,7 +243,7 @@ export class usoServicioVariosComponent implements OnInit {
       this.dataSource.sort = this.sort;
 
     }), error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
     }
 
   }
@@ -272,7 +272,7 @@ export class usoServicioVariosComponent implements OnInit {
             this.listarClientesServiVario();
             this._snackBar.open('Observación modificado', 'ACEPTAR');
           },error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
+            this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           })
 
 

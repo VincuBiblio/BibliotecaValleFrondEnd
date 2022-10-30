@@ -109,6 +109,7 @@ export class ReportevariosComponent implements OnInit {
               table: {
                 headerRows: 1,
                 widths: ['100%'],
+                heights: 40,
                 body: [
                   ['BIBLIOTECARIO/A: ' + valueb.filter(value1 => value1.idRol == 1).pop().apellidos + ' ' + valueb.filter(value1 => value1.idRol == 1).pop().nombres],
                   ['Firma:']

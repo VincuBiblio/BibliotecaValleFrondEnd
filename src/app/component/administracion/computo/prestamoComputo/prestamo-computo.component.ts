@@ -321,12 +321,12 @@ export class PrestamoComputoComponent implements OnInit {
         console.log("Computador actualizado estado")
 
       }, error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
 
       })
 
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
 
     })
 
@@ -405,12 +405,12 @@ export class PrestamoComputoComponent implements OnInit {
               console.log("Computador actualizado estado")
 
             }, error => {
-              this._snackBar.open(error.error.message, 'ACEPTAR');
+              this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
 
             })
 
           }, error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
+            this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           })
         }
       });

@@ -124,7 +124,7 @@ export class CrudLibroComponent implements OnInit {
       this.listarLibros();
       this.mostrarLista();
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
 
     })
 
@@ -245,7 +245,7 @@ export class CrudLibroComponent implements OnInit {
       this.listarLibros();
       this.mostrarLista();
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       //this.loaderGuardar=false
     })
 

@@ -356,7 +356,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
         this._snackBar.open("Cliente inscrito con exito", "CERRAR");
 
       }, error => {
-        this._snackBar.open(error.error.message, 'ACEPTAR');
+        this._snackBar.open(error.error.message+' OCURRIO UN ERROR O CLIENTE YA YA FUE ASIGNADO', 'ACEPTAR');
       }
 
     )
@@ -444,7 +444,7 @@ export class NuevaParticipacionTallerComponent implements OnInit {
             this._snackBar.open('Eliminado exitosamente', 'ACEPTAR');
 
           }, error => {
-            this._snackBar.open(error.error.message, 'ACEPTAR');
+            this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
           })
         }
       });

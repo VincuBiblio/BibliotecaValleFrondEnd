@@ -199,7 +199,7 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
       this.cargaDatoTotal(0, 0);
 
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       //this.loaderGuardar=false
     })
 
@@ -262,13 +262,13 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
     var AnyoHoy = this.Hoy.getFullYear();
     var MesHoy = this.Hoy.getMonth() + 1;
 
-   
+
     this.impresion_copiaService.getClienteImpresion(MesHoy, AnyoHoy).subscribe(value => {
       console.log("Listado clientes generado exitosamente");
       this.clienteImpresionLista = value;
 
-      
-    
+
+
       for (var i = 0; i < this.clienteImpresionLista.length; i++) {
         let cadena = this.clienteImpresionLista[i].fechaEntrega;
         let palabra = cadena.split('T')
@@ -285,7 +285,7 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
       this.dataSource.sort = this.sort;
 
     }), error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
     }
 
   }
@@ -324,7 +324,7 @@ export class NuevaUsoImpresionCopiaComponent implements OnInit {
       //this.cargaDatoTotal(0, 0);
 
     }, error => {
-      this._snackBar.open(error.error.message, 'ACEPTAR');
+      this._snackBar.open(error.error.message+' OCURRIO UN ERROR', 'ACEPTAR');
       //this.loaderGuardar=false
     })
 
