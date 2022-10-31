@@ -45,8 +45,15 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
-
+import {environment} from "./environments/environment.prod";
+import 'zone.js';
+import {enableProdMode} from "@angular/core";  // Included with Angular CLI.
+if (environment.production) {
+  enableProdMode();
+  if(window){
+    window.console.log=function(){};
+  }
+}
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
