@@ -25,6 +25,7 @@ export class nuevoClienteComponent implements OnInit {
   cantones: Canton[] = [];
   parroquias: Parroquia[] = [];
   barrios: Barrio[] = [];
+  fecha:Date;
 
   cantonFiltrado: Canton[] = [];
   parroquiaFiltrado: Parroquia[] = [];
@@ -44,6 +45,7 @@ export class nuevoClienteComponent implements OnInit {
         this.cantones = value;
         this.ubicacionService.getAllParroquias().subscribe(value => {
           console.log(value)
+          this.fecha=new Date();
           this.parroquias = value;
           this.listarBarrios();
           this.loaderCargar=false;
