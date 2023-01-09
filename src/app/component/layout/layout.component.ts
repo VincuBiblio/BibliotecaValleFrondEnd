@@ -13,6 +13,7 @@ export class LayoutComponent implements OnInit {
   panelOpenState = false;
   persona:PersonaUsuario = new PersonaUsuario();
 
+
   constructor(private router: Router,
               private _snackBar: MatSnackBar) { }
 
@@ -26,10 +27,10 @@ export class LayoutComponent implements OnInit {
       }else {
         this.persona=JSON.parse(sessionStorage['personausuario']);
         if(this.persona.idRol==1){
-          this.persona.rol="BIBLIOTECARI@"
+          this.persona.rol="Estudiante"
         }
         if(this.persona.idRol==2){
-          this.persona.rol="GESTION"
+          this.persona.rol="Profesor"
         }
         if(this.persona.idRol==3){
           this.persona.rol="INCRIPCION Y USO"
